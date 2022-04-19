@@ -6,3 +6,5 @@ function criarQuizz(){
 }
 
 //testando se a gente sabe fazer um pull decentemente kkkkkkk
+
+// A gente sabe!! KKKKKKKKKK
