@@ -17,6 +17,7 @@ header {
     justify-content: center;
     align-items: center;
     background-color: #EC362D;
+    z-index: 2;
 }
 
 header>h1 {
@@ -40,6 +41,15 @@ main {
 
 
 /* MEUS QUIZZES */
+
+.titulo-meus-quizzes {
+    display: none;
+}
+
+.titulo-meus-quizzes > ion-icon{
+    display: none;
+}
+
 .meus-quizes {
     height: 200px;
     width: 100%;
@@ -60,7 +70,7 @@ main {
     margin-bottom: 20px;
 }
 
-.meus-quizes > button{
+.meus-quizes>button {
     height: 40px;
     width: 150px;
     font-size: 15px;
@@ -73,7 +83,7 @@ main {
 
 
 /* TEXTO PARA TODOS OS QUIZZES */
-main>h3 {
+main h3 {
     width: 100%;
     margin: 10px 0;
     font-size: 20px;
@@ -118,7 +128,6 @@ main>h3 {
     position: absolute;
     border-radius: 10px;
     background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0.1));
-    z-index: 1;
 }
 
 .caixa-quiz>h2 {
@@ -126,7 +135,7 @@ main>h3 {
     font-size: 19px;
     font-weight: 400;
     color: #FFFFFF;
-    z-index: 2;
+    z-index: 1;
 }
 
 
@@ -135,12 +144,52 @@ main>h3 {
 
 
 
+/* FUNÇÕES IMPORTANTES */
+
+.desativar {
+    display: none;
+}
+
+
+
+
 
 
 /* MOBILE - IPHONE 8 */
 
-@media(max-width:1100px){
+@media(max-width:1100px) {
+
     main{
-        display: none;
+        width: 340px;
+        margin: 120px 20px 50px 20px;
+    }
+    
+    .todos-quizes{
+        width: 100%;
+        display: flex;
+        /* justify-content: center; */
+        margin: 0 20px;
+    }
+
+    .titulo-meus-quizzes {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .titulo-meus-quizzes > ion-icon{
+        display: inline;
+        font-size: 30px;
+        color: #EC362D;
+    }
+}
+
+@media(max-width:745px){
+    .todos-quizes{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 0 20px;
     }
 }

@@ -8,7 +8,6 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' href='/css/reset.css'>
     <link rel='stylesheet' href='/css/style.css'>
-    <script src='/js/script.js'></script>
 </head>
 
 <body>
@@ -22,9 +21,13 @@
 
     <!-- PRINCIPAL -->
     <main>
+        <div class="titulo-meus-quizzes">
+            <h3>Meus Quizzes</h3>
+            <ion-icon name="add-circle" onclick="criarQuizz()"></ion-icon>
+        </div>
         <div class="meus-quizes">
             <h2>Você não criou nenhum quiz ainda :(</h2>
-            <button>Criar Quizz</button>
+            <button onclick="criarQuizz()">Criar Quizz</button>
         </div>
 
         <h3>Todos os Quizzes</h3>
@@ -62,6 +65,10 @@
     <footer>
 
     </footer>
+
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src='/js/script.js'></script>
 </body>
 
 </html>
