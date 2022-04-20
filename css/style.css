@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap');
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     display: flex;
@@ -151,8 +152,14 @@ main h3 {
     color: #FFFFFF;
     z-index: 1;
 }
+
 /* TELA 2 */
 
+.tela2 {
+    width: 100%;
+}
+
+/* TELA 2 BANNER */
 .banner-quizz {
     width: 100%;
     height: 226px;
@@ -164,7 +171,7 @@ main h3 {
     align-items: center;
 
     margin-top: 100px;
-    margin-bottom: 42px;
+    margin-bottom: -80px;
 }
 
 .banner-quizz>h2 {
@@ -179,12 +186,14 @@ main h3 {
 
     opacity: 1;
 }
+
 .banner-quizz>img {
     width: 100%;
     height: 226px;
 
     object-fit: cover;
 }
+
 .banner-gradiente {
     width: 100%;
     height: 226px;
@@ -192,12 +201,155 @@ main h3 {
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
 }
 
+/* TELA 2 CONTEUDO */
 
+.caixa-questao {
+    width: 760px;
+    height: 676px;
+    gap: 24px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
 
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 
+    padding: 24px;
+    margin-bottom: 48px;
+}
 
+.caixa-pergunta {
+    width: 688px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+}
 
+.azul {
+    background-color: #434CA0;
+}
+
+.roxo {
+    background-color: #A0438D;
+}
+
+.vermelho {
+    background-color: #EC362D;
+}
+
+.caixa-pergunta>h3 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 23px;
+
+    color: #FFFFFF;
+}
+
+.caixa-resposta {
+    /* nao precisou de nada ainda */
+}
+
+.caixa-resposta>img {
+    width: 330px;
+    height: 175px;
+}
+
+.caixa-resposta>h4 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+
+    color: #000000;
+
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+}
+/* TELA 2 - FIM DE JOGO */
+.caixa-fim-de-jogo {
+    width: 760px;
+    height: 430px;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+
+    padding: 18px;
+}
+.caixa-nivel-acerto {
+    width: 728px;
+    height: 99px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.caixa-nivel-acerto>h3 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 23px;
+
+    color: #FFFFFF;
+}
+.texto-fim-de-jogo {
+    width: 728px;
+    display: flex;
+}
+.texto-fim-de-jogo>img {
+    width: 364px;
+    height: 274px;
+}
+.texto-fim-de-jogo>h5 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 19px;
+
+    color: #484848;
+
+    margin-left: 22px;
+}
+
+.reiniciar>button {
+    width: 262px;
+    height: 52px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+
+    color: #FFF5F4;
+
+    border-radius: 20px;
+    background-color: #EC362C;
+    border: 0;
+
+    margin-top: 56px;
+    margin-bottom: 30px;
+}
+
+main>h6 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+
+    text-align: center;
+
+    color: #818181;
+
+    margin-bottom: 84px;
+}
 /* TELA 3 */
 
 .orientacao {

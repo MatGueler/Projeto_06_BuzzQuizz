@@ -18,3 +18,6 @@ function criarQuizz(){
    }
 
 }
+
+//ignorar, mas anotaçao: na tela 2, as respostas sao organizadas aleatoriamente
+//entao vai precisar dar sort na div "caixa-resposta"
