@@ -9,7 +9,7 @@ function iniciarTela(){
 
 function chamarTela1(){
    let iniciar = document.querySelector("body")
-   iniciar.innerHTML += '<div class="tela1"><main><div class="container-meus"><div class="titulo-meus-quizzes"><h3>Meus Quizzes</h3>  <ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon></div></div><div class="meus-quizes"><h2>Você não criou nenhum quiz ainda :(</h2><button onclick="criarQuiz()">Criar Quizz</button></div><div class="quizes desativar"></div><div class="container-todos"><h3>Todos os Quizzes</h3><div class="quizes"><div class="caixa-quiz"><img  src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div></div></div></main></div>'
+   iniciar.innerHTML += '<div class="tela1"><main><div class="container-meus"><div class="titulo-meus-quizzes"><h3>Meus Quizzes</h3>  <ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon></div></div><div class="meus-quizes"><h2>Você não criou nenhum quiz ainda :(</h2><button onclick="criarQuiz()">Criar Quizz</button></div><div class="quizes desativar"></div><div class="container-todos"><h3>Todos os Quizzes</h3><div class="quizes"><div class="caixa-quiz"  onclick="openQuizz()"><img  src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div></div></div></main></div>'
    //ps: container-meus só aparece depois que ja tiver um quizz criado
    //quando a lista de quizz criados for vazia, nao tem container-meus
 }
@@ -37,7 +37,7 @@ function criarNiveis(){
 function finalizarCriacao(){
    let openTela3_4 = document.querySelector(".tela3")
    openTela3_4.innerHTML = ""
-   openTela3_4.innerHTML = '<main><div class="orientacao"><h4>Seu quizz está pronto</h4></div><div class="caixa-quiz criado"><img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div><div class="prosseguir"><button>Acessar quizz</button></div><div>       <button class="retornar-home" onclick = "iniciarTela()">Voltar para home</button></div></main>'
+   openTela3_4.innerHTML = '<main><div class="orientacao"><h4>Seu quizz está pronto</h4></div><div class="caixa-quiz   onclick="openQuizz()"criado"><img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div><div class="prosseguir"><button>Acessar quizz</button></div><div>       <button class="retornar-home" onclick = "iniciarTela()">Voltar para home</button></div></main>'
 }
 
 // iniciarTela()
@@ -62,5 +62,5 @@ function finalizarCriacao(){
    // //renderiza novos quizzes conforme tiver no localStorage (a fazer)
    // meuQuizCheio.innerHTML = ""
    // for(let contador = 0; contador<4;contador++){
-   //    meuQuizCheio.innerHTML += '<div class="caixa-quiz"><img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div>'
+   //    meuQuizCheio.innerHTML += '<div class="caixa-quiz"  onclick="openQuizz()"><img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div>'
    // }
