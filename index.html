@@ -18,51 +18,158 @@
     </header>
 
     <!-- TELA 1 -->
-    <div class="tela1">
+    <div class="tela1 desativar">
 
         <!-- PRINCIPAL -->
         <main>
-            <div class="titulo-meus-quizzes">
-                <h3>Meus Quizzes</h3>
-                <ion-icon name="add-circle" onclick="criarQuizz()"></ion-icon>
+
+            <div class="container-meus desativar">
+                <div class="titulo-meus-quizzes">
+                    <h3>Meus Quizzes</h3>
+                    <ion-icon name="add-circle" onclick="criarQuizz()"></ion-icon>
+                </div>
             </div>
+
+            <!-- CAIXA SEM QUIZZ MEU -->
             <div class="meus-quizes">
                 <h2>Você não criou nenhum quiz ainda :(</h2>
                 <button onclick="criarQuizz()">Criar Quizz</button>
             </div>
 
-            <h3>Todos os Quizzes</h3>
-            <div class="todos-quizes">
-                <div class="caixa-quiz">
-                    <img
-                        src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
-                    <h2>Pergunta do quiz</h2>
-                    <div class="caixa-gradiente"></div>
-                </div>
-                <div class="caixa-quiz">
-                    <img
-                        src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
-                    <h2>Pergunta do quiz</h2>
-                    <div class="caixa-gradiente"></div>
-                </div>
-                <div class="caixa-quiz">
-                    <img
-                        src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
-                    <h2>Pergunta do quiz</h2>
-                    <div class="caixa-gradiente"></div>
-                </div>
-                <div class="caixa-quiz">
-                    <img
-                        src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
-                    <h2>Pergunta do quiz</h2>
-                    <div class="caixa-gradiente"></div>
+            <!-- CAIXA COM ALGUM QUIZZ MEU -->
+            <div class="quizes desativar"></div>
+
+
+
+
+            <!-- CONTAINER TODOS QUIZZES -->
+            <div class="container-todos">
+                <h3>Todos os Quizzes</h3>
+                <div class="quizes">
+                    <div class="caixa-quiz">
+                        <img
+                            src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
+                        <h2>Pergunta do quiz</h2>
+                        <div class="caixa-gradiente"></div>
+                    </div>
+                    <div class="caixa-quiz">
+                        <img
+                            src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
+                        <h2>Pergunta do quiz</h2>
+                        <div class="caixa-gradiente"></div>
+                    </div>
+                    <div class="caixa-quiz">
+                        <img
+                            src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
+                        <h2>Pergunta do quiz</h2>
+                        <div class="caixa-gradiente"></div>
+                    </div>
+                    <div class="caixa-quiz">
+                        <img
+                            src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
+                        <h2>Pergunta do quiz</h2>
+                        <div class="caixa-gradiente"></div>
+                    </div>
                 </div>
             </div>
 
         </main>
     </div>
 
+
+
     <!-- TELA 2 -->
+    
+
+
+
+    <!-- TELA 3 -->
+    <div class="tela3">
+
+        <!-- PRINCIPAL 3.1 -->
+        <!-- <main>
+            <div class="orientacao">
+                <h4>Comece pelo começo</h4>
+            </div>
+
+            <div class="informacoes">
+                <input type="text" placeholder="Título do seu quizz">
+                <input type="text" placeholder="URL da imagem do seu quizz">
+                <input type="text" placeholder="Quantidade de perguntas do seu quizz">
+                <input type="text" placeholder="Quantidade de níveis do seu quizz">
+            </div>
+
+            <div class="prosseguir">
+                <button>Prosseguir para criar perguntas</button>
+            </div>
+        </main> -->
+
+        <!-- PRINCIPAL 3.2 -->
+        <!-- <main>
+            <div class="orientacao">
+                <h4>Crie suas perguntas</h4>
+            </div>
+
+            <div class="informacoes">
+                <h3>Perguntas 1</h3>
+                <input type="text" placeholder="Texto da pergunta">
+                <input type="text" placeholder="Cor de fundo da pergunta">
+                <h3>Resposta correta</h3>
+                <input type="text" placeholder="Resposta correta">
+                <input type="text" placeholder="URL da imagem">
+                <h3>Respostas incorretas</h3>
+                <input type="text" placeholder="Resposta incorreta 1">
+                <input type="text" placeholder="URL da imagem 1">
+
+                <input type="text" placeholder="Resposta incorreta 2">
+                <input type="text" placeholder="URL da imagem 2">
+
+                <input type="text" placeholder="Resposta incorreta 3">
+                <input type="text" placeholder="URL da imagem 3">
+            </div>
+
+            <div class="prosseguir">
+                <button>Prosseguir para criar níveis</button>
+            </div>
+        </main> -->
+
+        <!-- PRINCIPAL 3.3 -->
+        <!-- <main>
+            <div class="orientacao">
+                <h4>Agora, decida os níveis</h4>
+            </div>
+
+            <div class="informacoes">
+                <h3>Nível 1</h3>
+                <input type="text" placeholder="Título do nível">
+                <input type="text" placeholder="% de acerto mínimo">
+                <input type="text" placeholder="URL da imagem">
+                <input type="text" placeholder="Descrição do nível">
+            </div>
+
+            <div class="prosseguir">
+                <button>Finalizar quizz</button>
+            </div>
+        </main> -->
+
+        <!-- PRINCIPAL 3.4 -->
+        <!-- <main>
+            <div class="orientacao">
+                <h4>Comece pelo começo</h4>
+            </div>
+
+            <div class="informacoes">
+                <input type="text" placeholder="Título do seu quizz">
+                <input type="text" placeholder="URL da imagem do seu quizz">
+                <input type="text" placeholder="Quantidade de perguntas do seu quizz">
+                <input type="text" placeholder="Quantidade de níveis do seu quizz">
+            </div>
+
+            <div class="prosseguir">
+                <button>Prosseguir para criar perguntas</button>
+            </div>
+        </main> -->
+    </div>
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
