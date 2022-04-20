@@ -9,7 +9,7 @@ function iniciarTela(){
 
 function chamarTela1(){
    let iniciar = document.querySelector("body")
-   iniciar.innerHTML += '<div class="tela1"><main><div class="container-meus"><div class="titulo-meus-quizzes"><h3>Meus Quizzes</h3>  <ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon></div></div><div class="meus-quizes"><h2>Você não criou nenhum quiz ainda :(</h2><button onclick="criarQuiz()">Criar Quizz</button></div><div class="quizes desativar"></div><div class="container-todos"><h3>Todos os Quizzes</h3><div class="quizes"><div class="caixa-quiz"><img  src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div></div></div></main></div>'
+   iniciar.innerHTML += '<div class="tela1"><main><div class="container-meus"><div class="titulo-meus-quizzes"><h3>Meus Quizzes</h3><ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon></div></div><div class="meus-quizes"><h2>Você não criou nenhum quiz ainda :(</h2><button onclick="criarQuiz()">Criar Quizz</button></div><div class="quizes desativar"></div><div class="container-todos"><h3>Todos os Quizzes</h3><div class="quizes"><div class="caixa-quiz"><img  src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div></div></div></main></div>'
    //ps: container-meus só aparece depois que ja tiver um quizz criado
    //quando a lista de quizz criados for vazia, nao tem container-meus
 }
@@ -17,9 +17,10 @@ function chamarTela1(){
 
 // AO CLICAR ABRE A TELA 3.1 PARA CRIAÇÃO DO QUIZ
 function criarQuiz(){
-   let openTela3_1 = document.querySelector(".tela1")
-   openTela3_1.innerHTML = ""
-   openTela3_1.innerHTML = '<div class="tela3"><main><div class="orientacao"><h4>Comece pelo começo</h4></div>       <div class="informacoes"><input type="text" placeholder="Título do seu quizz"><input type="text" placeholder="URL da imagem do seu quizz"><input type="text" placeholder="Quantidade de perguntas do seu quizz"><input type="text" placeholder="Quantidade de níveis do seu quizz"></div><div class="prosseguir"><button onclick = "criarPerguntas()">Prosseguir para criar perguntas</button></div></main></div>'
+   let openTela3_1 = document.querySelector("body")
+   openTela3_1.innerHTML = "<header><h1>BuzzQuizz</h1></header>"
+   openTela3_1.innerHTML += '<div class="tela3"><main><div class="orientacao"><h4>Comece pelo começo</h4></div>       <div class="informacoes"><input type="text" placeholder="Título do seu quizz"><input type="text" placeholder="URL da imagem do seu quizz"><input type="text" placeholder="Quantidade de perguntas do seu quizz"><input type="text" placeholder="Quantidade de níveis do seu quizz"></div><div class="prosseguir"><button onclick = "criarPerguntas()">Prosseguir para criar perguntas</button></div></main></div>'
+   console.log(document.querySelector("body"))
 }
 
 function criarPerguntas(){
@@ -40,7 +41,7 @@ function finalizarCriacao(){
    openTela3_4.innerHTML = '<main><div class="orientacao"><h4>Seu quizz está pronto</h4></div><div class="caixa-quiz criado"><img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div><div class="prosseguir"><button>Acessar quizz</button></div><div>       <button class="retornar-home" onclick = "iniciarTela()">Voltar para home</button></div></main>'
 }
 
-// iniciarTela()
+iniciarTela()
 
 
 //ignorar, mas anotaçao: na tela 2, as respostas sao organizadas aleatoriamente
