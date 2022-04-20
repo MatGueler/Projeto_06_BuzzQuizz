@@ -57,6 +57,7 @@ main {
 .titulo-meus-quizzes {
     /* width: 100%; */
     display: flex;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -108,6 +109,7 @@ main h3 {
 
 
 /* TODOS OS QUIZZES */
+
 .quizes {
     width: 1050px;
     display: flex;
@@ -123,7 +125,7 @@ main h3 {
     margin-bottom: 15px;
     display: flex;
     align-items: flex-end;
-    border-radius: 10px;
+    border-radius: 5px;
     background-size: cover;
     position: relative;
     cursor: pointer;
@@ -132,17 +134,17 @@ main h3 {
 .caixa-quiz>img {
     height: 180px;
     width: 340px;
-    border-radius: 10px;
+    border-radius: 5px;
     position: absolute;
     object-fit: cover;
 }
 
 .caixa-gradiente {
-    height: 180px;
-    width: 340px;
+    height: 100%;
+    width: 100%;
     position: absolute;
-    border-radius: 10px;
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0.1));
+    border-radius: 5px;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0.0));
 }
 
 .caixa-quiz>h2 {
@@ -270,6 +272,7 @@ main h3 {
     margin-bottom: 8px;
 
 }
+
 /* TELA 2 - FIM DE JOGO */
 .caixa-fim-de-jogo {
     width: 760px;
@@ -285,6 +288,7 @@ main h3 {
 
     padding: 18px;
 }
+
 .caixa-nivel-acerto {
     width: 728px;
     height: 99px;
@@ -292,6 +296,7 @@ main h3 {
     align-items: center;
     justify-content: center;
 }
+
 .caixa-nivel-acerto>h3 {
     font-family: 'Roboto';
     font-style: normal;
@@ -300,14 +305,17 @@ main h3 {
 
     color: #FFFFFF;
 }
+
 .texto-fim-de-jogo {
     width: 728px;
     display: flex;
 }
+
 .texto-fim-de-jogo>img {
     width: 364px;
     height: 274px;
 }
+
 .texto-fim-de-jogo>h5 {
     font-family: 'Roboto';
     font-style: normal;
@@ -350,6 +358,11 @@ main>h6 {
 
     margin-bottom: 84px;
 }
+
+
+
+
+
 /* TELA 3 */
 
 .orientacao {
@@ -389,15 +402,40 @@ input::placeholder {
 .prosseguir>button {
     margin-top: 30px;
     height: 50px;
-    font-size: 15px;
+    font-size: 21px;
     color: #FFFFFF;
-    padding: 0 20px;
+    padding: 0 40px;
     background-color: #EC362D;
-    border-radius: 10px;
+    border-radius: 15px;
     border: 0px;
     cursor: pointer;
 }
 
+.caixa-quiz.criado {
+    width: 500px;
+    height: 270px;
+}
+
+.caixa-quiz.criado>img {
+    width: 500px;
+    height: 270px;
+    border-radius: 5px;
+    position: absolute;
+    object-fit: cover;
+}
+
+.retornar-home {
+    font-size: 21px;
+    margin-top: 10px;
+    border: 0;
+    background-color: transparent;
+    color: #818181;
+    cursor: pointer;
+}
+
+.retornar-home:hover{
+    text-decoration: underline;
+}
 
 
 
@@ -423,13 +461,12 @@ input::placeholder {
         width: 100%;
         display: flex;
         /* justify-content: center; */
-        margin: 0 20px;
+        /* margin: 0 20px; */
     }
 
     .titulo-meus-quizzes {
         width: 100%;
         display: flex;
-        justify-content: center;
         align-items: center;
     }
 
@@ -438,13 +475,14 @@ input::placeholder {
         font-size: 30px;
         color: #EC362D;
     }
+
 }
 
-@media(max-width:745px) {
+/* @media(max-width:745px) {
     .quizes {
         width: 100%;
         display: flex;
         justify-content: center;
         margin: 0 20px;
     }
-}
+} */

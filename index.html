@@ -23,17 +23,17 @@
         <!-- PRINCIPAL -->
         <main>
 
-            <div class="container-meus desativar">
+            <div class="container-meus">
                 <div class="titulo-meus-quizzes">
                     <h3>Meus Quizzes</h3>
-                    <ion-icon name="add-circle" onclick="criarQuizz()"></ion-icon>
+                    <ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon>
                 </div>
             </div>
 
             <!-- CAIXA SEM QUIZZ MEU -->
             <div class="meus-quizes">
                 <h2>Você não criou nenhum quiz ainda :(</h2>
-                <button onclick="criarQuizz()">Criar Quizz</button>
+                <button onclick="criarQuiz()">Criar Quizz</button>
             </div>
 
             <!-- CAIXA COM ALGUM QUIZZ MEU -->
@@ -79,7 +79,7 @@
 
 
     <!-- TELA 2 -->
-    <div class="tela2">
+    <div class="tela2 desativar">
         <!-- Banner Gradiente -->
 
         <div class="banner-quizz">
@@ -186,7 +186,7 @@
             <div class="reiniciar">
                 <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
             </div>
-            <h6 onclick="home()">Voltar pra home</h6>
+            <h6 onclick="iniciarTela()">Voltar pra home</h6>
         </main>
 
 
@@ -204,10 +204,10 @@
 
 
     <!-- TELA 3 -->
-    <div class="tela3 desativar">
+    <div class="tela3 ">
 
         <!-- PRINCIPAL 3.1 -->
-        <main>
+        <main class="desativar">
             <div class="orientacao">
                 <h4>Comece pelo começo</h4>
             </div>
@@ -222,10 +222,10 @@
             <div class="prosseguir">
                 <button>Prosseguir para criar perguntas</button>
             </div>
-        </main> -->
+        </main>
 
         <!-- PRINCIPAL 3.2 -->
-        <main>
+        <main class="desativar">
             <div class="orientacao">
                 <h4>Crie suas perguntas</h4>
             </div>
@@ -251,10 +251,10 @@
             <div class="prosseguir">
                 <button>Prosseguir para criar níveis</button>
             </div>
-        </main> -->
+        </main>
 
         <!-- PRINCIPAL 3.3 -->
-        <main>
+        <main class="desativar">
             <div class="orientacao">
                 <h4>Agora, decida os níveis</h4>
             </div>
@@ -270,23 +270,26 @@
             <div class="prosseguir">
                 <button>Finalizar quizz</button>
             </div>
-        </main> -->
+        </main>
 
         <!-- PRINCIPAL 3.4 -->
-        <main>
+        <main class="desativar">
             <div class="orientacao">
-                <h4>Comece pelo começo</h4>
+                <h4>Seu quizz está pronto</h4>
             </div>
 
-            <div class="informacoes">
-                <input type="text" placeholder="Título do seu quizz">
-                <input type="text" placeholder="URL da imagem do seu quizz">
-                <input type="text" placeholder="Quantidade de perguntas do seu quizz">
-                <input type="text" placeholder="Quantidade de níveis do seu quizz">
+            <div class="caixa-quiz criado">
+                <img
+                    src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
+                <h2>Pergunta do quizz</h2>
+                <div class="caixa-gradiente"></div>
             </div>
 
             <div class="prosseguir">
-                <button>Prosseguir para criar perguntas</button>
+                <button>Acessar quizz</button>
+            </div>
+            <div>
+                <button class="retornar-home">Voltar para home</button>
             </div>
         </main>
     </div>
