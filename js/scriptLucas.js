@@ -94,11 +94,11 @@ function openQuizz () {
            </div>
        </div>
        <!-- Fim de Jogo -->
-       <div class="caixa-fim-de-jogo">
+       <div class="caixa-fim-de-jogo desativar">
            <div class="caixa-nivel-acerto vermelho">
                <h3>88% de acerto: Você é praticamente um aluno de Hogwarts!</h3>
            </div>
-           <div class="texto-fim-de-jogo desativar">
+           <div class="texto-fim-de-jogo">
                <img
                    src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
                <h5>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão
