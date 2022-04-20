@@ -79,18 +79,15 @@
 
 
     <!-- TELA 2 -->
-    <div class="tela2 desativar">
+    <div class="tela2">
         <!-- Banner Gradiente -->
-
         <div class="banner-quizz">
             <img
                 src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
             <div class="banner-gradiente"></div>
             <h2>O quão bicho-preguiça é você?</h2>
-
+     
         </div>
-
-
         <!-- PRINCIPAL 2.1 -->
         <div class="container-tela2">
             <div class="caixa-questao">
@@ -174,8 +171,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="caixa-fim-de-jogo">
+            <!-- Fim de Jogo -->
+            <div class="caixa-fim-de-jogo desativar">
                 <div class="caixa-nivel-acerto vermelho">
                     <h3>88% de acerto: Você é praticamente um aluno de Hogwarts!</h3>
                 </div>
@@ -186,27 +183,13 @@
                         abaixo para usar o vira-tempo e reiniciar este teste.</h5>
                 </div>
             </div>
-
+            <!-- Botoes footer -->
             <div class="reiniciar">
                 <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
             </div>
             <h6 onclick="iniciarTela()">Voltar pra home</h6>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-
-
-
+     </div>
     <!-- TELA 3 -->
     <div class="tela3 ">
 
@@ -282,7 +265,7 @@
                 <h4>Seu quizz está pronto</h4>
             </div>
 
-            <div class="caixa-quiz criado">
+            <div class="caixa-quiz criado"  onclick="openQuizz()">
                 <img
                     src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
                 <h2>Pergunta do quizz</h2>
