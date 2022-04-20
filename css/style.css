@@ -609,6 +609,7 @@ input::placeholder {
 
     color: #484848;
     margin-top: 10px;
+    margin-left: 0px;
 }
 
 .reiniciar>button {
