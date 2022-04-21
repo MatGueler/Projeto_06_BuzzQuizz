@@ -25,7 +25,7 @@ function chamarTela1() {
    let iniciar = document.querySelector("body")
    let tamanhoMeusQuizzes = meusQuizzes.length
 
-   if(tamanhoMeusQuizzes === 0){
+   if (tamanhoMeusQuizzes === 0) {
       iniciar.innerHTML += `
       <div class="tela1">
       <main>
@@ -44,7 +44,7 @@ function chamarTela1() {
          </div></div>
       </main>
       </div>`
-   }else{
+   } else {
 
       iniciar.innerHTML += `
       <div class="tela1">
@@ -94,45 +94,45 @@ function criarQuiz() {
    </main>
    </div>`
 
-//    <button onclick = "criarPerguntas()">Prosseguir para criar perguntas</button>
+   //    <button onclick = "criarPerguntas()">Prosseguir para criar perguntas</button>
 }
 
 
 // VERIFICA INFORMAÇÕES INICIAIS
-function informacoesIniciais(){
-    let tituloQuiz = document.querySelector(`.tituloQuizz`).value
-    let URLQuizz = document.querySelector(`.URLQuizz`).value
-    let quantidadePerguntas = document.querySelector(`.quantidadePerguntas`).value
-    let quantidadeNiveis = document.querySelector(`.quantidadeNiveis`).value
+function informacoesIniciais() {
+   let tituloQuiz = document.querySelector(`.tituloQuizz`).value
+   let URLQuizz = document.querySelector(`.URLQuizz`).value
+   let quantidadePerguntas = document.querySelector(`.quantidadePerguntas`).value
+   let quantidadeNiveis = document.querySelector(`.quantidadeNiveis`).value
 
-    let condicaoTitulo = (tituloQuiz.length < 20 || tituloQuiz.length > 65)
-    let condicaoURL = (!isUrl(URLQuizz))
-    let condicaoQtdPerguntas = (Number(quantidadePerguntas)<3)
-    let condicaoQtdNiveis = (Number(quantidadeNiveis)<2)
+   let condicaoTitulo = (tituloQuiz.length < 20 || tituloQuiz.length > 65)
+   let condicaoURL = (!isUrl(URLQuizz))
+   let condicaoQtdPerguntas = (Number(quantidadePerguntas) < 3)
+   let condicaoQtdNiveis = (Number(quantidadeNiveis) < 2)
 
-    const informacoesQuizz = {
-        title:tituloQuiz,
-        image:URLQuizz,
-        qtsQuestions:quantidadePerguntas,
-        qtdNiveis:quantidadeNiveis
-    }
+   const informacoesQuizz = {
+      title: tituloQuiz,
+      image: URLQuizz,
+      qtsQuestions: quantidadePerguntas,
+      qtdNiveis: quantidadeNiveis
+   }
 
-    // if(condicaoTitulo || condicaoURL || condicaoQtdPerguntas || condicaoQtdNiveis){
-    //     alert("DIGITE OS CAMPOS CORRETAMENTE")
-    // }
-    // else{
-    //     console.log(informacoesQuizz)
-    //     criarPerguntas()
-    // }
-    criarPerguntas()
+   // if(condicaoTitulo || condicaoURL || condicaoQtdPerguntas || condicaoQtdNiveis){
+   //     alert("DIGITE OS CAMPOS CORRETAMENTE")
+   // }
+   // else{
+   //     console.log(informacoesQuizz)
+   //     criarPerguntas()
+   // }
+   criarPerguntas()
 }
 
 
 // FUNÇÃO QUE VERIFICA SE É URL
 function isUrl(s) {
-    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-    return regexp.test(s);
- }
+   var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+   return regexp.test(s);
+}
 
 
 
@@ -159,30 +159,30 @@ function criarPerguntas() {
 
 
 
-//    openTela3_2.innerHTML =
-//       `<main>
-//       <div class="orientacao"><h4>Crie suas perguntas</h4></div>
-//       <div class="informacoes">
-//          <h3>Perguntas ${contadorPerguntas}</h3>
-//          <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contadorPerguntas}">
-//          <input type="text" placeholder="Cor de fundo da pergunta">
-//          <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta">
-//          <input type="text" placeholder="URL da imagem"><h3>Respostas incorretas</h3>     
-//          <input type="text" placeholder="Resposta incorreta 1">
-//          <input type="text" placeholder="URL da imagem 1">
-//          <input type="text" placeholder="Resposta incorreta 2">
-//          <input type="text" placeholder="URL da imagem 2">
-//          <input type="text" placeholder="Resposta incorreta 3">
-//          <input type="text" placeholder="URL da imagem 3">
-//       </div>
-//       <div class="informacoes vazio">
-//             <h3>Perguntas ${contadorPerguntas + 1}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
-//       </div>
-//       <div class="informacoes vazio">
-//             <h3>Perguntas ${contadorPerguntas + 2}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
-//       </div>
-//       <div class="prosseguir"><button onclick = "coletarPerguntas()">Prosseguir para criar níveis</button></div>
-//    </main>`
+   //    openTela3_2.innerHTML =
+   //       `<main>
+   //       <div class="orientacao"><h4>Crie suas perguntas</h4></div>
+   //       <div class="informacoes">
+   //          <h3>Perguntas ${contadorPerguntas}</h3>
+   //          <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contadorPerguntas}">
+   //          <input type="text" placeholder="Cor de fundo da pergunta">
+   //          <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta">
+   //          <input type="text" placeholder="URL da imagem"><h3>Respostas incorretas</h3>     
+   //          <input type="text" placeholder="Resposta incorreta 1">
+   //          <input type="text" placeholder="URL da imagem 1">
+   //          <input type="text" placeholder="Resposta incorreta 2">
+   //          <input type="text" placeholder="URL da imagem 2">
+   //          <input type="text" placeholder="Resposta incorreta 3">
+   //          <input type="text" placeholder="URL da imagem 3">
+   //       </div>
+   //       <div class="informacoes vazio">
+   //             <h3>Perguntas ${contadorPerguntas + 1}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
+   //       </div>
+   //       <div class="informacoes vazio">
+   //             <h3>Perguntas ${contadorPerguntas + 2}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
+   //       </div>
+   //       <div class="prosseguir"><button onclick = "coletarPerguntas()">Prosseguir para criar níveis</button></div>
+   //    </main>`
 }
 
 
@@ -191,7 +191,7 @@ function adicionarPergunta() {
    let perguntasNovas = document.querySelector("main > .perguntas")
    contadorPerguntas += 1
 
-   for(let contador = contadorPerguntas - 1; contador<contadorPerguntas;contador++){
+   for (let contador = contadorPerguntas - 1; contador < contadorPerguntas; contador++) {
       perguntasNovas.innerHTML += `<div class="informacoes">
       <h3>Perguntas ${contador}</h3>
       <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}">
@@ -210,25 +210,25 @@ function adicionarPergunta() {
 }
 
 // FUNÇÃO QUE ATUALIZA QUAL VAI SER A PRÓXIMA NUMERAÇÃO DE PERGUNTAS
-function adicionarRodape(){
-    let informacoesVazias = document.querySelector(".tela3 .informacoes.vazio")
-    let infovazia = `
+function adicionarRodape() {
+   let informacoesVazias = document.querySelector(".tela3 .informacoes.vazio")
+   let infovazia = `
     <h3>Perguntas ${contadorPerguntas}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
     `
-    informacoesVazias.innerHTML = infovazia
+   informacoesVazias.innerHTML = infovazia
 }
 
-function verificarPerguntas(){
-    
+function verificarPerguntas() {
+
 }
 
-function coletarPerguntas(){
-    perguntasQuizz = []
-    for(let contador = 1; contador<=contadorPerguntas;contador++){
-        let localPergunta = document.querySelector(`.textoPergunta${contador}`).value
-        perguntasQuizz.push(localPergunta)
-    }
-    console.log(perguntasQuizz)
+function coletarPerguntas() {
+   perguntasQuizz = []
+   for (let contador = 1; contador <= contadorPerguntas; contador++) {
+      let localPergunta = document.querySelector(`.textoPergunta${contador}`).value
+      perguntasQuizz.push(localPergunta)
+   }
+   console.log(perguntasQuizz)
 }
 
 
@@ -260,13 +260,13 @@ function criarNiveis() {
 }
 
 // ADICIONA MAIS UM NIVEL AO QUIZZ
-function adicionarNivel(){
+function adicionarNivel() {
 
    let niveisNovos = document.querySelector(".tela3 > main")
    contadorNiveis += 1
    niveisNovos.innerHTML = '<div class="orientacao"><h4>Agora, decida os níveis</h4></div>'
 
-   for(let contador = 1; contador<=contadorNiveis;contador++){
+   for (let contador = 1; contador <= contadorNiveis; contador++) {
       niveisNovos.innerHTML += `   
       <div class="informacoes"><h3>Nível ${contadorNiveis}</h3>
       <input type="text" placeholder="Título do nível">
@@ -275,7 +275,7 @@ function adicionarNivel(){
       <input type="text" placeholder="Descrição do nível">
    </div>`
    }
-   niveisNovos.innerHTML +=`
+   niveisNovos.innerHTML += `
    <div class="informacoes vazio">
       <h3>Nível ${contadorNiveis + 1}</h3><ion-icon name="create-outline" onclick  = "adicionarNivel()"></ion-icon>
    </div>
@@ -311,9 +311,69 @@ function abrirAPI() {
 
 // PROCESSA OS DADOS DA API FORNECIDA
 function processarAPI(dados) {
+   console.log(dados.data)
    listaQuizzes = dados.data
    listaQuizzes.map(montarQuizzes)
+
+   //primeira array
+   let id = dados.data[1].id;
+   let image = dados.data[1].image;
+   let title = dados.data[1].title;
+
+   //array das perguntas
+   let questionsData = dados.data[1].questions;
+   let questionTitle = questionsData[0].title;
+   let questionColor = questionsData[0].color;
+
+   // array das respostas
+   let questionResposta = questionsData[0].answers;
+   let respostaTexto = questionResposta[0].text;
+   let respostaImage = questionResposta[0].image;
+   let respostaBoolean = questionResposta[0].isCorrectAnswer;
+   //array dos níveis
+   let questionLevels = dados.data[2].levels;
+   let levelsTitle = questionLevels[0].title;
+   let levelsImage = questionLevels[0].image;
+   let levelText = questionLevels[0].text;
+   let levelValue = questionLevels[0].minValue;
+
+   //console.log primeira array
+   console.log(id);
+   console.log(image);
+   console.log(title);
+
+   //console.log array das perguntas
+   console.log(questionsData);
+   console.log(questionTitle);
+   console.log(questionColor);
+
+   //console.log array das respostas
+   console.log(questionResposta);
+   console.log(respostaTexto);
+   console.log(respostaImage);
+   console.log(respostaBoolean);
+
+   //console.log array dos níveis
+   console.log(questionLevels);
+   console.log(levelsTitle);
+   console.log(levelsImage);
+   console.log(levelText);
+   console.log(levelValue);
+
 }
+
+function buscarQuizz() {
+   const promiseID = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/2`)
+   promiseID.then();
+   promiseID.catch(tratarErro);
+   console.log(promiseID)
+}
+
+function tratarErro(error) {
+   console.log("Status code: " + error.response.status);
+   console.log("Mensagem de erro: " + error.response.data);
+}
+
 
 // MONTA O QUIZZ DA API DE ACORDO COM A ESTRUTURA
 function montarQuizzes(elemento) {
@@ -329,10 +389,10 @@ function montarQuizzes(elemento) {
    </div>`
 }
 
-function reiniciarQuizz () {
+function reiniciarQuizz() {
    openQuizz();
    const topo = document.querySelector(".tela2");
-   topo.scrollIntoView({behavior: 'smooth' });
+   topo.scrollIntoView({ behavior: 'smooth' });
 }
 
 // ABRE A TELA DO QUIZ - TELA 2
