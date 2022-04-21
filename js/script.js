@@ -141,11 +141,11 @@ function isUrl(s) {
 
 
 // ABRE A PAGINA DE CRIAR PERGUNTAS - TELA 3.2
+
 function criarPerguntas() {
    let openTela3_2 = document.querySelector(".tela3")
-   let informacoesVazias = document.querySelector(".tela3 > main")
    openTela3_2.innerHTML = ""
-   contadorPerguntas = 1
+   contadorPerguntas = 0
    openTela3_2.innerHTML = `
    <main>
    <div class="orientacao"><h4>Crie suas perguntas</h4></div>
@@ -188,13 +188,15 @@ function criarPerguntas() {
 
 // ADICIONA UMA PERGUNTA AO QUIZZ DE ACORDO COM A QUANTIDADE DESEJADA
 function adicionarPergunta() {
-   let perguntasNovas = document.querySelector("main > .perguntas")
+   let perguntasNovas = document.querySelector("main > .perguntas") 
    contadorPerguntas += 1
 
-   for(let contador = contadorPerguntas - 1; contador<contadorPerguntas;contador++){
+   perguntasNovas.innerHTML = ""
+
+   for(let contador = 1; contador<=contadorPerguntas;contador++){
       perguntasNovas.innerHTML += `<div class="informacoes">
       <h3>Perguntas ${contador}</h3>
-      <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}">
+      <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}" value = "${perguntasQuizz[(contador-1)]}">
       <input type="text" placeholder="Cor de fundo da pergunta">
       <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta">
       <input type="text" placeholder="URL da imagem"><h3>Respostas incorretas</h3>     
@@ -206,6 +208,7 @@ function adicionarPergunta() {
       <input type="text" placeholder="URL da imagem 3">
    </div>`
    }
+
    adicionarRodape()
 }
 
@@ -213,20 +216,44 @@ function adicionarPergunta() {
 function adicionarRodape(){
     let informacoesVazias = document.querySelector(".tela3 .informacoes.vazio")
     let infovazia = `
-    <h3>Perguntas ${contadorPerguntas}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
+    <h3>Perguntas ${contadorPerguntas}</h3><ion-icon name="create-outline" onclick  = "coletarPerguntas()"></ion-icon>
     `
     informacoesVazias.innerHTML = infovazia
-}
 
-function verificarPerguntas(){
-    
 }
 
 function coletarPerguntas(){
+    // perguntasQuizz = []
+    // let localPergunta = document.querySelector(`.textoPergunta1`).value
+    // console.log(localPergunta)
     perguntasQuizz = []
     for(let contador = 1; contador<=contadorPerguntas;contador++){
         let localPergunta = document.querySelector(`.textoPergunta${contador}`).value
         perguntasQuizz.push(localPergunta)
+        // console.log(localPergunta)
+    }
+    perguntasQuizz.push("")
+    console.log(perguntasQuizz)
+    adicionarPergunta()
+    // verificarPerguntas()
+}
+
+function verificarPerguntas(elemento){
+    let estaCerto = true
+
+    if(elemento.length === 0){
+        estaCerto = false
+    }
+    else{
+        if(elemento.length < 20){
+            estaCerto = false
+        }
+    }
+    if(estaCerto === false){
+        alert("DIGITE OS CAMPOS CORRETAMENTE")
+    }
+    else{
+        perguntasQuizz.push(elemento)
     }
     console.log(perguntasQuizz)
 }
@@ -308,6 +335,79 @@ function abrirAPI() {
 
    promessaAPI.then(processarAPI)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // PROCESSA OS DADOS DA API FORNECIDA
 function processarAPI(dados) {
