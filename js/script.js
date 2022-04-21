@@ -378,7 +378,7 @@ function buscarQuizz(id) {
 }
 
 function processarQuizz(dados) {
- 
+
 }
 
 function tratarErro(error) {
@@ -415,43 +415,48 @@ function openQuizz(dados) {
 
 
    let openTela2 = document.querySelector("body")
-   openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
-   openTela2.innerHTML += `
-<div class="tela2"  id="${id}">
-      <div class="banner-quizz">
-         <img
-            src="${image}">
-         <div class="banner-gradiente"></div>
-         <h2>${title}</h2>
-      </div>
-   <div class="container-tela2">
+   openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>
+   <div class="tela2"  id="${id}">
+   <div class="banner-quizz">
+      <img
+         src="${image}">
+      <div class="banner-gradiente"></div>
+      <h2>${title}</h2>
+   </div>
+<div class="container-tela2">`
+
+   let openTelaNovo = document.querySelector(".container-tela2")
+   for (let i = 0; i < questionsData.length; i++) {
+      openTelaNovo.innerHTML += `
          <div class="caixa-questao">
-            <div class="caixa-pergunta" style="background-color:${questionColor}">
-              <h3>${questionTitle}</h3>
+            <div class="caixa-pergunta" style="background-color:${questionColor[i]}">
+              <h3>${questionTitle[i]}</h3>
             </div>
             <div class="caixa-principal-respostas">
                <div class="caixa-resposta">
                   <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
+                      src="${respostaImage[i]}">
+                  <h4>${respostaTexto[i]}</h4>
                </div>
             </div>
          </div>
             <div class="caixa-fim-de-jogo desativar ">
                   <div class="caixa-nivel-acerto vermelho">
-                     <h3>"${levelValue}"% de acerto: "${levelsTitle}"</h3>
+                     <h3>"${levelValue[i]}"% de acerto: "${levelsTitle[i]}"</h3>
                   </div>
                   <div class="texto-fim-de-jogo">
                      <img
-                        src="${levelsImage}">
-                     <h5>${levelText}</h5>
+                        src="${levelsImage[i]}">
+                     <h5>${levelText[i]}</h5>
                   </div>
                </div>
-         <div class="reiniciar">
-          <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
-         </div>
-      <h6 onclick="iniciarTela()">Voltar pra home</h6>
-   </div>   
+         `
+   }
+   openTelaNovo.innerHTML += `<div class="reiniciar">
+<button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
+</div>
+<h6 onclick="iniciarTela()">Voltar pra home</h6>
+</div>   
 </div>`
 }
 
