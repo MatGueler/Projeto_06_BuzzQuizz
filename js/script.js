@@ -188,15 +188,15 @@ function criarPerguntas() {
 
 // ADICIONA UMA PERGUNTA AO QUIZZ DE ACORDO COM A QUANTIDADE DESEJADA
 function adicionarPergunta() {
-   let perguntasNovas = document.querySelector("main > .perguntas") 
+   let perguntasNovas = document.querySelector("main > .perguntas")
    contadorPerguntas += 1
 
    perguntasNovas.innerHTML = ""
 
-   for(let contador = 1; contador<=contadorPerguntas;contador++){
+   for (let contador = 1; contador <= contadorPerguntas; contador++) {
       perguntasNovas.innerHTML += `<div class="informacoes">
       <h3>Perguntas ${contador}</h3>
-      <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}" value = "${perguntasQuizz[(contador-1)]}">
+      <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}" value = "${perguntasQuizz[(contador - 1)]}">
       <input type="text" placeholder="Cor de fundo da pergunta">
       <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta">
       <input type="text" placeholder="URL da imagem"><h3>Respostas incorretas</h3>     
@@ -213,49 +213,49 @@ function adicionarPergunta() {
 }
 
 // FUNÇÃO QUE ATUALIZA QUAL VAI SER A PRÓXIMA NUMERAÇÃO DE PERGUNTAS
-function adicionarRodape(){
-    let informacoesVazias = document.querySelector(".tela3 .informacoes.vazio")
-    let infovazia = `
+function adicionarRodape() {
+   let informacoesVazias = document.querySelector(".tela3 .informacoes.vazio")
+   let infovazia = `
     <h3>Perguntas ${contadorPerguntas}</h3><ion-icon name="create-outline" onclick  = "coletarPerguntas()"></ion-icon>
     `
-    informacoesVazias.innerHTML = infovazia
+   informacoesVazias.innerHTML = infovazia
 
 }
 
-function coletarPerguntas(){
-    // perguntasQuizz = []
-    // let localPergunta = document.querySelector(`.textoPergunta1`).value
-    // console.log(localPergunta)
-    perguntasQuizz = []
-    for(let contador = 1; contador<=contadorPerguntas;contador++){
-        let localPergunta = document.querySelector(`.textoPergunta${contador}`).value
-        perguntasQuizz.push(localPergunta)
-        // console.log(localPergunta)
-    }
-    perguntasQuizz.push("")
-    console.log(perguntasQuizz)
-    adicionarPergunta()
-    // verificarPerguntas()
+function coletarPerguntas() {
+   // perguntasQuizz = []
+   // let localPergunta = document.querySelector(`.textoPergunta1`).value
+   // console.log(localPergunta)
+   perguntasQuizz = []
+   for (let contador = 1; contador <= contadorPerguntas; contador++) {
+      let localPergunta = document.querySelector(`.textoPergunta${contador}`).value
+      perguntasQuizz.push(localPergunta)
+      // console.log(localPergunta)
+   }
+   perguntasQuizz.push("")
+   console.log(perguntasQuizz)
+   adicionarPergunta()
+   // verificarPerguntas()
 }
 
-function verificarPerguntas(elemento){
-    let estaCerto = true
+function verificarPerguntas(elemento) {
+   let estaCerto = true
 
-    if(elemento.length === 0){
-        estaCerto = false
-    }
-    else{
-        if(elemento.length < 20){
-            estaCerto = false
-        }
-    }
-    if(estaCerto === false){
-        alert("DIGITE OS CAMPOS CORRETAMENTE")
-    }
-    else{
-        perguntasQuizz.push(elemento)
-    }
-    console.log(perguntasQuizz)
+   if (elemento.length === 0) {
+      estaCerto = false
+   }
+   else {
+      if (elemento.length < 20) {
+         estaCerto = false
+      }
+   }
+   if (estaCerto === false) {
+      alert("DIGITE OS CAMPOS CORRETAMENTE")
+   }
+   else {
+      perguntasQuizz.push(elemento)
+   }
+   console.log(perguntasQuizz)
 }
 
 
@@ -341,7 +341,7 @@ function processarAPI(dados) {
    listaQuizzes = dados.data
    listaQuizzes.map(montarQuizzes)
 
-  
+
 }
 
 
@@ -351,7 +351,7 @@ function montarQuizzes(elemento) {
    let imagensQuizzes = elemento.image
    let tituloQuiz = elemento.title
    let quizzID = elemento.id
-   console.log(quizzID)
+
    let iniciar = document.querySelector(".quizes")
 
    iniciar.innerHTML +=
@@ -362,60 +362,23 @@ function montarQuizzes(elemento) {
    </div>`
 }
 
+// Tela 2 API
+
+
 function reiniciarQuizz() {
    const topo = document.querySelector(".tela2");
    topo.scrollIntoView({ behavior: 'smooth' });
 }
 
 function buscarQuizz(id) {
-   const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/"+id)
-   promiseID.then(quizzEspecifico);
+   const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/" + id)
+   promiseID.then(openQuizz);
    promiseID.catch(tratarErro);
    console.log(promiseID)
 }
 
-
-function quizzEspecifico (dados) {
-    //primeira array
-    let id = dados.data.id;
-    let image = dados.data.image;
-    let title = dados.data.title;
-    let questionTitle;
-    let questionColor;
-    let respostaTexto;
-    let respostaImage;
-    let respostaBoolean;
-    let levelsTitle;
-    let levelsImage;
-    let levelText;
-    let levelValue;
-
-    //array das perguntas
-    let questionsData = dados.data.questions;
-    for (let i = 0; i < questionsData.length; i++) {
-    questionTitle = questionsData[i].title;
-    questionColor = questionsData[i].color;
-    }
-    // array das respostas
-    let questionRespostaData = questionsData[0].answers;
-    for (let i = 0; i < questionRespostaData.length; i++) {
-    respostaTexto = questionRespostaData[i].text;
-    respostaImage = questionRespostaData[i].image;
-    respostaBoolean = questionRespostaData[i].isCorrectAnswer;
-    }
-    //array dos níveis
-    let questionLevels = dados.data.levels;
-    for (let i = 0; i < questionLevels.length; i++) {
-    levelsTitle = questionLevels[0].title;
-    levelsImage = questionLevels[0].image;
-    levelText = questionLevels[0].text;
-    levelValue = questionLevels[0].minValue;
-    }
+function processarQuizz(dados) {
  
-    console.log(respostaBoolean);
-
-   
-    openQuizz(image, title, id, questionTitle, questionColor, respostaTexto, respostaImage, respostaBoolean, levelsTitle, levelsImage, levelText, levelValue)
 }
 
 function tratarErro(error) {
@@ -424,118 +387,71 @@ function tratarErro(error) {
 }
 
 // ABRE A TELA DO QUIZ - TELA 2
-function openQuizz(image, title, id, questionTitle, questionColor, respostaTexto, respostaImage, respostaBoolean, levelsTitle, levelsImage, levelText, levelValue) {
+function openQuizz(dados) {
+   listaQuizzes = dados.data
+
+
+   let id = dados.data.id;
+   let image = dados.data.image;
+   let title = dados.data.title;
+
+   let questionsData = dados.data.questions;
+   console.log(questionsData.length)
+   let questionTitle = questionsData[0].title;
+   let questionColor = questionsData[0].color;
+
+   let questionRespostaData = questionsData[0].answers;
+   let respostaTexto = questionRespostaData[0].text;
+   let respostaImage = questionRespostaData[0].image;
+   let respostaBoolean = questionRespostaData[0].isCorrectAnswer;
+
+
+   let questionLevels = dados.data.levels;
+
+   let levelsTitle = questionLevels[0].title;
+   let levelsImage = questionLevels[0].image;
+   let levelText = questionLevels[0].text;
+   let levelValue = questionLevels[0].minValue;
+
+
    let openTela2 = document.querySelector("body")
    openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
-   openTela2.innerHTML += `<div class="tela2"  id="${id}">
-  <!-- Banner Gradiente -->
-  <div class="banner-quizz">
-      <img
-          src="${image}">
-      <div class="banner-gradiente"></div>
-      <h2>${title}"</h2>
-
-  </div>
-  <!-- PRINCIPAL 2.1 -->
-  <div class="container-tela2">
-      <div class="caixa-questao">
-          <div class="caixa-pergunta" style="background-color:${questionColor}">
+   openTela2.innerHTML += `
+<div class="tela2"  id="${id}">
+      <div class="banner-quizz">
+         <img
+            src="${image}">
+         <div class="banner-gradiente"></div>
+         <h2>${title}</h2>
+      </div>
+   <div class="container-tela2">
+         <div class="caixa-questao">
+            <div class="caixa-pergunta" style="background-color:${questionColor}">
               <h3>${questionTitle}</h3>
-          </div>
-          <div class="caixa-principal-respostas">
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-              <div class="caixa-resposta">
+            </div>
+            <div class="caixa-principal-respostas">
+               <div class="caixa-resposta">
                   <img
                       src="${respostaImage}">
                   <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-          </div>
-      </div>
-      <div class="caixa-questao">
-      <div class="caixa-pergunta" style="background-color:${questionColor}">
-         <h3>"${questionTitle}"</h3>
-          </div>
-          <div class="caixa-principal-respostas">
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-          </div>
-      </div>
-      <div class="caixa-questao">
-      <div class="caixa-pergunta" style="background-color:${questionColor}">
-              <h3>"${questionTitle}"</h3>
-          </div>
-          <div class="caixa-principal-respostas">
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-          </div>
-      </div>
-      <!-- Fim de Jogo -->
-      <div class="caixa-fim-de-jogo desativar ">
-          <div class="caixa-nivel-acerto vermelho">
-              <h3>"${levelValue}"% de acerto: "${levelsTitle}"</h3>
-          </div>
-          <div class="texto-fim-de-jogo">
-              <img
-                  src="${levelsImage}">
-              <h5>${levelText}</h5>
-          </div>
-      </div>
-      <!-- Botoes footer -->
-      <div class="reiniciar">
+               </div>
+            </div>
+         </div>
+            <div class="caixa-fim-de-jogo desativar ">
+                  <div class="caixa-nivel-acerto vermelho">
+                     <h3>"${levelValue}"% de acerto: "${levelsTitle}"</h3>
+                  </div>
+                  <div class="texto-fim-de-jogo">
+                     <img
+                        src="${levelsImage}">
+                     <h5>${levelText}</h5>
+                  </div>
+               </div>
+         <div class="reiniciar">
           <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
-      </div>
+         </div>
       <h6 onclick="iniciarTela()">Voltar pra home</h6>
-  </div>
+   </div>   
 </div>`
 }
 
