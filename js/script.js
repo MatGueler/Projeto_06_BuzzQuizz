@@ -336,7 +336,6 @@ function montarQuizzes(elemento) {
 }
 
 function reiniciarQuizz() {
-   buscarQuizz(id);
    const topo = document.querySelector(".tela2");
    topo.scrollIntoView({ behavior: 'smooth' });
 }
