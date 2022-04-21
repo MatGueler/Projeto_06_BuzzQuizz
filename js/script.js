@@ -117,12 +117,14 @@ function informacoesIniciais(){
         qtdNiveis:quantidadeNiveis
     }
 
-    if(condicaoTitulo || condicaoURL || condicaoQtdPerguntas || condicaoQtdNiveis){
-        alert("DIGITE OS CAMPOS CORRETAMENTE")
-    }
-    else{
-        console.log(informacoesQuizz)
-    }
+    // if(condicaoTitulo || condicaoURL || condicaoQtdPerguntas || condicaoQtdNiveis){
+    //     alert("DIGITE OS CAMPOS CORRETAMENTE")
+    // }
+    // else{
+    //     console.log(informacoesQuizz)
+    //     criarPerguntas()
+    // }
+    criarPerguntas()
 }
 
 
@@ -141,10 +143,22 @@ function isUrl(s) {
 // ABRE A PAGINA DE CRIAR PERGUNTAS - TELA 3.2
 function criarPerguntas() {
    let openTela3_2 = document.querySelector(".tela3")
-   contadorPerguntas = 0
-   openTela3_2.innerHTML = '<main></main>'
+   let informacoesVazias = document.querySelector(".tela3 > main")
+   openTela3_2.innerHTML = ""
+   contadorPerguntas = 1
+   openTela3_2.innerHTML = `
+   <main>
+   <div class="orientacao"><h4>Crie suas perguntas</h4></div>
+   <div class="perguntas"></div>
+   <div class="informacoes vazio">
+   </div>
+   <div class="prosseguir"><button onclick = "coletarPerguntas()">Prosseguir para criar níveis</button></div>
+   </main>`
 
    adicionarPergunta()
+
+
+
 //    openTela3_2.innerHTML =
 //       `<main>
 //       <div class="orientacao"><h4>Crie suas perguntas</h4></div>
@@ -174,11 +188,10 @@ function criarPerguntas() {
 
 // ADICIONA UMA PERGUNTA AO QUIZZ DE ACORDO COM A QUANTIDADE DESEJADA
 function adicionarPergunta() {
-   let perguntasNovas = document.querySelector(".tela3 > main")
+   let perguntasNovas = document.querySelector("main > .perguntas")
    contadorPerguntas += 1
-   perguntasNovas.innerHTML = '<div class="orientacao"><h4>Crie suas perguntas</h4></div>'
 
-   for(let contador = 1; contador<=contadorPerguntas;contador++){
+   for(let contador = contadorPerguntas - 1; contador<contadorPerguntas;contador++){
       perguntasNovas.innerHTML += `<div class="informacoes">
       <h3>Perguntas ${contador}</h3>
       <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}">
@@ -193,13 +206,20 @@ function adicionarPergunta() {
       <input type="text" placeholder="URL da imagem 3">
    </div>`
    }
-   perguntasNovas.innerHTML +=`
-   <div class="informacoes vazio">
-      <h3>Perguntas ${contadorPerguntas + 1}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
-   </div>
-   <div class="prosseguir"><button onclick = "coletarPerguntas()">Prosseguir para criar níveis</button></div>`
+   adicionarRodape()
+}
 
-//    <button onclick = "criarNiveis()">
+// FUNÇÃO QUE ATUALIZA QUAL VAI SER A PRÓXIMA NUMERAÇÃO DE PERGUNTAS
+function adicionarRodape(){
+    let informacoesVazias = document.querySelector(".tela3 .informacoes.vazio")
+    let infovazia = `
+    <h3>Perguntas ${contadorPerguntas}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
+    `
+    informacoesVazias.innerHTML = infovazia
+}
+
+function verificarPerguntas(){
+    
 }
 
 function coletarPerguntas(){
