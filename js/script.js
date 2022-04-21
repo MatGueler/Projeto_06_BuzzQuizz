@@ -334,7 +334,7 @@ function montarQuizzes(elemento) {
 }
 
 function reiniciarQuizz() {
-   openQuizz();
+   buscarQuizz();
    const topo = document.querySelector(".tela2");
    topo.scrollIntoView({ behavior: 'smooth' });
 }
@@ -385,15 +385,8 @@ function quizzEspecifico (dados) {
     }
  
     console.log(respostaBoolean);
- 
-    //console.log array dos níveis
-    console.log(questionLevels);
-    console.log(levelsTitle);
-    console.log(levelsImage);
-    console.log(levelText);
-    console.log(levelValue);
 
-    
+   
     openQuizz(image, title, id, questionTitle, questionColor, respostaTexto, respostaImage, respostaBoolean, levelsTitle, levelsImage, levelText, levelValue)
 }
 
@@ -406,12 +399,12 @@ function tratarErro(error) {
 function openQuizz(image, title, id, questionTitle, questionColor, respostaTexto, respostaImage, respostaBoolean, levelsTitle, levelsImage, levelText, levelValue) {
    let openTela2 = document.querySelector("body")
    openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
-   openTela2.innerHTML += `<div class="tela2">
+   openTela2.innerHTML += `<div class="tela2"  id="${id}">
   <!-- Banner Gradiente -->
   <div class="banner-quizz">
       <img
           src="${image}">
-      <div class="banner-gradiente" id="${id}"></div>
+      <div class="banner-gradiente"></div>
       <h2>${title}"</h2>
 
   </div>
