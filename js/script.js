@@ -8,6 +8,8 @@ let contadorPerguntas;
 
 let contadorNiveis;
 
+let perguntasQuizz = [""]
+
 
 
 // FUNÇÃO AO INICIAR A PAGINA
@@ -79,43 +81,98 @@ function chamarTela1() {
 function criarQuiz() {
    let openTela3_1 = document.querySelector("body")
    openTela3_1.innerHTML = "<header><h1>BuzzQuizz</h1></header>"
-   openTela3_1.innerHTML += '<div class="tela3"><main><div class="orientacao"><h4>Comece pelo começo</h4></div>    <div class="informacoes"><input type="text" placeholder="Título do seu quizz"><input type="text" placeholder="URL da imagem do seu quizz"><input type="text" placeholder="Quantidade de perguntas do seu quizz"><input type="text" placeholder="Quantidade de níveis do seu quizz"></div><div class="prosseguir"><button onclick = "criarPerguntas()">Prosseguir para criar perguntas</button></div></main></div>'
+   openTela3_1.innerHTML += `
+   <div class="tela3">
+   <main>
+   <div class="orientacao"><h4>Comece pelo começo</h4></div>    
+   <div class="informacoes">
+   <input type="text" placeholder="Título do seu quizz" class = "tituloQuizz">
+   <input type="text" placeholder="URL da imagem do seu quizz" class = "URLQuizz">
+   <input type="text" placeholder="Quantidade de perguntas do seu quizz" class = "quantidadePerguntas">
+   <input type="text" placeholder="Quantidade de níveis do seu quizz" class = "quantidadeNiveis"></div>
+   <div class="prosseguir"><button onclick = "informacoesIniciais()">Prosseguir para criar perguntas</button></div>
+   </main>
+   </div>`
+
+//    <button onclick = "criarPerguntas()">Prosseguir para criar perguntas</button>
 }
+
+
+// VERIFICA INFORMAÇÕES INICIAIS
+function informacoesIniciais(){
+    let tituloQuiz = document.querySelector(`.tituloQuizz`).value
+    let URLQuizz = document.querySelector(`.URLQuizz`).value
+    let quantidadePerguntas = document.querySelector(`.quantidadePerguntas`).value
+    let quantidadeNiveis = document.querySelector(`.quantidadeNiveis`).value
+
+    let condicaoTitulo = (tituloQuiz.length < 20 || tituloQuiz.length > 65)
+    let condicaoURL = (!isUrl(URLQuizz))
+    let condicaoQtdPerguntas = (Number(quantidadePerguntas)<3)
+    let condicaoQtdNiveis = (Number(quantidadeNiveis)<2)
+
+    const informacoesQuizz = {
+        title:tituloQuiz,
+        image:URLQuizz,
+        qtsQuestions:quantidadePerguntas,
+        qtdNiveis:quantidadeNiveis
+    }
+
+    if(condicaoTitulo || condicaoURL || condicaoQtdPerguntas || condicaoQtdNiveis){
+        alert("DIGITE OS CAMPOS CORRETAMENTE")
+    }
+    else{
+        console.log(informacoesQuizz)
+    }
+}
+
+
+// FUNÇÃO QUE VERIFICA SE É URL
+function isUrl(s) {
+    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+    return regexp.test(s);
+ }
+
+
+
+
+
 
 
 // ABRE A PAGINA DE CRIAR PERGUNTAS - TELA 3.2
 function criarPerguntas() {
    let openTela3_2 = document.querySelector(".tela3")
-   contadorPerguntas = 1
-   openTela3_2.innerHTML = ""
-   openTela3_2.innerHTML =
-      `<main>
-      <div class="orientacao"><h4>Crie suas perguntas</h4></div>
-      <div class="informacoes">
-         <h3>Perguntas ${contadorPerguntas}</h3>
-         <input type="text" placeholder="Texto da pergunta">
-         <input type="text" placeholder="Cor de fundo da pergunta">
-         <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta">
-         <input type="text" placeholder="URL da imagem"><h3>Respostas incorretas</h3>     
-         <input type="text" placeholder="Resposta incorreta 1">
-         <input type="text" placeholder="URL da imagem 1">
-         <input type="text" placeholder="Resposta incorreta 2">
-         <input type="text" placeholder="URL da imagem 2">
-         <input type="text" placeholder="Resposta incorreta 3">
-         <input type="text" placeholder="URL da imagem 3">
-      </div>
-      <div class="informacoes vazio">
-            <h3>Perguntas ${contadorPerguntas + 1}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
-      </div>
-      <div class="informacoes vazio">
-            <h3>Perguntas ${contadorPerguntas + 2}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
-      </div>
-      <div class="prosseguir"><button onclick = "criarNiveis()">Prosseguir para criar níveis</button></div>
-   </main>`
+   contadorPerguntas = 0
+   openTela3_2.innerHTML = '<main></main>'
+
+   adicionarPergunta()
+//    openTela3_2.innerHTML =
+//       `<main>
+//       <div class="orientacao"><h4>Crie suas perguntas</h4></div>
+//       <div class="informacoes">
+//          <h3>Perguntas ${contadorPerguntas}</h3>
+//          <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contadorPerguntas}">
+//          <input type="text" placeholder="Cor de fundo da pergunta">
+//          <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta">
+//          <input type="text" placeholder="URL da imagem"><h3>Respostas incorretas</h3>     
+//          <input type="text" placeholder="Resposta incorreta 1">
+//          <input type="text" placeholder="URL da imagem 1">
+//          <input type="text" placeholder="Resposta incorreta 2">
+//          <input type="text" placeholder="URL da imagem 2">
+//          <input type="text" placeholder="Resposta incorreta 3">
+//          <input type="text" placeholder="URL da imagem 3">
+//       </div>
+//       <div class="informacoes vazio">
+//             <h3>Perguntas ${contadorPerguntas + 1}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
+//       </div>
+//       <div class="informacoes vazio">
+//             <h3>Perguntas ${contadorPerguntas + 2}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
+//       </div>
+//       <div class="prosseguir"><button onclick = "coletarPerguntas()">Prosseguir para criar níveis</button></div>
+//    </main>`
 }
 
 
-// ADICIONA MAIS UMA PERGUNTA AO QUIZZ
+// ADICIONA UMA PERGUNTA AO QUIZZ DE ACORDO COM A QUANTIDADE DESEJADA
 function adicionarPergunta() {
    let perguntasNovas = document.querySelector(".tela3 > main")
    contadorPerguntas += 1
@@ -124,7 +181,7 @@ function adicionarPergunta() {
    for(let contador = 1; contador<=contadorPerguntas;contador++){
       perguntasNovas.innerHTML += `<div class="informacoes">
       <h3>Perguntas ${contador}</h3>
-      <input type="text" placeholder="Texto da pergunta">
+      <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}">
       <input type="text" placeholder="Cor de fundo da pergunta">
       <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta">
       <input type="text" placeholder="URL da imagem"><h3>Respostas incorretas</h3>     
@@ -140,7 +197,18 @@ function adicionarPergunta() {
    <div class="informacoes vazio">
       <h3>Perguntas ${contadorPerguntas + 1}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
    </div>
-   <div class="prosseguir"><button onclick = "criarNiveis()">Prosseguir para criar níveis</button></div>`
+   <div class="prosseguir"><button onclick = "coletarPerguntas()">Prosseguir para criar níveis</button></div>`
+
+//    <button onclick = "criarNiveis()">
+}
+
+function coletarPerguntas(){
+    perguntasQuizz = []
+    for(let contador = 1; contador<=contadorPerguntas;contador++){
+        let localPergunta = document.querySelector(`.textoPergunta${contador}`).value
+        perguntasQuizz.push(localPergunta)
+    }
+    console.log(perguntasQuizz)
 }
 
 
