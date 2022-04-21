@@ -225,7 +225,7 @@ function adicionarRodape() {
     let infovazia = `
     <h3>Perguntas ${contadorPerguntas + 1}</h3><ion-icon name="create-outline" onclick  = "coletarPerguntas()"></ion-icon>
     `
-    informacoesVazias.innerHTML = infovazia
+   informacoesVazias.innerHTML = infovazia
 
 }
 
@@ -528,6 +528,9 @@ function montarQuizzes(elemento) {
    </div>`
 }
 
+// Tela 2 API
+
+
 function reiniciarQuizz() {
     const topo = document.querySelector(".tela2");
     topo.scrollIntoView({ behavior: 'smooth' });
@@ -607,101 +610,30 @@ function openQuizz(image, title, id, questionTitle, questionColor, respostaTexto
       <div class="caixa-questao">
           <div class="caixa-pergunta" style="background-color:${questionColor}">
               <h3>${questionTitle}</h3>
-          </div>
-          <div class="caixa-principal-respostas">
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-              <div class="caixa-resposta">
+            </div>
+            <div class="caixa-principal-respostas">
+               <div class="caixa-resposta">
                   <img
                       src="${respostaImage}">
                   <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-          </div>
-      </div>
-      <div class="caixa-questao">
-      <div class="caixa-pergunta" style="background-color:${questionColor}">
-         <h3>"${questionTitle}"</h3>
-          </div>
-          <div class="caixa-principal-respostas">
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-          </div>
-      </div>
-      <div class="caixa-questao">
-      <div class="caixa-pergunta" style="background-color:${questionColor}">
-              <h3>"${questionTitle}"</h3>
-          </div>
-          <div class="caixa-principal-respostas">
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-          </div>
-      </div>
-      <!-- Fim de Jogo -->
-      <div class="caixa-fim-de-jogo desativar ">
-          <div class="caixa-nivel-acerto vermelho">
-              <h3>"${levelValue}"% de acerto: "${levelsTitle}"</h3>
-          </div>
-          <div class="texto-fim-de-jogo">
-              <img
-                  src="${levelsImage}">
-              <h5>${levelText}</h5>
-          </div>
-      </div>
-      <!-- Botoes footer -->
-      <div class="reiniciar">
+               </div>
+            </div>
+         </div>
+            <div class="caixa-fim-de-jogo desativar ">
+                  <div class="caixa-nivel-acerto vermelho">
+                     <h3>"${levelValue}"% de acerto: "${levelsTitle}"</h3>
+                  </div>
+                  <div class="texto-fim-de-jogo">
+                     <img
+                        src="${levelsImage}">
+                     <h5>${levelText}</h5>
+                  </div>
+               </div>
+         <div class="reiniciar">
           <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
-      </div>
+         </div>
       <h6 onclick="iniciarTela()">Voltar pra home</h6>
-  </div>
+   </div>   
 </div>`
 }
 
