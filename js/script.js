@@ -1,6 +1,6 @@
 // VARIAVEIS GLOBAIS E ONDE ESTÃO
 
-let meusQuizzes = []
+let meusQuizzes = [];
 
 let listaQuizzes;
 
@@ -16,7 +16,7 @@ let perguntasQuizz = [""]
 function iniciarTela() {
 
    let iniciar = document.querySelector("body")
-   iniciar.innerHTML = "<header><h1>BuzzQuizz</h1></header>"
+   iniciar.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
    chamarTela1()
    abrirAPI()
 }
@@ -80,7 +80,7 @@ function chamarTela1() {
 // AO CLICAR ABRE A TELA 3.1 PARA CRIAÇÃO DO QUIZ
 function criarQuiz() {
    let openTela3_1 = document.querySelector("body")
-   openTela3_1.innerHTML = "<header><h1>BuzzQuizz</h1></header>"
+   openTela3_1.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
    openTela3_1.innerHTML += `
    <div class="tela3">
    <main>
@@ -332,7 +332,7 @@ function montarQuizzes(elemento) {
 // ABRE A TELA DO QUIZ - TELA 2
 function openQuizz() {
    let openTela2 = document.querySelector("body")
-   openTela2.innerHTML = "<header><h1>BuzzQuizz</h1></header>"
+   openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
    openTela2.innerHTML += `<div class="tela2">
   <!-- Banner Gradiente -->
   <div class="banner-quizz">
