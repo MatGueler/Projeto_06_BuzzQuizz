@@ -1,7 +1,12 @@
 // VARIAVEIS GLOBAIS E ONDE ESTÃO
 
+let meusQuizzes = []
+
 let listaQuizzes;
 
+let contadorPerguntas;
+
+let contadorNiveis;
 
 
 
@@ -16,8 +21,50 @@ function iniciarTela() {
 
 function chamarTela1() {
    let iniciar = document.querySelector("body")
+   let tamanhoMeusQuizzes = meusQuizzes.length
 
-   iniciar.innerHTML += '<div class="tela1"><main><div class="container-meus"><div class="titulo-meus-quizzes"><h3>Meus Quizzes</h3>  <ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon></div></div><div class="meus-quizes"><h2>Você não criou nenhum quiz ainda :(</h2><button onclick="criarQuiz()">Criar Quizz</button></div><div class="container-todos"><h3>Todos os Quizzes</h3><div class="quizes"></div></div></div></main></div>'
+   if(tamanhoMeusQuizzes === 0){
+      iniciar.innerHTML += `
+      <div class="tela1">
+      <main>
+         <div class="container-meus desativar">
+            <div class="titulo-meus-quizzes">
+               <h3>Meus Quizzes</h3><ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon>
+            </div>
+         </div>
+         <div class="meus-quizes">
+            <h2>Você não criou nenhum quiz ainda :(</h2>
+            <button onclick="criarQuiz()">Criar Quizz</button>
+         </div>
+         <div class="container-todos">
+            <h3>Todos os Quizzes</h3>
+            <div class="quizes"></div>
+         </div></div>
+      </main>
+      </div>`
+   }else{
+
+      iniciar.innerHTML += `
+      <div class="tela1">
+      <main>
+         <div class="container-meus">
+            <div class="titulo-meus-quizzes">
+               <h3>Meus Quizzes</h3><ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon>
+            </div>
+         </div>
+         <div class="meus-quizes">
+            <h2>Você não criou nenhum quiz ainda :(</h2>
+            <button onclick="criarQuiz()">Criar Quizz</button>
+         </div>
+         <div class="container-todos">
+            <h3>Todos os Quizzes</h3>
+            <div class="quizes"></div>
+         </div></div>
+      </main>
+      </div>`
+
+      // iniciar.innerHTML += '<div class="tela1"><main><div class="container-meus"><div class="titulo-meus-quizzes"><h3>Meus Quizzes</h3>  <ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon></div></div><div class="meus-quizes"><h2>Você não criou nenhum quiz ainda :(</h2><button onclick="criarQuiz()">Criar Quizz</button></div><div class="container-todos"><h3>Todos os Quizzes</h3><div class="quizes"></div></div></div></main></div>'
+   }
 
 
 
@@ -33,59 +80,172 @@ function criarQuiz() {
    let openTela3_1 = document.querySelector("body")
    openTela3_1.innerHTML = "<header><h1>BuzzQuizz</h1></header>"
    openTela3_1.innerHTML += '<div class="tela3"><main><div class="orientacao"><h4>Comece pelo começo</h4></div>    <div class="informacoes"><input type="text" placeholder="Título do seu quizz"><input type="text" placeholder="URL da imagem do seu quizz"><input type="text" placeholder="Quantidade de perguntas do seu quizz"><input type="text" placeholder="Quantidade de níveis do seu quizz"></div><div class="prosseguir"><button onclick = "criarPerguntas()">Prosseguir para criar perguntas</button></div></main></div>'
-   console.log(document.querySelector("body"))
 }
 
+
+// ABRE A PAGINA DE CRIAR PERGUNTAS - TELA 3.2
 function criarPerguntas() {
    let openTela3_2 = document.querySelector(".tela3")
+   contadorPerguntas = 1
    openTela3_2.innerHTML = ""
-   openTela3_2.innerHTML = '<main><div class="orientacao"><h4>Crie suas perguntas</h4></div><div class="informacoes"><h3>Perguntas 1</h3><input type="text" placeholder="Texto da pergunta"><input type="text" placeholder="Cor de fundo da pergunta"><h3>Resposta correta</h3><input type="text" placeholder="Resposta correta"><input type="text" placeholder="URL da imagem"><h3>Respostas incorretas</h3>     <input type="text" placeholder="Resposta incorreta 1"><input type="text" placeholder="URL da imagem 1"><input type="text" placeholder="Resposta incorreta 2"><input type="text" placeholder="URL da imagem 2"><input type="text" placeholder="Resposta incorreta 3"><input type="text" placeholder="URL da imagem 3"></div><div class="prosseguir"><button onclick = "criarNiveis()">Prosseguir para criar níveis</button></div></main>'
+   openTela3_2.innerHTML =
+      `<main>
+      <div class="orientacao"><h4>Crie suas perguntas</h4></div>
+      <div class="informacoes">
+         <h3>Perguntas ${contadorPerguntas}</h3>
+         <input type="text" placeholder="Texto da pergunta">
+         <input type="text" placeholder="Cor de fundo da pergunta">
+         <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta">
+         <input type="text" placeholder="URL da imagem"><h3>Respostas incorretas</h3>     
+         <input type="text" placeholder="Resposta incorreta 1">
+         <input type="text" placeholder="URL da imagem 1">
+         <input type="text" placeholder="Resposta incorreta 2">
+         <input type="text" placeholder="URL da imagem 2">
+         <input type="text" placeholder="Resposta incorreta 3">
+         <input type="text" placeholder="URL da imagem 3">
+      </div>
+      <div class="informacoes vazio">
+            <h3>Perguntas ${contadorPerguntas + 1}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
+      </div>
+      <div class="informacoes vazio">
+            <h3>Perguntas ${contadorPerguntas + 2}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
+      </div>
+      <div class="prosseguir"><button onclick = "criarNiveis()">Prosseguir para criar níveis</button></div>
+   </main>`
 }
 
+
+// ADICIONA MAIS UMA PERGUNTA AO QUIZZ
+function adicionarPergunta() {
+   let perguntasNovas = document.querySelector(".tela3 > main")
+   contadorPerguntas += 1
+   perguntasNovas.innerHTML = '<div class="orientacao"><h4>Crie suas perguntas</h4></div>'
+
+   for(let contador = 1; contador<=contadorPerguntas;contador++){
+      perguntasNovas.innerHTML += `<div class="informacoes">
+      <h3>Perguntas ${contador}</h3>
+      <input type="text" placeholder="Texto da pergunta">
+      <input type="text" placeholder="Cor de fundo da pergunta">
+      <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta">
+      <input type="text" placeholder="URL da imagem"><h3>Respostas incorretas</h3>     
+      <input type="text" placeholder="Resposta incorreta 1">
+      <input type="text" placeholder="URL da imagem 1">
+      <input type="text" placeholder="Resposta incorreta 2">
+      <input type="text" placeholder="URL da imagem 2">
+      <input type="text" placeholder="Resposta incorreta 3">
+      <input type="text" placeholder="URL da imagem 3">
+   </div>`
+   }
+   perguntasNovas.innerHTML +=`
+   <div class="informacoes vazio">
+      <h3>Perguntas ${contadorPerguntas + 1}</h3><ion-icon name="create-outline" onclick  = "adicionarPergunta()"></ion-icon>
+   </div>
+   <div class="prosseguir"><button onclick = "criarNiveis()">Prosseguir para criar níveis</button></div>`
+}
+
+
+// ABRE A PAGINA DE CRIAR NIVEIS - TELA 3.3
 function criarNiveis() {
-   let openTela3_3 = document.querySelector(".tela3")
+   let openTela3_3 = document.querySelector(".tela3");
+   contadorNiveis = 1;
    openTela3_3.innerHTML = ""
-   openTela3_3.innerHTML = '<main><div class="orientacao"><h4>Agora, decida os níveis</h4></div>   <div class="informacoes"><h3>Nível 1</h3><input type="text" placeholder="Título do nível"><input type="text" placeholder="% de acerto mínimo"><input type="text" placeholder="URL da imagem"><input type="text" placeholder="Descrição do nível"></div><div class="prosseguir"><button onclick = "finalizarCriacao()">Finalizar quizz</button></div></main>'
+   openTela3_3.innerHTML = `
+   <main>
+   <div class="orientacao">
+      <h4>Agora, decida os níveis</h4></div>   
+   <div class="informacoes"><h3>Nível ${contadorNiveis}</h3>
+      <input type="text" placeholder="Título do nível">
+      <input type="text" placeholder="% de acerto mínimo">
+      <input type="text" placeholder="URL da imagem">
+      <input type="text" placeholder="Descrição do nível">
+   </div>
+   <div class="informacoes vazio">
+      <h3>Nível ${contadorNiveis + 1}</h3><ion-icon name="create-outline" onclick  = "adicionarNivel()"></ion-icon>
+   </div>
+   <div class="informacoes vazio">
+      <h3>Nível ${contadorNiveis + 2}</h3><ion-icon name="create-outline" onclick  = "adicionarNivel()"></ion-icon>
+   </div>
+   <div class="prosseguir">
+      <button onclick = "finalizarCriacao()">Finalizar quizz</button>
+   </div>
+   </main>`
 }
 
+// ADICIONA MAIS UM NIVEL AO QUIZZ
+function adicionarNivel(){
+
+   let niveisNovos = document.querySelector(".tela3 > main")
+   contadorNiveis += 1
+   niveisNovos.innerHTML = '<div class="orientacao"><h4>Agora, decida os níveis</h4></div>'
+
+   for(let contador = 1; contador<=contadorNiveis;contador++){
+      niveisNovos.innerHTML += `   
+      <div class="informacoes"><h3>Nível ${contadorNiveis}</h3>
+      <input type="text" placeholder="Título do nível">
+      <input type="text" placeholder="% de acerto mínimo">
+      <input type="text" placeholder="URL da imagem">
+      <input type="text" placeholder="Descrição do nível">
+   </div>`
+   }
+   niveisNovos.innerHTML +=`
+   <div class="informacoes vazio">
+      <h3>Nível ${contadorNiveis + 1}</h3><ion-icon name="create-outline" onclick  = "adicionarNivel()"></ion-icon>
+   </div>
+   <div class="prosseguir"><button onclick = "finalizarCriacao()">Finalizar quizz</button></div>`
+}
+
+
+
+// ABRE A PAGINA DE QUIZZ FINALIZADO - TELA 3.4
 function finalizarCriacao() {
    let openTela3_4 = document.querySelector(".tela3")
    openTela3_4.innerHTML = ""
-   openTela3_4.innerHTML = '<main><div class="orientacao"><h4>Seu quizz está pronto</h4></div><div class="caixa-quiz criado" onclick="openQuizz()"><img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div><div class="prosseguir"><button  onclick="openQuizz()">Acessar quizz</button></div><div>       <button class="retornar-home" onclick = "iniciarTela()">Voltar para home</button></div></main>'
+   openTela3_4.innerHTML = `
+   <main>
+      <div class="orientacao"><h4>Seu quizz está pronto</h4></div>
+      <div class="caixa-quiz criado" onclick="openQuizz()">
+         <img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
+         <h2>Pergunta do quizz</h2>
+         <div class="caixa-gradiente"></div>
+      </div>
+      <div class="prosseguir"><button  onclick="openQuizz()">Acessar quizz</button></div><div>   
+      <button class="retornar-home" onclick = "iniciarTela()">Voltar para home</button></div>
+   </main>`
 }
 
+
+// ABRE API FORNECIDA
 function abrirAPI() {
    const promessaAPI = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes")
 
    promessaAPI.then(processarAPI)
 }
 
+// PROCESSA OS DADOS DA API FORNECIDA
 function processarAPI(dados) {
    listaQuizzes = dados.data
    listaQuizzes.map(montarQuizzes)
-   console.log(listaQuizzes)
 }
 
+// MONTA O QUIZZ DA API DE ACORDO COM A ESTRUTURA
 function montarQuizzes(elemento) {
    let imagensQuizzes = elemento.image
    let tituloQuiz = elemento.title
    let iniciar = document.querySelector(".quizes")
 
-   iniciar.innerHTML += 
-   `<div class="caixa-quiz">
+   iniciar.innerHTML +=
+      `<div class="caixa-quiz">
       <img  src="${imagensQuizzes}">
       <h2>${tituloQuiz}</h2>
       <div class="caixa-gradiente" onclick="openQuizz()"></div>
    </div>`
-   console.log(iniciar)
 }
 
-
-function openQuizz () {
-   console.log("entrou")
+// ABRE A TELA DO QUIZ - TELA 2
+function openQuizz() {
    let openTela2 = document.querySelector("body")
-  openTela2.innerHTML = "<header><h1>BuzzQuizz</h1></header>"
-  openTela2.innerHTML += `<div class="tela2">
+   openTela2.innerHTML = "<header><h1>BuzzQuizz</h1></header>"
+   openTela2.innerHTML += `<div class="tela2">
   <!-- Banner Gradiente -->
   <div class="banner-quizz">
       <img
