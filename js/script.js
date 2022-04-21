@@ -378,7 +378,7 @@ function buscarQuizz(id) {
 }
 
 function processarQuizz(dados) {
-
+ 
 }
 
 function tratarErro(error) {
@@ -426,8 +426,8 @@ function openQuizz(dados) {
 <div class="container-tela2">`
 
    let openTelaNovo = document.querySelector(".container-tela2")
-   for (let i = 0; i < questionsData.length; i++) {
-      openTelaNovo.innerHTML += `
+   for (let i = 0; i < questionsData.length; i++){
+   openTelaNovo.innerHTML += `
          <div class="caixa-questao">
             <div class="caixa-pergunta" style="background-color:${questionColor[i]}">
               <h3>${questionTitle[i]}</h3>
@@ -451,10 +451,10 @@ function openQuizz(dados) {
                   </div>
                </div>
          `
-   }
+}
    openTelaNovo.innerHTML += `<div class="reiniciar">
-<button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
-</div>
+   <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
+  </div>
 <h6 onclick="iniciarTela()">Voltar pra home</h6>
 </div>   
 </div>`
