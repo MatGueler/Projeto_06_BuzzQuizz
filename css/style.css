@@ -522,7 +522,6 @@ input::placeholder {
         display: flex;
         align-items: center;
         text-align: center;
-
         color: #FFFFFF;
 
     }
@@ -643,18 +642,22 @@ input::placeholder {
 
 }
 
-
+/* 
 @media(max-width:745px) {
     /* .quizes {
         width: 100%;
         display: flex;
         justify-content: center;
         margin: 0 20px;
-    } */
+    }
 
-    /* .tela1{
+    .tela1{
         width: 100%;
-    } */
+    }
+
+    .tela1{
+        width: 100%;
+    }
 
     .tela3 {
         width: 100%;
@@ -673,6 +676,7 @@ input::placeholder {
     }
 
     .caixa-quiz.criado {
+        width: 100%;
         margin: 0;
     }
     
@@ -682,4 +686,12 @@ input::placeholder {
         position: absolute;
         object-fit: cover;
     }
-}
+
+    .caixa-quiz {
+        width: 100%;
+
+    }
+    .caixa-quiz>img {
+        width: 100%;
+    }
+} */
