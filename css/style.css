@@ -237,7 +237,7 @@ main h3 {
 }
 
 .caixa-pergunta {
-    width: 688px;
+    width: 712px;
     height: 140px;
     display: flex;
     align-items: center;
@@ -270,7 +270,7 @@ main h3 {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 
     gap: 24px;
@@ -288,7 +288,7 @@ main h3 {
     font-size: 20px;
     line-height: 23px;
     color: #000000;
-
+    width: 330px;
     margin-top: 8px;
     margin-bottom: 8px;
 
@@ -484,7 +484,7 @@ input::placeholder {
 /* FUNÇÕES IMPORTANTES */
 
 .desativar {
-    display: none;
+    display: none  !important;
 }
 
 /* MOBILE - IPHONE 8 */
@@ -569,6 +569,8 @@ input::placeholder {
         height: 30px;
         color: #000000;
         margin: 0;
+        width: 100%;
+        margin-bottom: 8px;
 
     }
 
