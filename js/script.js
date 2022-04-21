@@ -38,7 +38,7 @@ function criarNiveis(){
 function finalizarCriacao(){
    let openTela3_4 = document.querySelector(".tela3")
    openTela3_4.innerHTML = ""
-   openTela3_4.innerHTML = '<main><div class="orientacao"><h4>Seu quizz está pronto</h4></div><div class="caixa-quiz   onclick="openQuizz()"criado"><img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div><div class="prosseguir"><button  onclick="openQuizz()">Acessar quizz</button></div><div>       <button class="retornar-home" onclick = "iniciarTela()">Voltar para home</button></div></main>'
+   openTela3_4.innerHTML = '<main><div class="orientacao"><h4>Seu quizz está pronto</h4></div><div class="caixa-quiz criado" onclick="openQuizz()"><img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div><div class="prosseguir"><button  onclick="openQuizz()">Acessar quizz</button></div><div>       <button class="retornar-home" onclick = "iniciarTela()">Voltar para home</button></div></main>'
 }
 
 iniciarTela()

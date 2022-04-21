@@ -378,6 +378,9 @@ main h3 {
 
     cursor: pointer;
 }
+.container-tela2>h6:hover {
+    text-decoration: underline;
+}
 
 
 
