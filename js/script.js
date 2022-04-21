@@ -329,6 +329,12 @@ function montarQuizzes(elemento) {
    </div>`
 }
 
+function reiniciarQuizz () {
+   openQuizz();
+   const topo = document.querySelector(".tela2");
+   topo.scrollIntoView({behavior: 'smooth' });
+}
+
 // ABRE A TELA DO QUIZ - TELA 2
 function openQuizz() {
    let openTela2 = document.querySelector("body")
