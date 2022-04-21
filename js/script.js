@@ -323,24 +323,26 @@ function processarAPI(dados) {
 function montarQuizzes(elemento) {
    let imagensQuizzes = elemento.image
    let tituloQuiz = elemento.title
+   let quizzID = elemento.id
+   console.log(quizzID)
    let iniciar = document.querySelector(".quizes")
 
    iniciar.innerHTML +=
       `<div class="caixa-quiz">
       <img  src="${imagensQuizzes}">
       <h2>${tituloQuiz}</h2>
-      <div class="caixa-gradiente" onclick="buscarQuizz()"></div>
+      <div class="caixa-gradiente" id="${quizzID}" onclick="buscarQuizz(this.id)"></div>
    </div>`
 }
 
 function reiniciarQuizz() {
-   buscarQuizz();
+   buscarQuizz(id);
    const topo = document.querySelector(".tela2");
    topo.scrollIntoView({ behavior: 'smooth' });
 }
 
-function buscarQuizz() {
-   const promiseID = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/2`)
+function buscarQuizz(id) {
+   const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/"+id)
    promiseID.then(quizzEspecifico);
    promiseID.catch(tratarErro);
    console.log(promiseID)
@@ -352,8 +354,8 @@ function quizzEspecifico (dados) {
     let id = dados.data.id;
     let image = dados.data.image;
     let title = dados.data.title;
-   let questionTitle;
-   let questionColor;
+    let questionTitle;
+    let questionColor;
     let respostaTexto;
     let respostaImage;
     let respostaBoolean;
