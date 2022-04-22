@@ -486,184 +486,115 @@ function reiniciarQuizz() {
 }
 function buscarQuizz(id) {
     const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/" + id)
-    promiseID.then(quizzEspecifico);
+    promiseID.then(openQuizz);
     promiseID.catch(tratarErro);
     console.log(promiseID)
 }
-function quizzEspecifico(dados) {
-    //primeira array
-    let id = dados.data.id;
-    let image = dados.data.image;
-    let title = dados.data.title;
-    let questionTitle;
-    let questionColor;
-    let respostaTexto;
-    let respostaImage;
-    let respostaBoolean;
-    let levelsTitle;
-    let levelsImage;
-    let levelText;
-    let levelValue;
-    //array das perguntas
-    let questionsData = dados.data.questions;
-    for (let i = 0; i < questionsData.length; i++) {
-        questionTitle = questionsData[i].title;
-        questionColor = questionsData[i].color;
-    }
-    // array das respostas
-    let questionRespostaData = questionsData[0].answers;
-    for (let i = 0; i < questionRespostaData.length; i++) {
-        respostaTexto = questionRespostaData[i].text;
-        respostaImage = questionRespostaData[i].image;
-        respostaBoolean = questionRespostaData[i].isCorrectAnswer;
-    }
-    //array dos níveis
-    let questionLevels = dados.data.levels;
-    for (let i = 0; i < questionLevels.length; i++) {
-        levelsTitle = questionLevels[0].title;
-        levelsImage = questionLevels[0].image;
-        levelText = questionLevels[0].text;
-        levelValue = questionLevels[0].minValue;
-    }
-    console.log(respostaBoolean);
-    openQuizz(image, title, id, questionTitle, questionColor, respostaTexto, respostaImage, respostaBoolean, levelsTitle, levelsImage, levelText, levelValue)
-}
+
 function tratarErro(error) {
     console.log("Status code: " + error.response.status);
     console.log("Mensagem de erro: " + error.response.data);
 }
+
+let arrayResposta = [];
+let arrayPerguntas = [];
+let arrayLevels = [];
+
 // ABRE A TELA DO QUIZ - TELA 2
-function openQuizz(image, title, id, questionTitle, questionColor, respostaTexto, respostaImage, respostaBoolean, levelsTitle, levelsImage, levelText, levelValue) {
-    let openTela2 = document.querySelector("body")
-    openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
-    openTela2.innerHTML += `<div class="tela2"  id="${id}">
-  <!-- Banner Gradiente -->
-  <div class="banner-quizz">
+function openQuizz(dados) {
+   listaQuizzes = dados.data
+
+   arrayResposta = [];
+   let id = listaQuizzes.id;
+   let image = listaQuizzes.image;
+   let title = listaQuizzes.title;
+
+
+   //array questions
+   arrayPerguntas = [];
+
+   let perguntas = listaQuizzes.questions;
+   let perguntasTitle = perguntas[0].title;
+   let perguntasColor = perguntas[0].color;
+
+   // array answers
+   arrayResposta = [];
+
+   let respostas = perguntas[0].answers;
+   let respostaTexto = respostas[0].text;
+   let respostaImage = respostas[0].image
+   
+   let respostaBoolean = perguntas[0].answers[0].isCorrectAnswer;
+
+// array levels
+   arrayLevels = [];
+   let levels = listaQuizzes.levels;
+
+   let levelTitle = levels[0].title;
+   let levelImage = levels[0].image;
+   let levelText = levels[0].text;
+   let levelValue = levels[0].minValue;
+
+   for (let i = 0; i < perguntas.length; i++){
+      arrayResposta.push(respostas)
+  }
+
+  console.log(arrayResposta)
+
+
+  // parte fixa da tela 2
+
+   let openTela2 = document.querySelector("body")
+   openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>
+   <div class="tela2"  id="${id}">
+   <div class="banner-quizz">
       <img
           src="${image}">
       <div class="banner-gradiente"></div>
-      <h2>${title}"</h2>
-  </div>
-  <!-- PRINCIPAL 2.1 -->
-  <div class="container-tela2">
-      <div class="caixa-questao">
-          <div class="caixa-pergunta" style="background-color:${questionColor}">
-              <h3>${questionTitle}</h3>
-          </div>
-          <div class="caixa-principal-respostas">
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-          </div>
-      </div>
-      <div class="caixa-questao">
-      <div class="caixa-pergunta" style="background-color:${questionColor}">
-         <h3>"${questionTitle}"</h3>
-          </div>
-          <div class="caixa-principal-respostas">
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-          </div>
-      </div>
-      <div class="caixa-questao">
-      <div class="caixa-pergunta" style="background-color:${questionColor}">
-              <h3>"${questionTitle}"</h3>
-          </div>
-          <div class="caixa-principal-respostas">
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
+      <h2>${title}</h2>
+   </div>
+<div class="container-tela2">`
+
+  //parte dinamica tela 2
+
+   let openTelaNovo = document.querySelector(".container-tela2")
+
+   openTelaNovo.innerHTML += `
+         <div class="caixa-questao">
+            <div class="caixa-pergunta" style="background-color:${perguntasColor}">
+              <h3>${perguntasTitle}</h3>
             </div>
             <div class="caixa-principal-respostas">
                <div class="caixa-resposta">
                   <img
                       src="${respostaImage}">
                   <h4>${respostaTexto}</h4>
-              </div>
-              <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>"${respostaTexto}"</h4>
-              </div>
-          </div>
-      </div>
-      <!-- Fim de Jogo -->
-      <div class="caixa-fim-de-jogo desativar ">
-          <div class="caixa-nivel-acerto vermelho">
-              <h3>"${levelValue}"% de acerto: "${levelsTitle}"</h3>
-          </div>
-          <div class="texto-fim-de-jogo">
-              <img
-                  src="${levelsImage}">
-              <h5>${levelText}</h5>
-          </div>
-      </div>
-      <!-- Botoes footer -->
-      <div class="reiniciar">
-               </div>
+               </div>    
             </div>
+         </div>`
+
+    //levels tela 2
+
+         openTelaNovo.innerHTML += `
+         <div class="caixa-fim-de-jogo desativar ">
+         <div class="caixa-nivel-acerto vermelho">
+            <h3>"${levelValue}"% de acerto: "${levelTitle}"</h3>
          </div>
-            <div class="caixa-fim-de-jogo desativar ">
-                  <div class="caixa-nivel-acerto vermelho">
-                     <h3>"${levelValue}"% de acerto: "${levelsTitle}"</h3>
-                  </div>
-                  <div class="texto-fim-de-jogo">
-                     <img
-                        src="${levelsImage}">
-                     <h5>${levelText}</h5>
-                  </div>
-               </div>
-         <div class="reiniciar">
-          <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
-      </div>
+         <div class="texto-fim-de-jogo">
+            <img
+               src="${levelImage}">
+            <h5>${levelText}</h5>
          </div>
+      </div>`
+    // footer tela 2
+    
+    openTelaNovo.innerHTML +=
+         `<div class="reiniciar">
+         <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
+        </div>
       <h6 onclick="iniciarTela()">Voltar pra home</h6>
-  </div>
-   </div>   
-</div>`
+      </div>   
+      </div>`
 }
 
 // CHAMAMENTO DE FUNÇÕES
