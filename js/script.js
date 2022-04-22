@@ -386,32 +386,39 @@ function tratarErro(error) {
    console.log("Mensagem de erro: " + error.response.data);
 }
 
+let arrayResposta = [];
+
 // ABRE A TELA DO QUIZ - TELA 2
 function openQuizz(dados) {
    listaQuizzes = dados.data
 
-
+   arrayResposta = [];
    let id = dados.data.id;
    let image = dados.data.image;
    let title = dados.data.title;
 
+
+   //array questions
    let questionsData = dados.data.questions;
-   console.log(questionsData.length)
-   let questionTitle = questionsData[0].title;
-   let questionColor = questionsData[0].color;
+   let questionTitle;
+   let questionColor;
 
-   let questionRespostaData = questionsData[0].answers;
-   let respostaTexto = questionRespostaData[0].text;
-   let respostaImage = questionRespostaData[0].image;
-   let respostaBoolean = questionRespostaData[0].isCorrectAnswer;
+   // array answers
+   let respostaTexto;
+   let respostaImage;
+   
 
+   let levels = dados.data.levels;
+   console.log(levels);
+   console.log(questionsData.length);
 
-   let questionLevels = dados.data.levels;
+   let respostaBoolean = dados.data.questions[0].answers[0].isCorrectAnswer;
 
-   let levelsTitle = questionLevels[0].title;
-   let levelsImage = questionLevels[0].image;
-   let levelText = questionLevels[0].text;
-   let levelValue = questionLevels[0].minValue;
+// array levels
+   let levelTitle = dados.data.levels[0].title;
+   let levelImage = dados.data.levels[0].image;
+   let levelText = dados.data.levels[0].text;
+   let levelValue = dados.data.levels[0].minValue;
 
 
    let openTela2 = document.querySelector("body")
@@ -427,32 +434,48 @@ function openQuizz(dados) {
 
    let openTelaNovo = document.querySelector(".container-tela2")
    for (let i = 0; i < questionsData.length; i++){
+      questionTitle = dados.data.questions[i].title;
+      questionColor = dados.data.questions[i].color;
+
+      respostaTexto = dados.data.questions[i].answers[i].text;
+
+      respostaImage = dados.data.questions[i].answers[i].image;
+
+      respostas = dados.data.questions[i].answers;
+      arrayResposta.push(respostas)
+   
+   
    openTelaNovo.innerHTML += `
          <div class="caixa-questao">
-            <div class="caixa-pergunta" style="background-color:${questionColor[i]}">
-              <h3>${questionTitle[i]}</h3>
+            <div class="caixa-pergunta" style="background-color:${questionColor}">
+              <h3>${questionTitle}</h3>
             </div>
             <div class="caixa-principal-respostas">
                <div class="caixa-resposta">
                   <img
-                      src="${respostaImage[i]}">
-                  <h4>${respostaTexto[i]}</h4>
+                      src="${respostaImage}">
+                  <h4>${respostaTexto}</h4>
                </div>
             </div>
          </div>
-            <div class="caixa-fim-de-jogo desativar ">
-                  <div class="caixa-nivel-acerto vermelho">
-                     <h3>"${levelValue[i]}"% de acerto: "${levelsTitle[i]}"</h3>
-                  </div>
-                  <div class="texto-fim-de-jogo">
-                     <img
-                        src="${levelsImage[i]}">
-                     <h5>${levelText[i]}</h5>
-                  </div>
-               </div>
-         `
-}
-   openTelaNovo.innerHTML += `<div class="reiniciar">
+            `
+   }
+   console.log(arrayResposta)
+
+   openTelaNovo.innerHTML += `
+   <div class="caixa-fim-de-jogo desativar ">
+   <div class="caixa-nivel-acerto vermelho">
+      <h3>"${levelValue}"% de acerto: "${levelTitle}"</h3>
+   </div>
+   <div class="texto-fim-de-jogo">
+      <img
+         src="${levelImage}">
+      <h5>${levelText}</h5>
+   </div>
+</div>
+
+
+   <div class="reiniciar">
    <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
   </div>
 <h6 onclick="iniciarTela()">Voltar pra home</h6>
