@@ -368,10 +368,10 @@ function coletarUrl3() {
 
 function verificarPerguntas() {
     verificacao = 0
-    verificarTitulo()
-    verificarCorreta()
-    verificarIncorreta()
-    // verificarUrl()
+    perguntasQuizz.map(verificarTitulo)
+    // verificarCorreta()
+    // verificarIncorreta()
+    // // verificarUrl()
     if (verificacao === 0) {
         adicionarPergunta()
     } else {
@@ -380,13 +380,9 @@ function verificarPerguntas() {
 
 }
 
-function verificarTitulo() {
-    if(m===0){
+function verificarTitulo(elemento) {
+    if(elemento.length < 20){
         verificacao = 1
-        m = 1
-    }else{
-        verificacao = 0
-    }
 }
 function verificarCorreta() {
     // verificacao = false
@@ -665,5 +661,4 @@ iniciarTela()
    // //renderiza novos quizzes conforme tiver no localStorage (a fazer)
    // meuQuizCheio.innerHTML = ""
    // for(let contador = 0; contador<4;contador++){
-   //    meuQuizCheio.innerHTML += '<div class="caixa-quiz"  onclick="buscarQuizz()"><img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div>'
-   // }
+    //   meuQuizCheio.innerHTML += '<div class="caixa-quiz"  onclick="buscarQuizz()"><img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div>'
