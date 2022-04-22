@@ -541,6 +541,9 @@ function openQuizz(dados) {
 
   console.log(arrayResposta)
 
+
+  // parte fixa da tela 2
+
    let openTela2 = document.querySelector("body")
    openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>
    <div class="tela2"  id="${id}">
@@ -552,10 +555,10 @@ function openQuizz(dados) {
    </div>
 <div class="container-tela2">`
 
+  //parte dinamica tela 2
+
    let openTelaNovo = document.querySelector(".container-tela2")
 
-   
-   
    openTelaNovo.innerHTML += `
          <div class="caixa-questao">
             <div class="caixa-pergunta" style="background-color:${perguntasColor}">
@@ -569,11 +572,11 @@ function openQuizz(dados) {
                </div>    
             </div>
          </div>`
-   
-   
 
-   openTelaNovo.innerHTML += `
-      <div class="caixa-fim-de-jogo desativar ">
+    //levels tela 2
+
+         openTelaNovo.innerHTML += `
+         <div class="caixa-fim-de-jogo desativar ">
          <div class="caixa-nivel-acerto vermelho">
             <h3>"${levelValue}"% de acerto: "${levelTitle}"</h3>
          </div>
@@ -582,12 +585,16 @@ function openQuizz(dados) {
                src="${levelImage}">
             <h5>${levelText}</h5>
          </div>
-      </div>
-      <div class="reiniciar">
+      </div>`
+    // footer tela 2
+    
+    openTelaNovo.innerHTML +=
+         `<div class="reiniciar">
          <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
-      </div>
-   </div>   
-</div>`
+        </div>
+      <h6 onclick="iniciarTela()">Voltar pra home</h6>
+      </div>   
+      </div>`
 }
 
 // CHAMAMENTO DE FUNÇÕES
