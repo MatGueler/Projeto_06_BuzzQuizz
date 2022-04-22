@@ -536,16 +536,11 @@ function reiniciarQuizz() {
    const topo = document.querySelector(".tela2");
    topo.scrollIntoView({ behavior: 'smooth' });
 }
-
 function buscarQuizz(id) {
    const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/" + id)
    promiseID.then(openQuizz);
    promiseID.catch(tratarErro);
    console.log(promiseID)
-}
-
-function processarQuizz(dados) {
- 
 }
 
 function tratarErro(error) {
@@ -554,100 +549,116 @@ function tratarErro(error) {
 }
 
 let arrayResposta = [];
+let arrayPerguntas = [];
+let arrayLevels = [];
 
 // ABRE A TELA DO QUIZ - TELA 2
 function openQuizz(dados) {
    listaQuizzes = dados.data
 
    arrayResposta = [];
-   let id = dados.data.id;
-   let image = dados.data.image;
-   let title = dados.data.title;
+   let id = listaQuizzes.id;
+   let image = listaQuizzes.image;
+   let title = listaQuizzes.title;
 
 
    //array questions
-   let questionsData = dados.data.questions;
-   let questionTitle;
-   let questionColor;
+   arrayPerguntas = [];
+
+   let perguntas = listaQuizzes.questions;
+   let perguntasTitle = perguntas[0].title;
+   let perguntasColor = perguntas[0].color;
 
    // array answers
-   let respostaTexto;
-   let respostaImage;
-   
+   arrayResposta = [];
 
-   let levels = dados.data.levels;
-   console.log(levels);
-   console.log(questionsData.length);
+   let respostas = perguntas[0].answers;
+   let respostaTexto = respostas[0].text;
+   let respostaImage = respostas[0].image
 
-   let respostaBoolean = dados.data.questions[0].answers[0].isCorrectAnswer;
+   let respostaBoolean = perguntas[0].answers[0].isCorrectAnswer;
 
-// array levels
-   let levelTitle = dados.data.levels[0].title;
-   let levelImage = dados.data.levels[0].image;
-   let levelText = dados.data.levels[0].text;
-   let levelValue = dados.data.levels[0].minValue;
+   // array levels
+   arrayLevels = [];
+   let levels = listaQuizzes.levels;
 
+   let levelTitle = levels[0].title;
+   let levelImage = levels[0].image;
+   let levelText = levels[0].text;
+   let levelValue = levels[0].minValue;
+
+   for (let i = 0; i < perguntas.length; i++) {
+       arrayResposta.push(respostas)
+       arrayPerguntas.push(perguntas)
+   }
+   console.log(arrayPerguntas)
+   console.log(arrayResposta)
+
+
+   // parte fixa da tela 2
 
    let openTela2 = document.querySelector("body")
    openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>
-   <div class="tela2"  id="${id}">
-   <div class="banner-quizz">
-      <img
+  <div class="tela2"  id="${id}">
+  <div class="banner-quizz">
+     <img
          src="${image}">
-      <div class="banner-gradiente"></div>
-      <h2>${title}</h2>
-   </div>
+     <div class="banner-gradiente"></div>
+     <h2>${title}</h2>
+  </div>
 <div class="container-tela2">`
 
+   //parte dinamica tela 2
+
    let openTelaNovo = document.querySelector(".container-tela2")
-   for (let i = 0; i < questionsData.length; i++){
-      questionTitle = dados.data.questions[i].title;
-      questionColor = dados.data.questions[i].color;
 
-      respostaTexto = dados.data.questions[i].answers[i].text;
+   for (let i = 0; i < arrayPerguntas.length; i++) {
+       let content = `
+   <div class="caixa-questao">
+      <div class="caixa-pergunta" style="background-color:${arrayPerguntas[0][i].color}">
+        <h3>${arrayPerguntas[0][i].title}</h3>
+      </div>`
+       
+       for (let j = 0; j < arrayResposta[i].length; j++) {
 
-      respostaImage = dados.data.questions[i].answers[i].image;
-
-      respostas = dados.data.questions[i].answers;
-      arrayResposta.push(respostas)
+           content +=
+               `<div class="caixa-principal-respostas">
+                       <div class="caixa-resposta">
+                           <img
+                               src="${arrayResposta[i][j].image}">
+                           <h4>${arrayResposta[i][j].text}</h4>
+                       </div>    
+                   </div>
+               `
+       }
    
-   
-   openTelaNovo.innerHTML += `
-         <div class="caixa-questao">
-            <div class="caixa-pergunta" style="background-color:${questionColor}">
-              <h3>${questionTitle}</h3>
-            </div>
-            <div class="caixa-principal-respostas">
-               <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-               </div>
-            </div>
-         </div>
-            `
+       content += "</div>"
+       j = 0;
+       openTelaNovo.innerHTML += content
+
    }
-   console.log(arrayResposta)
+   //levels tela 2
 
    openTelaNovo.innerHTML += `
-   <div class="caixa-fim-de-jogo desativar ">
-   <div class="caixa-nivel-acerto vermelho">
-      <h3>"${levelValue}"% de acerto: "${levelTitle}"</h3>
-   </div>
-   <div class="texto-fim-de-jogo">
-      <img
-         src="${levelImage}">
-      <h5>${levelText}</h5>
-   </div>
-</div>
+        <div class="caixa-fim-de-jogo desativar ">
+        <div class="caixa-nivel-acerto vermelho">
+           <h3>"${levelValue}"% de acerto: "${levelTitle}"</h3>
+        </div>
+        <div class="texto-fim-de-jogo">
+           <img
+              src="${levelImage}">
+           <h5>${levelText}</h5>
+        </div>
+     </div>`
+   // footer tela 2
 
-
-   <div class="reiniciar">
-   <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
-  </div>
-<h6 onclick="iniciarTela()">Voltar pra home</h6>
-</div>   
-</div>`
+   openTelaNovo.innerHTML +=
+       `<div class="reiniciar">
+        <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
+       </div>
+     <h6 onclick="iniciarTela()">Voltar pra home</h6>
+     </div>   
+     </div>`
 }
 
 
