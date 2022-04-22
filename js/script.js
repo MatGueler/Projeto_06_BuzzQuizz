@@ -649,12 +649,12 @@ function montarQuizzes(elemento) {
     let imagensQuizzes = elemento.image
     let tituloQuiz = elemento.title
     let quizzID = elemento.id
-    console.log(quizzID)
+
     let iniciar = document.querySelector(".quizes")
     iniciar.innerHTML +=
         `<div class="caixa-quiz">
       <img  src="${imagensQuizzes}">
-      <h2>${tituloQuiz}</h2>
+      <h2 id="${quizzID}" onclick="buscarQuizz(this.id)">${tituloQuiz}</h2>
       <div class="caixa-gradiente" id="${quizzID}" onclick="buscarQuizz(this.id)"></div>
    </div>`
 }
@@ -755,6 +755,22 @@ function openQuizz(dados) {
             </div>
          </div>`
 
+            content +=
+                `
+                        <div class="caixa-resposta">
+                            <img
+                                src="${arrayResposta[i][j].image}">
+                            <h4>${arrayResposta[i][j].text}</h4>
+                        </div>    
+                        
+                `
+        
+    
+        content += "</div> </div>"
+        j = 0;
+        openTelaNovo.innerHTML += content
+
+    
     //levels tela 2
 
     openTelaNovo.innerHTML += `
@@ -777,6 +793,8 @@ function openQuizz(dados) {
       <h6 onclick="iniciarTela()">Voltar pra home</h6>
       </div>   
       </div>`
+      const topo = document.querySelector(".tela2");
+      topo.scrollIntoView();
 }
 
 // CHAMAMENTO DE FUNÇÕES
