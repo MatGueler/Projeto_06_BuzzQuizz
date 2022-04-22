@@ -350,14 +350,14 @@ function verificarIncorreta() {
 
 
 function verificarUrl() {
-    for(let contador = 0;contador<(urlCorretas.length-1);contador++){
+    for (let contador = 0; contador < (urlCorretas.length - 1); contador++) {
         let urlResposta = !isUrl(urlCorretas[contador])
         let urlIncorretas1 = !isUrl(urlIncorreta1[contador])
         let urlIncorretas2 = !isUrl(urlIncorreta2[contador])
         let urlIncorretas3 = !isUrl(urlIncorreta3[contador])
 
 
-        if(urlResposta || urlIncorretas1 || urlIncorretas2 || urlIncorretas3){
+        if (urlResposta || urlIncorretas1 || urlIncorretas2 || urlIncorretas3) {
             verificacao = 1
         }
     }
@@ -467,7 +467,7 @@ function montarQuizzes(elemento) {
     let imagensQuizzes = elemento.image
     let tituloQuiz = elemento.title
     let quizzID = elemento.id
-    console.log(quizzID)
+
     let iniciar = document.querySelector(".quizes")
     iniciar.innerHTML +=
         `<div class="caixa-quiz">
@@ -502,50 +502,51 @@ let arrayLevels = [];
 
 // ABRE A TELA DO QUIZ - TELA 2
 function openQuizz(dados) {
-   listaQuizzes = dados.data
+    listaQuizzes = dados.data
 
-   arrayResposta = [];
-   let id = listaQuizzes.id;
-   let image = listaQuizzes.image;
-   let title = listaQuizzes.title;
-
-
-   //array questions
-   arrayPerguntas = [];
-
-   let perguntas = listaQuizzes.questions;
-   let perguntasTitle = perguntas[0].title;
-   let perguntasColor = perguntas[0].color;
-
-   // array answers
-   arrayResposta = [];
-
-   let respostas = perguntas[0].answers;
-   let respostaTexto = respostas[0].text;
-   let respostaImage = respostas[0].image
-   
-   let respostaBoolean = perguntas[0].answers[0].isCorrectAnswer;
-
-// array levels
-   arrayLevels = [];
-   let levels = listaQuizzes.levels;
-
-   let levelTitle = levels[0].title;
-   let levelImage = levels[0].image;
-   let levelText = levels[0].text;
-   let levelValue = levels[0].minValue;
-
-   for (let i = 0; i < perguntas.length; i++){
-      arrayResposta.push(respostas)
-  }
-
-  console.log(arrayResposta)
+    arrayResposta = [];
+    let id = listaQuizzes.id;
+    let image = listaQuizzes.image;
+    let title = listaQuizzes.title;
 
 
-  // parte fixa da tela 2
+    //array questions
+    arrayPerguntas = [];
 
-   let openTela2 = document.querySelector("body")
-   openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>
+    let perguntas = listaQuizzes.questions;
+    let perguntasTitle = perguntas[0].title;
+    let perguntasColor = perguntas[0].color;
+
+    // array answers
+    arrayResposta = [];
+
+    let respostas = perguntas[0].answers;
+    let respostaTexto = respostas[0].text;
+    let respostaImage = respostas[0].image
+
+    let respostaBoolean = perguntas[0].answers[0].isCorrectAnswer;
+
+    // array levels
+    arrayLevels = [];
+    let levels = listaQuizzes.levels;
+
+    let levelTitle = levels[0].title;
+    let levelImage = levels[0].image;
+    let levelText = levels[0].text;
+    let levelValue = levels[0].minValue;
+
+    for (let i = 0; i < perguntas.length; i++) {
+        arrayResposta.push(respostas)
+        arrayPerguntas.push(perguntas)
+    }
+    console.log(arrayPerguntas)
+    console.log(arrayResposta)
+
+
+    // parte fixa da tela 2
+
+    let openTela2 = document.querySelector("body")
+    openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>
    <div class="tela2"  id="${id}">
    <div class="banner-quizz">
       <img
@@ -555,27 +556,38 @@ function openQuizz(dados) {
    </div>
 <div class="container-tela2">`
 
-  //parte dinamica tela 2
+    //parte dinamica tela 2
 
-   let openTelaNovo = document.querySelector(".container-tela2")
+    let openTelaNovo = document.querySelector(".container-tela2")
 
-   openTelaNovo.innerHTML += `
-         <div class="caixa-questao">
-            <div class="caixa-pergunta" style="background-color:${perguntasColor}">
-              <h3>${perguntasTitle}</h3>
-            </div>
-            <div class="caixa-principal-respostas">
-               <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-               </div>    
-            </div>
-         </div>`
+    for (let i = 0; i < arrayPerguntas.length; i++) {
+        let content = `
+    <div class="caixa-questao">
+       <div class="caixa-pergunta" style="background-color:${arrayPerguntas[0][i].color}">
+         <h3>${arrayPerguntas[0][i].title}</h3>
+       </div>`
+        
+        for (let j = 0; j < arrayResposta[i].length; j++) {
 
+            content +=
+                `<div class="caixa-principal-respostas">
+                        <div class="caixa-resposta">
+                            <img
+                                src="${arrayResposta[i][j].image}">
+                            <h4>${arrayResposta[i][j].text}</h4>
+                        </div>    
+                    </div>
+                `
+        }
+    
+        content += "</div>"
+        j = 0;
+        openTelaNovo.innerHTML += content
+
+    }
     //levels tela 2
 
-         openTelaNovo.innerHTML += `
+    openTelaNovo.innerHTML += `
          <div class="caixa-fim-de-jogo desativar ">
          <div class="caixa-nivel-acerto vermelho">
             <h3>"${levelValue}"% de acerto: "${levelTitle}"</h3>
@@ -587,9 +599,9 @@ function openQuizz(dados) {
          </div>
       </div>`
     // footer tela 2
-    
+
     openTelaNovo.innerHTML +=
-         `<div class="reiniciar">
+        `<div class="reiniciar">
          <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
         </div>
       <h6 onclick="iniciarTela()">Voltar pra home</h6>
