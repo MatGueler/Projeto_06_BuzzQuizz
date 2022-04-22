@@ -514,15 +514,12 @@ function openQuizz(dados) {
     arrayPerguntas = [];
 
     let perguntas = listaQuizzes.questions;
-    let perguntasTitle = perguntas[0].title;
-    let perguntasColor = perguntas[0].color;
+
 
     // array answers
     arrayResposta = [];
 
-    let respostas = perguntas[0].answers;
-    let respostaTexto = respostas[0].text;
-    let respostaImage = respostas[0].image
+    
 
     let respostaBoolean = perguntas[0].answers[0].isCorrectAnswer;
 
@@ -536,6 +533,7 @@ function openQuizz(dados) {
     let levelValue = levels[0].minValue;
 
     for (let i = 0; i < perguntas.length; i++) {
+        let respostas = perguntas[i].answers;
         arrayResposta.push(respostas)
         arrayPerguntas.push(perguntas)
     }
