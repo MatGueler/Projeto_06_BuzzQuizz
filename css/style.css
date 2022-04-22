@@ -294,7 +294,7 @@ main h3 {
     margin-top: 8px;
     margin-bottom: 8px;
     text-overflow: ellipsis;
-    overflow: auto;
+    overflow: hidden;
 
 }
 

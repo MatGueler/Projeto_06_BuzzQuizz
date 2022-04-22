@@ -472,7 +472,7 @@ function montarQuizzes(elemento) {
     iniciar.innerHTML +=
         `<div class="caixa-quiz">
       <img  src="${imagensQuizzes}">
-      <h2>${tituloQuiz}</h2>
+      <h2 id="${quizzID}" onclick="buscarQuizz(this.id)">${tituloQuiz}</h2>
       <div class="caixa-gradiente" id="${quizzID}" onclick="buscarQuizz(this.id)"></div>
    </div>`
 }
