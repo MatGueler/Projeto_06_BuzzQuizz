@@ -387,39 +387,49 @@ function tratarErro(error) {
 }
 
 let arrayResposta = [];
+let arrayPerguntas = [];
+let arrayLevels = [];
 
 // ABRE A TELA DO QUIZ - TELA 2
 function openQuizz(dados) {
    listaQuizzes = dados.data
 
    arrayResposta = [];
-   let id = dados.data.id;
-   let image = dados.data.image;
-   let title = dados.data.title;
+   let id = listaQuizzes.id;
+   let image = listaQuizzes.image;
+   let title = listaQuizzes.title;
 
 
    //array questions
-   let questionsData = dados.data.questions;
-   let questionTitle;
-   let questionColor;
+   arrayPerguntas = [];
+
+   let perguntas = listaQuizzes.questions;
+
+   let perguntasTitle = perguntas[0].title;
+   let perguntasColor = perguntas[0].color;
 
    // array answers
-   let respostaTexto;
-   let respostaImage;
+   arrayResposta = [];
+
+   let respostas = perguntas[0].answers;
+   let respostaTexto = respostas[0].text;
+   let respostaImage = respostas[0].image
    
-
-   let levels = dados.data.levels;
-   console.log(levels);
-   console.log(questionsData.length);
-
-   let respostaBoolean = dados.data.questions[0].answers[0].isCorrectAnswer;
+   let respostaBoolean = perguntas[0].answers[0].isCorrectAnswer;
 
 // array levels
-   let levelTitle = dados.data.levels[0].title;
-   let levelImage = dados.data.levels[0].image;
-   let levelText = dados.data.levels[0].text;
-   let levelValue = dados.data.levels[0].minValue;
+   let levels = listaQuizzes.levels;
 
+   let levelTitle = levels[0].title;
+   let levelImage = levels[0].image;
+   let levelText = levels[0].text;
+   let levelValue = levels[0].minValue;
+
+   for (let i = 0; i < perguntas.length; i++){
+      arrayResposta.push(respostas)
+  }
+
+  console.log(arrayResposta)
 
    let openTela2 = document.querySelector("body")
    openTela2.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>
@@ -433,22 +443,13 @@ function openQuizz(dados) {
 <div class="container-tela2">`
 
    let openTelaNovo = document.querySelector(".container-tela2")
-   for (let i = 0; i < questionsData.length; i++){
-      questionTitle = dados.data.questions[i].title;
-      questionColor = dados.data.questions[i].color;
 
-      respostaTexto = dados.data.questions[i].answers[i].text;
-
-      respostaImage = dados.data.questions[i].answers[i].image;
-
-      respostas = dados.data.questions[i].answers;
-      arrayResposta.push(respostas)
    
    
    openTelaNovo.innerHTML += `
          <div class="caixa-questao">
-            <div class="caixa-pergunta" style="background-color:${questionColor}">
-              <h3>${questionTitle}</h3>
+            <div class="caixa-pergunta" style="background-color:${perguntasColor}">
+              <h3>${perguntasTitle}</h3>
             </div>
             <div class="caixa-principal-respostas">
                <div class="caixa-resposta">
@@ -459,8 +460,7 @@ function openQuizz(dados) {
             </div>
          </div>
             `
-   }
-   console.log(arrayResposta)
+   
 
    openTelaNovo.innerHTML += `
    <div class="caixa-fim-de-jogo desativar ">
