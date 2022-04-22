@@ -565,22 +565,23 @@ function openQuizz(dados) {
     <div class="caixa-questao">
        <div class="caixa-pergunta" style="background-color:${arrayPerguntas[0][i].color}">
          <h3>${arrayPerguntas[0][i].title}</h3>
-       </div>`
+       </div>
+       <div class="caixa-principal-respostas">`
         
         for (let j = 0; j < arrayResposta[i].length; j++) {
 
             content +=
-                `<div class="caixa-principal-respostas">
+                `
                         <div class="caixa-resposta">
                             <img
                                 src="${arrayResposta[i][j].image}">
                             <h4>${arrayResposta[i][j].text}</h4>
                         </div>    
-                    </div>
+                        
                 `
         }
     
-        content += "</div>"
+        content += "</div> </div>"
         j = 0;
         openTelaNovo.innerHTML += content
 
