@@ -606,6 +606,8 @@ function openQuizz(dados) {
       <h6 onclick="iniciarTela()">Voltar pra home</h6>
       </div>   
       </div>`
+      const topo = document.querySelector(".tela2");
+      topo.scrollIntoView();
 }
 
 // CHAMAMENTO DE FUNÇÕES
