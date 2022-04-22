@@ -696,15 +696,12 @@ function openQuizz(dados) {
     arrayPerguntas = [];
 
     let perguntas = listaQuizzes.questions;
-    let perguntasTitle = perguntas[0].title;
-    let perguntasColor = perguntas[0].color;
+
 
     // array answers
     arrayResposta = [];
 
-    let respostas = perguntas[0].answers;
-    let respostaTexto = respostas[0].text;
-    let respostaImage = respostas[0].image
+    
 
     let respostaBoolean = perguntas[0].answers[0].isCorrectAnswer;
 
@@ -718,9 +715,11 @@ function openQuizz(dados) {
     let levelValue = levels[0].minValue;
 
     for (let i = 0; i < perguntas.length; i++) {
+        let respostas = perguntas[i].answers;
         arrayResposta.push(respostas)
+        arrayPerguntas.push(perguntas)
     }
-
+    console.log(arrayPerguntas)
     console.log(arrayResposta)
 
 
@@ -741,19 +740,15 @@ function openQuizz(dados) {
 
     let openTelaNovo = document.querySelector(".container-tela2")
 
-    openTelaNovo.innerHTML += `
-         <div class="caixa-questao">
-            <div class="caixa-pergunta" style="background-color:${perguntasColor}">
-              <h3>${perguntasTitle}</h3>
-            </div>
-            <div class="caixa-principal-respostas">
-               <div class="caixa-resposta">
-                  <img
-                      src="${respostaImage}">
-                  <h4>${respostaTexto}</h4>
-               </div>    
-            </div>
-         </div>`
+    for (let i = 0; i < arrayPerguntas.length; i++) {
+        let content = `
+    <div class="caixa-questao">
+       <div class="caixa-pergunta" style="background-color:${arrayPerguntas[0][i].color}">
+         <h3>${arrayPerguntas[0][i].title}</h3>
+       </div>
+       <div class="caixa-principal-respostas">`
+        
+        for (let j = 0; j < arrayResposta[i].length; j++) {
 
             content +=
                 `
@@ -764,13 +759,13 @@ function openQuizz(dados) {
                         </div>    
                         
                 `
-        
+        }
     
         content += "</div> </div>"
         j = 0;
         openTelaNovo.innerHTML += content
 
-    
+    }
     //levels tela 2
 
     openTelaNovo.innerHTML += `
