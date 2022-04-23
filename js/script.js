@@ -938,6 +938,12 @@ let arrayResposta = [];
 let arrayPerguntas = [];
 let arrayLevels = [];
 
+//shuffle array
+function comparador() { 
+	return Math.random() - 0.5; 
+}
+
+
 // ABRE A TELA DO QUIZ - TELA 2
 function openQuizz(dados) {
     listaQuizzes = dados.data
@@ -977,7 +983,7 @@ function openQuizz(dados) {
     }
     console.log(arrayPerguntas)
     console.log(arrayResposta)
-
+    
 
     // parte fixa da tela 2
 
@@ -1003,9 +1009,11 @@ function openQuizz(dados) {
          <h3>${arrayPerguntas[0][i].title}</h3>
        </div>
        <div class="caixa-principal-respostas">`
+       
+       arrayResposta[i].sort(comparador)
 
         for (let j = 0; j < arrayResposta[i].length; j++) {
-
+            
             content +=
                 `
                         <div class="caixa-resposta">
