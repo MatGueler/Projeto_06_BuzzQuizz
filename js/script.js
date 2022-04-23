@@ -956,10 +956,10 @@ function openQuizz(dados) {
             
             content +=
                 `
-                        <div class="caixa-resposta">
+                        <div class="caixa-resposta" onclick="selecionar(this)">
                             <img
                                 src="${arrayResposta[i][j].image}">
-                            <h4>${arrayResposta[i][j].text}</h4>
+                            <h4 class="${arrayResposta[i][j].isCorrectAnswer}">${arrayResposta[i][j].text}</h4>
                         </div>    
                         
                 `
@@ -996,6 +996,55 @@ function openQuizz(dados) {
     topo.scrollIntoView();
 }
 
+let acertos = 0;
+
+
+function selecionar (elemento) {
+    caixaPai = elemento.parentElement
+    
+    for (let i = 0; i < caixaPai.children.length; i++){
+        filho = caixaPai.children[i];
+        filho.classList.add("desativado");
+        desativarResposta (filho);
+        filho.classList.add("branco");
+        corTexto(filho);
+    }
+    elemento.classList.remove("branco");
+    checkAcertos(elemento)
+    console.log(acertos)
+
+    proximo = caixaPai.nextElementSibling
+    proximo.scrollIntoView(true)
+}
+
+function desativarResposta (elemento) {
+    if (elemento.classList.contains("desativado")){
+        elemento.removeAttribute("onclick");
+    }
+    return
+}
+
+function corTexto (elemento) {
+    texto = elemento.querySelector("h4");
+    if (texto.classList.contains("false")) {
+        texto.classList.add("vermelho")
+    }
+    else if (texto.classList.contains("true")) {
+        texto.classList.add("verde");
+    }
+}
+
+function checkAcertos (elemento) {
+    texto = elemento.querySelector("h4");
+    if (texto.classList.contains("true")) {
+        acertos++;
+    }
+}
+
+
+function scrollProxima (elemento) {
+    pai = elemento.parentElement
+}
 // CHAMAMENTO DE FUNÇÕES
 iniciarTela()
 //ignorar, mas anotaçao: na tela 2, as respostas sao organizadas aleatoriamente

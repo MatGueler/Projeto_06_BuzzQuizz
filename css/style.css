@@ -252,17 +252,6 @@ main h3 {
 
 }
 
-.azul {
-    background-color: #434CA0;
-}
-
-.roxo {
-    background-color: #A0438D;
-}
-
-.vermelho {
-    background-color: #EC362D;
-}
 
 .caixa-pergunta>h3 {
     font-family: 'Roboto';
@@ -283,6 +272,17 @@ main h3 {
     gap: 24px;
 }
 
+.branco {
+    opacity: 0.4;
+}
+
+.vermelho {
+    color: #FF4B4B !important;
+
+}
+.verde {
+    color: #009C22 !important;
+}
 .caixa-resposta>img {
     width: 330px;
     height: 175px;
@@ -568,6 +568,8 @@ input::placeholder {
     .caixa-resposta {
         width: 48%;
     }
+
+   
 
     .caixa-resposta>img {
         width: 100%;
