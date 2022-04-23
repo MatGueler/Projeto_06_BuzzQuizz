@@ -727,7 +727,7 @@ function construirObjeto() {
 
         let respostasErradas2 = {
             text: incorretas2[contador],
-            image: urlIncorreta3[contador],
+            image: urlIncorreta2[contador],
             isCorrectAnswer: false
         }
 
