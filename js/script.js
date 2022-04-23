@@ -707,7 +707,8 @@ function niveisMinimos() {
 
 function construirObjeto() {
 
-    let questoes =  []
+    let questoes = []
+    let niveis = []
 
     for (let contador = 0; contador < (perguntasQuizz.length - 1); contador++) {
         let respostasCertas = {
@@ -749,10 +750,22 @@ function construirObjeto() {
 
         questoes.push(questao)
     }
+
+    for (let contador = 0; contador < (niveisQuizz.length - 1); contador++) {
+        let nivel = {
+            title: niveisQuizz[contador],
+            image: urlNiveis[contador],
+            text: descricoesNiveis[contador],
+            minValue: Number(acertosPorcento[contador])
+        }
+
+        niveis.push(nivel)
+    }
     objeto = {
-        title:informacoesDoQuizz.title,
-        image:informacoesDoQuizz.image,
-        questions:questoes
+        title: informacoesDoQuizz.title,
+        image: informacoesDoQuizz.image,
+        questions: questoes,
+        level: niveis
     }
     console.log(objeto)
 
