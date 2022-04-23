@@ -864,7 +864,9 @@ function reiniciarQuizz() {
     idAtual = document.querySelector(".tela2")
     idAtual = idAtual.id
     console.log(idAtual)
-    setTimeout(function(){buscarQuizz(idAtual)}, 700) 
+    setTimeout(function(){buscarQuizz(idAtual)}, 700)
+    jogadas = 0;
+    acertos = 0; 
 }
 function buscarQuizz(id) {
     const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/" + id)
@@ -954,22 +956,7 @@ function openQuizz(dados) {
         openTelaNovo.innerHTML += content
 
     }
-    //levels tela 2
-    if (jogadas == arrayPerguntas.length){
-        let openTelaNovo = document.querySelector(".container-tela2")
 
-    openTelaNovo.innerHTML += `
-         <div class="caixa-fim-de-jogo">
-         <div class="caixa-nivel-acerto" style="background-color:${arrayPerguntas[0][0].color}">
-            <h3>"${levelValue}"% de acerto: "${levelTitle}"</h3>
-         </div>
-         <div class="texto-fim-de-jogo">
-            <img
-               src="${levelImage}">
-            <h5>${levelText}</h5>
-         </div>
-      </div>`
-    }
  
 }
 
@@ -996,25 +983,21 @@ function selecionar (elemento) {
 function mostrarFim () {
     arrayLevels = [];
     let levels = listaQuizzes.levels;
-    console.log(levels)
-
-    
-    let levelTitle = levels[0].title;
-    let levelImage = levels[0].image;
-    let levelText = levels[0].text;
+    arrayLevels.push(levels)
+    let levelTitle;
+    let levelImage;
+    let levelText;
 
 
-        for (let i = 0; i < levels.length; i++){
-            let levelValue = levels[i].minValue;
-            arrayLevels.push(levelValue)
-        }
     console.log(arrayLevels)    
-
 
     let pontos;
     pontos = acertos / arrayPerguntas.length
     pontos = pontos * 100
     x = Math.round(pontos)
+
+
+ console.log(arrayLevels)
 
 if (jogadas == arrayPerguntas.length){
     let openTelaNovo = document.querySelector(".container-tela2")
