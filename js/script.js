@@ -682,7 +682,7 @@ function verificarNiveisFinalizar() {
     }
 }
 
-
+// AVALIA A QUANTIDADE MINIMA DE 2 NIVEIS PARA CONSTRUIR O QUIZZ
 function niveisMinimos() {
     if ((niveisQuizz.length - 1) >= 2) {
         let nenhumAcerto = 0;
@@ -705,6 +705,7 @@ function niveisMinimos() {
     }
 }
 
+// CONSTROI O OBJETO COM AS CONFIGURAÇÕES NECESSÁRIAS
 function construirObjeto() {
 
     let questoes = []
@@ -769,80 +770,19 @@ function construirObjeto() {
     }
     console.log(objeto)
 
-    // let tituloQuiz = document.querySelector(`.tituloQuizz`).value
-    // let URLQuizz = document.querySelector(`.URLQuizz`).value
-    // let quantidadePerguntas = document.querySelector(`.quantidadePerguntas`).value
-    // let quantidadeNiveis = document.querySelector(`.quantidadeNiveis`).value
-
-    // {
-    //     title: "Título do quizz",
-    //     image: "https://http.cat/411.jpg",
-    //     questions: [
-    //         {
-    //             title: "Título da pergunta 1",
-    //             color: "#123456",
-    //             answers: [
-    //                 {
-    //                     text: "Texto da resposta 1",
-    //                     image: "https://http.cat/411.jpg",
-    //                     isCorrectAnswer: true
-    //                 },
-    //                 {
-    //                     text: "Texto da resposta 2",
-    //                     image: "https://http.cat/412.jpg",
-    //                     isCorrectAnswer: false
-    //                 }
-    //             ]
-    //         },
-    //         {
-    //             title: "Título da pergunta 2",
-    //             color: "#123456",
-    //             answers: [
-    //                 {
-    //                     text: "Texto da resposta 1",
-    //                     image: "https://http.cat/411.jpg",
-    //                     isCorrectAnswer: true
-    //                 },
-    //                 {
-    //                     text: "Texto da resposta 2",
-    //                     image: "https://http.cat/412.jpg",
-    //                     isCorrectAnswer: false
-    //                 }
-    //             ]
-    //         },
-    //         {
-    //             title: "Título da pergunta 3",
-    //             color: "#123456",
-    //             answers: [
-    //                 {
-    //                     text: "Texto da resposta 1",
-    //                     image: "https://http.cat/411.jpg",
-    //                     isCorrectAnswer: true
-    //                 },
-    //                 {
-    //                     text: "Texto da resposta 2",
-    //                     image: "https://http.cat/412.jpg",
-    //                     isCorrectAnswer: false
-    //                 }
-    //             ]
-    //         }
-    //     ],
-    //     levels: [
-    //         {
-    //             title: "Título do nível 1",
-    //             image: "https://http.cat/411.jpg",
-    //             text: "Descrição do nível 1",
-    //             minValue: 0
-    //         },
-    //         {
-    //             title: "Título do nível 2",
-    //             image: "https://http.cat/412.jpg",
-    //             text: "Descrição do nível 2",
-    //             minValue: 50
-    //         }
-    //     ]
-    // }
 }
+
+// // ENVIA O OBJETO PARA A API
+// function postarObjeto(){
+//     const requisicao = axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes',objeto);
+
+//     requisicao.then(salvou)
+//     // requisicao.catch()
+// }
+
+// function salvou(){
+//     console.log("Salvou")
+// }
 
 
 
