@@ -383,7 +383,9 @@ function verificarPerguntasAdd() {
     verificarUrl()
     console.log(verificacao)
     if (verificacao === 0) {
-        adicionarPergunta()
+        if ((perguntasQuizz.length - 1) < Number(informacoesDoQuizz.qtsQuestions)) {
+            adicionarPergunta()
+        }
     } else {
         alert("DIGITE OS CAMPOS CORRETAMENTE")
     }
@@ -411,6 +413,7 @@ function verificarPerguntasFinalizar() {
     verificarCorreta()
     verificarIncorreta()
     verificarUrl()
+    perguntasMinimas()
     console.log(verificacao)
     if (verificacao === 0) {
         console.log(perguntasQuizz)
@@ -486,6 +489,18 @@ function verificarUrl() {
         }
     }
 }
+
+
+function perguntasMinimas() {
+    if ((perguntasQuizz.length - 1) !== Number(informacoesDoQuizz.qtsQuestions)) {
+        verificacao += 1;
+    }
+}
+
+
+
+
+
 
 
 
@@ -618,7 +633,9 @@ function verificarNiveisAdicionar() {
 
 
     if (verificacao === 0) {
-        adicionarNivel()
+        if ((niveisQuizz.length - 1) < Number(informacoesDoQuizz.qtdNiveis)) {
+            adicionarNivel()
+        }
     }
     else {
         alert("DIGITE OS CAMPOS CORRETAMENTE")
@@ -776,7 +793,7 @@ function construirObjeto() {
 
 // ENVIA O OBJETO PARA A API
 function postarObjeto() {
-    
+
     const requisicao = axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes', objeto);
 
     requisicao.then(salvou)
