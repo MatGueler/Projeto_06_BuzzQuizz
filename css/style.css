@@ -172,6 +172,8 @@ main h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
+    /* meu commit n tava indo wtf */
 
 }
 
@@ -205,6 +207,9 @@ main h3 {
     color: #FFFFFF;
 
     opacity: 1;
+
+    text-align: center;
+    word-break: break-word;
 }
 
 .banner-quizz>img {
@@ -293,8 +298,7 @@ main h3 {
     width: 330px;
     margin-top: 8px;
     margin-bottom: 8px;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    word-break: break-word;
 
 }
 
