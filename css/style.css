@@ -207,6 +207,7 @@ main h3 {
     opacity: 1;
 
     text-align: center;
+    word-break: break-word;
 }
 
 .banner-quizz>img {
@@ -295,8 +296,7 @@ main h3 {
     width: 330px;
     margin-top: 8px;
     margin-bottom: 8px;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    word-break: break-word;
 
 }
 
