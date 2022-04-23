@@ -4,6 +4,8 @@ let meusQuizzes = [];
 let listaQuizzes;
 let contadorPerguntas;
 let contadorNiveis;
+let informacoesDoQuizz;
+let objeto;
 
 // LISTAS PERGUNTAS
 let perguntasQuizz = [""];
@@ -114,20 +116,19 @@ function informacoesIniciais() {
     let condicaoURL = (!isUrl(URLQuizz))
     let condicaoQtdPerguntas = (Number(quantidadePerguntas) < 3)
     let condicaoQtdNiveis = (Number(quantidadeNiveis) < 2)
-    const informacoesQuizz = {
+    informacoesDoQuizz = {
         title: tituloQuiz,
         image: URLQuizz,
         qtsQuestions: quantidadePerguntas,
         qtdNiveis: quantidadeNiveis
     }
-    // if(condicaoTitulo || condicaoURL || condicaoQtdPerguntas || condicaoQtdNiveis){
-    //     alert("DIGITE OS CAMPOS CORRETAMENTE")
-    // }
-    // else{
-    //     console.log(informacoesQuizz)
-    //     criarPerguntas()
-    // }
-    criarPerguntas()
+    if (condicaoTitulo || condicaoURL || condicaoQtdPerguntas || condicaoQtdNiveis) {
+        alert("DIGITE OS CAMPOS CORRETAMENTE")
+    }
+    else {
+        console.log(informacoesDoQuizz.title)
+        criarPerguntas()
+    }
 }
 // FUNÇÃO QUE VERIFICA SE É URL
 function isUrl(s) {
@@ -148,7 +149,7 @@ function criarPerguntas() {
    <div class="perguntas"></div>
    <div class="informacoes vazio">
    </div>
-   <div class="prosseguir"><button onclick = "criarNiveis()">Prosseguir para criar níveis</button></div>
+   <div class="prosseguir"><button onclick = "coletarPerguntasFinalizar()">Prosseguir para criar níveis</button></div>
    </main>`
     adicionarPergunta()
 }
@@ -180,11 +181,63 @@ function adicionarPergunta() {
 function adicionarRodape() {
     let informacoesVazias = document.querySelector(".tela3 .informacoes.vazio")
     let infovazia = `
-    <h3>Perguntas ${contadorPerguntas + 1}</h3><ion-icon name="create-outline" onclick  = "coletarPerguntas()"></ion-icon>
+    <h3>Perguntas ${contadorPerguntas + 1}</h3><ion-icon name="create-outline" onclick  = "coletarPerguntasAdicionar()"></ion-icon>
     `
     informacoesVazias.innerHTML = infovazia
 
 }
+
+// function testarObjetos() {
+
+//     let questoes =  []
+
+//     for (let contador = 0; contador < (perguntasQuizz.length - 1); contador++) {
+//         let respostasCertas = {
+//             text: respostasCorretas[contador],
+//             image: urlCorretas[contador],
+//             isCorrectAnswer: true
+//         }
+
+//         let respostasErradas1 = {
+//             text: incorretas1[contador],
+//             image: urlIncorreta1[contador],
+//             isCorrectAnswer: false
+//         }
+
+//         let respostasErradas2 = {
+//             text: incorretas2[contador],
+//             image: urlIncorreta3[contador],
+//             isCorrectAnswer: false
+//         }
+
+//         let respostasErradas3 = {
+//             text: incorretas3[contador],
+//             image: urlIncorreta3[contador],
+//             isCorrectAnswer: false
+//         }
+
+//         let respostas = [
+//             respostasCertas,
+//             respostasErradas1,
+//             respostasErradas2,
+//             respostasErradas3
+//         ]
+
+//         let questao = {
+//             title: perguntasQuizz[contador],
+//             color: corQuizz[contador],
+//             answers: respostas
+//         }
+
+//         questoes.push(questao)
+//     }
+//     objeto = {
+//         title:informacoesDoQuizz.title,
+//         image:informacoesDoQuizz.image,
+//         questions:questoes
+//     }
+//     console.log(objeto)
+// }
 
 // COLETA TITULO DA PERGUNTA
 function coletarPerguntas() {
@@ -195,8 +248,10 @@ function coletarPerguntas() {
     }
     perguntasQuizz.push("")
     console.log(perguntasQuizz)
-    coletarCor()
+
 }
+
+
 // COLETA COR DA PERGUNTA
 function coletarCor() {
     corQuizz = []
@@ -208,6 +263,8 @@ function coletarCor() {
     console.log(corQuizz)
     coletarCorreta()
 }
+
+
 // COLETA RESPOSTA CORRETA
 function coletarCorreta() {
     respostasCorretas = []
@@ -219,6 +276,8 @@ function coletarCorreta() {
     console.log(respostasCorretas)
     coletarUrlCorreta()
 }
+
+
 // COLETA A URL DA REPOSTA CORRETA
 function coletarUrlCorreta() {
     urlCorretas = []
@@ -237,6 +296,8 @@ function coletarIncorretas() {
     coletar3()
     coletarUrlIncorretas()
 }
+
+
 function coletar1() {
     incorretas1 = []
     for (let contador = 1; contador <= contadorPerguntas; contador++) {
@@ -269,7 +330,6 @@ function coletarUrlIncorretas() {
     coletarUrl1()
     coletarUrl2()
     coletarUrl3()
-    verificarPerguntas()
 }
 function coletarUrl1() {
     urlIncorreta1 = []
@@ -298,7 +358,22 @@ function coletarUrl3() {
     urlIncorreta3.push("")
     console.log(urlIncorreta3)
 }
-function verificarPerguntas() {
+
+// COLETA PERGUNTAS PARA SABER SE PODE ADICIONAR OUTRA
+function coletarPerguntasAdicionar() {
+    verificacao = 0
+
+    coletarPerguntas()
+    coletarCor()
+    coletarCorreta()
+    coletarUrlCorreta()
+    coletarIncorretas()
+    coletarUrlIncorretas()
+    verificarPerguntasAdd()
+
+}
+
+function verificarPerguntasAdd() {
     verificacao = 0
     verificarTitulo()
     verificarCor()
@@ -308,6 +383,38 @@ function verificarPerguntas() {
     console.log(verificacao)
     if (verificacao === 0) {
         adicionarPergunta()
+    } else {
+        alert("DIGITE OS CAMPOS CORRETAMENTE")
+    }
+}
+
+
+// COLETA PERGUNTAS PARA SABER SE PODE PASSAR PARA A PRÓXIMA ETAPA DE CRIAÇÃO
+function coletarPerguntasFinalizar() {
+    verificacao = 0
+
+    coletarPerguntas()
+    coletarCor()
+    coletarCorreta()
+    coletarUrlCorreta()
+    coletarIncorretas()
+    coletarUrlIncorretas()
+    verificarPerguntasFinalizar()
+
+}
+
+function verificarPerguntasFinalizar() {
+    verificacao = 0
+    verificarTitulo()
+    verificarCor()
+    verificarCorreta()
+    verificarIncorreta()
+    verificarUrl()
+    console.log(verificacao)
+    if (verificacao === 0) {
+        console.log(perguntasQuizz)
+        criarNiveis()
+        // testarObjetos()
     } else {
         alert("DIGITE OS CAMPOS CORRETAMENTE")
     }
@@ -441,7 +548,7 @@ function adicionarRodapeNivel() {
     informacoesVazias.innerHTML = infovazia
 }
 
-function coletarAdd(){
+function coletarAdd() {
     coletarNiveis()
     coletarPorcentagem()
     coletarUrlNivel()
@@ -449,7 +556,7 @@ function coletarAdd(){
     verificarNiveisAdicionar()
 }
 
-function coletarFinalizar(){
+function coletarFinalizar() {
     coletarNiveis()
     coletarPorcentagem()
     coletarUrlNivel()
@@ -585,17 +692,153 @@ function niveisMinimos() {
                 nenhumAcerto += 1;
             }
         }
-        if(nenhumAcerto === 0){  
+        if (nenhumAcerto === 0) {
             alert("DIGITE OS CAMPOS CORRETAMENTE")
         }
-        else{
-            finalizarCriacao()
+        else {
+            construirObjeto()
+            // finalizarCriacao()
         }
     }
-    else{
+    else {
         alert("DIGITE OS CAMPOS CORRETAMENTE")
     }
 }
+
+function construirObjeto() {
+
+    let questoes =  []
+
+    for (let contador = 0; contador < (perguntasQuizz.length - 1); contador++) {
+        let respostasCertas = {
+            text: respostasCorretas[contador],
+            image: urlCorretas[contador],
+            isCorrectAnswer: true
+        }
+
+        let respostasErradas1 = {
+            text: incorretas1[contador],
+            image: urlIncorreta1[contador],
+            isCorrectAnswer: false
+        }
+
+        let respostasErradas2 = {
+            text: incorretas2[contador],
+            image: urlIncorreta3[contador],
+            isCorrectAnswer: false
+        }
+
+        let respostasErradas3 = {
+            text: incorretas3[contador],
+            image: urlIncorreta3[contador],
+            isCorrectAnswer: false
+        }
+
+        let respostas = [
+            respostasCertas,
+            respostasErradas1,
+            respostasErradas2,
+            respostasErradas3
+        ]
+
+        let questao = {
+            title: perguntasQuizz[contador],
+            color: corQuizz[contador],
+            answers: respostas
+        }
+
+        questoes.push(questao)
+    }
+    objeto = {
+        title:informacoesDoQuizz.title,
+        image:informacoesDoQuizz.image,
+        questions:questoes
+    }
+    console.log(objeto)
+
+    // let tituloQuiz = document.querySelector(`.tituloQuizz`).value
+    // let URLQuizz = document.querySelector(`.URLQuizz`).value
+    // let quantidadePerguntas = document.querySelector(`.quantidadePerguntas`).value
+    // let quantidadeNiveis = document.querySelector(`.quantidadeNiveis`).value
+
+    // {
+    //     title: "Título do quizz",
+    //     image: "https://http.cat/411.jpg",
+    //     questions: [
+    //         {
+    //             title: "Título da pergunta 1",
+    //             color: "#123456",
+    //             answers: [
+    //                 {
+    //                     text: "Texto da resposta 1",
+    //                     image: "https://http.cat/411.jpg",
+    //                     isCorrectAnswer: true
+    //                 },
+    //                 {
+    //                     text: "Texto da resposta 2",
+    //                     image: "https://http.cat/412.jpg",
+    //                     isCorrectAnswer: false
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             title: "Título da pergunta 2",
+    //             color: "#123456",
+    //             answers: [
+    //                 {
+    //                     text: "Texto da resposta 1",
+    //                     image: "https://http.cat/411.jpg",
+    //                     isCorrectAnswer: true
+    //                 },
+    //                 {
+    //                     text: "Texto da resposta 2",
+    //                     image: "https://http.cat/412.jpg",
+    //                     isCorrectAnswer: false
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             title: "Título da pergunta 3",
+    //             color: "#123456",
+    //             answers: [
+    //                 {
+    //                     text: "Texto da resposta 1",
+    //                     image: "https://http.cat/411.jpg",
+    //                     isCorrectAnswer: true
+    //                 },
+    //                 {
+    //                     text: "Texto da resposta 2",
+    //                     image: "https://http.cat/412.jpg",
+    //                     isCorrectAnswer: false
+    //                 }
+    //             ]
+    //         }
+    //     ],
+    //     levels: [
+    //         {
+    //             title: "Título do nível 1",
+    //             image: "https://http.cat/411.jpg",
+    //             text: "Descrição do nível 1",
+    //             minValue: 0
+    //         },
+    //         {
+    //             title: "Título do nível 2",
+    //             image: "https://http.cat/412.jpg",
+    //             text: "Descrição do nível 2",
+    //             minValue: 50
+    //         }
+    //     ]
+    // }
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -701,7 +944,7 @@ function openQuizz(dados) {
     // array answers
     arrayResposta = [];
 
-    
+
 
     let respostaBoolean = perguntas[0].answers[0].isCorrectAnswer;
 
@@ -747,7 +990,7 @@ function openQuizz(dados) {
          <h3>${arrayPerguntas[0][i].title}</h3>
        </div>
        <div class="caixa-principal-respostas">`
-        
+
         for (let j = 0; j < arrayResposta[i].length; j++) {
 
             content +=
@@ -760,7 +1003,7 @@ function openQuizz(dados) {
                         
                 `
         }
-    
+
         content += "</div> </div>"
         j = 0;
         openTelaNovo.innerHTML += content
@@ -788,8 +1031,8 @@ function openQuizz(dados) {
       <h6 onclick="iniciarTela()">Voltar pra home</h6>
       </div>   
       </div>`
-      const topo = document.querySelector(".tela2");
-      topo.scrollIntoView();
+    const topo = document.querySelector(".tela2");
+    topo.scrollIntoView();
 }
 
 // CHAMAMENTO DE FUNÇÕES
