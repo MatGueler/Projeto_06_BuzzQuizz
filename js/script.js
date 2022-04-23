@@ -900,35 +900,15 @@ function openQuizz(dados) {
 
     //array questions
     arrayPerguntas = [];
-
     let perguntas = listaQuizzes.questions;
-
-
     // array answers
     arrayResposta = [];
-
-
-
-    let respostaBoolean = perguntas[0].answers[0].isCorrectAnswer;
-
-    // array levels
-    arrayLevels = [];
-    let levels = listaQuizzes.levels;
-
-    let levelTitle = levels[0].title;
-    let levelImage = levels[0].image;
-    let levelText = levels[0].text;
-    let levelValue = levels[0].minValue;
 
     for (let i = 0; i < perguntas.length; i++) {
         let respostas = perguntas[i].answers;
         arrayResposta.push(respostas)
         arrayPerguntas.push(perguntas)
     }
-    console.log(arrayPerguntas)
-    console.log(arrayResposta)
-    
-
     // parte fixa da tela 2
 
     let openTela2 = document.querySelector("body")
@@ -975,10 +955,12 @@ function openQuizz(dados) {
 
     }
     //levels tela 2
+    if (jogadas == arrayPerguntas.length){
+        let openTelaNovo = document.querySelector(".container-tela2")
 
     openTelaNovo.innerHTML += `
-         <div class="caixa-fim-de-jogo desativar ">
-         <div class="caixa-nivel-acerto vermelho">
+         <div class="caixa-fim-de-jogo">
+         <div class="caixa-nivel-acerto" style="background-color:${arrayPerguntas[0][0].color}">
             <h3>"${levelValue}"% de acerto: "${levelTitle}"</h3>
          </div>
          <div class="texto-fim-de-jogo">
@@ -987,21 +969,12 @@ function openQuizz(dados) {
             <h5>${levelText}</h5>
          </div>
       </div>`
-    // footer tela 2
-
-    openTelaNovo.innerHTML +=
-        `<div class="reiniciar">
-         <button onclick="reiniciarQuizz(this)">Reiniciar Quizz</button>
-        </div>
-      <h6 onclick="iniciarTela()">Voltar pra home</h6>
-      </div>   
-      </div>`
-    const topo = document.querySelector(".tela2");
-    topo.scrollIntoView();
+    }
+ 
 }
 
 let acertos = 0;
-
+let jogadas = 0;
 
 function selecionar (elemento) {
     caixaPai = elemento.parentElement
@@ -1016,10 +989,44 @@ function selecionar (elemento) {
     elemento.classList.remove("branco");
     checkAcertos(elemento)
     console.log(acertos)
-
+    jogadas++;
+    console.log(jogadas)
     setTimeout(function() {scrollProxima(caixaPai)}, 1000)
-}
+    mostrarFim();
 
+
+}
+//levels tela 2
+function mostrarFim () {
+        if (jogadas == arrayPerguntas.length){
+        let openTelaNovo = document.querySelector(".container-tela2")
+    
+        openTelaNovo.innerHTML += `
+             <div class="caixa-fim-de-jogo">
+             <div class="caixa-nivel-acerto" style="background-color:${arrayPerguntas[0][0].color}">
+                <h3>"{levelValue}"% de acerto: "{levelTitle}"</h3>
+             </div>
+             <div class="texto-fim-de-jogo">
+                <img
+                   src="{levelImage}">
+                <h5>{levelText}</h5>
+             </div>
+          </div>`
+             // footer tela 2
+
+    openTelaNovo.innerHTML +=
+    `<div class="reiniciar">
+     <button onclick="reiniciarQuizz(this)">Reiniciar Quizz</button>
+    </div>
+  <h6 onclick="iniciarTela()">Voltar pra home</h6>
+  </div>   
+  </div>`
+    let FimDejogo = document.querySelector(".caixa-fim-de-jogo")
+    setTimeout(function (){
+        FimDejogo.scrollIntoView({ block: "center", behavior: 'smooth' })
+    }, 1000)
+}
+}
 function desativarResposta (elemento) {
     if (elemento.classList.contains("desativado")){
         elemento.removeAttribute("onclick");
@@ -1048,7 +1055,6 @@ function checkAcertos (elemento) {
 function scrollProxima (elemento) {
     pai = elemento.parentElement
     proximo = pai.nextElementSibling
-    console.log(proximo)
     proximo.scrollIntoView({ block: "center", behavior: 'smooth' })
 }
 // CHAMAMENTO DE FUNÇÕES
