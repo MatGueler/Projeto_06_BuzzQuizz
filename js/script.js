@@ -6,6 +6,7 @@ let contadorPerguntas;
 let contadorNiveis;
 let informacoesDoQuizz;
 let objeto;
+let ID;
 
 // LISTAS PERGUNTAS
 let perguntasQuizz = [""];
@@ -766,23 +767,32 @@ function construirObjeto() {
         title: informacoesDoQuizz.title,
         image: informacoesDoQuizz.image,
         questions: questoes,
-        level: niveis
+        levels: niveis
     }
     console.log(objeto)
+    postarObjeto()
 
 }
 
-// // ENVIA O OBJETO PARA A API
-// function postarObjeto(){
-//     const requisicao = axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes',objeto);
+// ENVIA O OBJETO PARA A API
+function postarObjeto() {
+    
+    const requisicao = axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes', objeto);
 
-//     requisicao.then(salvou)
-//     // requisicao.catch()
-// }
+    requisicao.then(salvou)
 
-// function salvou(){
-//     console.log("Salvou")
-// }
+    // requisicao.catch()
+}
+
+function salvou(resposta) {
+    console.log("Salvou")
+    ID = (resposta.data.id)
+    // let tornarString = JSON.stringify(objeto);
+    // localStorage.setItem("MEUSQUIZZES", tornarString)
+    // let listaMeusQuizzes = localStorage.getItem("MEUSQUIZZES")
+    // console.log(listaMeusQuizzes)
+
+}
 
 
 
@@ -864,9 +874,9 @@ function reiniciarQuizz() {
     idAtual = document.querySelector(".tela2")
     idAtual = idAtual.id
     console.log(idAtual)
-    setTimeout(function(){buscarQuizz(idAtual)}, 700)
+    setTimeout(function () { buscarQuizz(idAtual) }, 700)
     jogadas = 0;
-    acertos = 0; 
+    acertos = 0;
 }
 function buscarQuizz(id) {
     const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/" + id)
@@ -885,8 +895,8 @@ let arrayPerguntas = [];
 let arrayLevels = [];
 
 //shuffle array
-function comparador() { 
-	return Math.random() - 0.5; 
+function comparador() {
+    return Math.random() - 0.5;
 }
 
 
@@ -935,11 +945,11 @@ function openQuizz(dados) {
          <h3>${arrayPerguntas[0][i].title}</h3>
        </div>
        <div class="caixa-principal-respostas">`
-       
-       arrayResposta[i].sort(comparador)
+
+        arrayResposta[i].sort(comparador)
 
         for (let j = 0; j < arrayResposta[i].length; j++) {
-            
+
             content +=
                 `
                         <div class="caixa-resposta" onclick="selecionar(this)">
@@ -957,30 +967,30 @@ function openQuizz(dados) {
 
     }
 
- 
+
 }
 
 let acertos = 0;
 let jogadas = 0;
 
-function selecionar (elemento) {
+function selecionar(elemento) {
     caixaPai = elemento.parentElement
-    
-    for (let i = 0; i < caixaPai.children.length; i++){
+
+    for (let i = 0; i < caixaPai.children.length; i++) {
         filho = caixaPai.children[i];
         filho.classList.add("desativado");
-        desativarResposta (filho);
+        desativarResposta(filho);
         filho.classList.add("branco");
         corTexto(filho);
     }
     elemento.classList.remove("branco");
     checkAcertos(elemento)
     jogadas++;
-    setTimeout(function() {scrollProxima(caixaPai)}, 1000)
+    setTimeout(function () { scrollProxima(caixaPai) }, 1000)
     mostrarFim();
 }
 //levels tela 2
-function mostrarFim () {
+function mostrarFim() {
     arrayLevels = [];
     let levels = listaQuizzes.levels;
     arrayLevels.push(levels)
@@ -989,7 +999,7 @@ function mostrarFim () {
     let levelText;
 
 
-    console.log(arrayLevels)    
+    console.log(arrayLevels)
 
     let pontos;
     pontos = acertos / arrayPerguntas.length
@@ -997,12 +1007,12 @@ function mostrarFim () {
     x = Math.round(pontos)
 
 
- console.log(arrayLevels)
+    console.log(arrayLevels)
 
-if (jogadas == arrayPerguntas.length){
-    let openTelaNovo = document.querySelector(".container-tela2")
-    
-    openTelaNovo.innerHTML += `
+    if (jogadas == arrayPerguntas.length) {
+        let openTelaNovo = document.querySelector(".container-tela2")
+
+        openTelaNovo.innerHTML += `
         <div class="caixa-fim-de-jogo">
              <div class="caixa-nivel-acerto" style="background-color:${arrayPerguntas[0][0].color}">
                 <h3>"${x}"% de acerto: "{levelTitle}"</h3>
@@ -1013,9 +1023,9 @@ if (jogadas == arrayPerguntas.length){
                 <h5>{levelText}</h5>
         </div>
         </div>`
-             // footer tela 2
+        // footer tela 2
 
-    openTelaNovo.innerHTML +=`
+        openTelaNovo.innerHTML += `
         <div class="reiniciar">
             <button onclick="reiniciarQuizz(this)">Reiniciar Quizz</button>
         </div>
@@ -1025,20 +1035,20 @@ if (jogadas == arrayPerguntas.length){
 
 
         let FimDejogo = document.querySelector(".caixa-fim-de-jogo")
-        setTimeout(function (){
-                FimDejogo.scrollIntoView({ block: "center", behavior: 'smooth' })
-            }, 1000)
+        setTimeout(function () {
+            FimDejogo.scrollIntoView({ block: "center", behavior: 'smooth' })
+        }, 1000)
     }
 }
 
-function desativarResposta (elemento) {
-    if (elemento.classList.contains("desativado")){
+function desativarResposta(elemento) {
+    if (elemento.classList.contains("desativado")) {
         elemento.removeAttribute("onclick");
     }
     return
 }
 
-function corTexto (elemento) {
+function corTexto(elemento) {
     texto = elemento.querySelector("h4");
     if (texto.classList.contains("false")) {
         texto.classList.add("vermelho")
@@ -1048,7 +1058,7 @@ function corTexto (elemento) {
     }
 }
 
-function checkAcertos (elemento) {
+function checkAcertos(elemento) {
     texto = elemento.querySelector("h4");
     if (texto.classList.contains("true")) {
         acertos++;
@@ -1056,7 +1066,7 @@ function checkAcertos (elemento) {
 }
 
 
-function scrollProxima (elemento) {
+function scrollProxima(elemento) {
     pai = elemento.parentElement
     proximo = pai.nextElementSibling
     proximo.scrollIntoView({ block: "center", behavior: 'smooth' })
