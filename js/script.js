@@ -988,45 +988,66 @@ function selecionar (elemento) {
     }
     elemento.classList.remove("branco");
     checkAcertos(elemento)
-    console.log(acertos)
     jogadas++;
-    console.log(jogadas)
     setTimeout(function() {scrollProxima(caixaPai)}, 1000)
     mostrarFim();
-
-
 }
 //levels tela 2
 function mostrarFim () {
-        if (jogadas == arrayPerguntas.length){
-        let openTelaNovo = document.querySelector(".container-tela2")
+    arrayLevels = [];
+    let levels = listaQuizzes.levels;
+    console.log(levels)
+
     
-        openTelaNovo.innerHTML += `
-             <div class="caixa-fim-de-jogo">
+    let levelTitle = levels[0].title;
+    let levelImage = levels[0].image;
+    let levelText = levels[0].text;
+
+
+        for (let i = 0; i < levels.length; i++){
+            let levelValue = levels[i].minValue;
+            arrayLevels.push(levelValue)
+        }
+    console.log(arrayLevels)    
+
+
+    let pontos;
+    pontos = acertos / arrayPerguntas.length
+    pontos = pontos * 100
+    x = Math.round(pontos)
+
+if (jogadas == arrayPerguntas.length){
+    let openTelaNovo = document.querySelector(".container-tela2")
+    
+    openTelaNovo.innerHTML += `
+        <div class="caixa-fim-de-jogo">
              <div class="caixa-nivel-acerto" style="background-color:${arrayPerguntas[0][0].color}">
-                <h3>"{levelValue}"% de acerto: "{levelTitle}"</h3>
+                <h3>"${x}"% de acerto: "{levelTitle}"</h3>
              </div>
-             <div class="texto-fim-de-jogo">
+        <div class="texto-fim-de-jogo">
                 <img
                    src="{levelImage}">
                 <h5>{levelText}</h5>
-             </div>
-          </div>`
+        </div>
+        </div>`
              // footer tela 2
 
-    openTelaNovo.innerHTML +=
-    `<div class="reiniciar">
-     <button onclick="reiniciarQuizz(this)">Reiniciar Quizz</button>
-    </div>
-  <h6 onclick="iniciarTela()">Voltar pra home</h6>
+    openTelaNovo.innerHTML +=`
+        <div class="reiniciar">
+            <button onclick="reiniciarQuizz(this)">Reiniciar Quizz</button>
+        </div>
+        <h6 onclick="iniciarTela()">Voltar pra home</h6>
   </div>   
-  </div>`
-    let FimDejogo = document.querySelector(".caixa-fim-de-jogo")
-    setTimeout(function (){
-        FimDejogo.scrollIntoView({ block: "center", behavior: 'smooth' })
-    }, 1000)
+</div>`
+
+
+        let FimDejogo = document.querySelector(".caixa-fim-de-jogo")
+        setTimeout(function (){
+                FimDejogo.scrollIntoView({ block: "center", behavior: 'smooth' })
+            }, 1000)
+    }
 }
-}
+
 function desativarResposta (elemento) {
     if (elemento.classList.contains("desativado")){
         elemento.removeAttribute("onclick");
