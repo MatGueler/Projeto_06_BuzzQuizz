@@ -861,6 +861,10 @@ function montarQuizzes(elemento) {
 function reiniciarQuizz() {
     const topo = document.querySelector(".tela2");
     topo.scrollIntoView({ behavior: 'smooth' });
+    idAtual = document.querySelector(".tela2")
+    idAtual = idAtual.id
+    console.log(idAtual)
+    setTimeout(function(){buscarQuizz(idAtual)}, 700) 
 }
 function buscarQuizz(id) {
     const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/" + id)
@@ -987,7 +991,7 @@ function openQuizz(dados) {
 
     openTelaNovo.innerHTML +=
         `<div class="reiniciar">
-         <button onclick="reiniciarQuizz()">Reiniciar Quizz</button>
+         <button onclick="reiniciarQuizz(this)">Reiniciar Quizz</button>
         </div>
       <h6 onclick="iniciarTela()">Voltar pra home</h6>
       </div>   
@@ -1013,8 +1017,7 @@ function selecionar (elemento) {
     checkAcertos(elemento)
     console.log(acertos)
 
-    proximo = caixaPai.nextElementSibling
-    proximo.scrollIntoView(true)
+    setTimeout(function() {scrollProxima(caixaPai)}, 1000)
 }
 
 function desativarResposta (elemento) {
@@ -1044,6 +1047,9 @@ function checkAcertos (elemento) {
 
 function scrollProxima (elemento) {
     pai = elemento.parentElement
+    proximo = pai.nextElementSibling
+    console.log(proximo)
+    proximo.scrollIntoView({ block: "center", behavior: 'smooth' })
 }
 // CHAMAMENTO DE FUNÇÕES
 iniciarTela()
