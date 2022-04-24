@@ -356,6 +356,7 @@ main h3 {
     justify-content: center;
     text-align: center;
     color: #FFFFFF;
+    word-break: break-word;
 }
 
 .texto-fim-de-jogo {
@@ -374,7 +375,7 @@ main h3 {
     font-style: normal;
     font-weight: 700;
     font-size: 19px;
-
+    word-break: break-word;
     color: #484848;
 
     margin-left: 22px;
