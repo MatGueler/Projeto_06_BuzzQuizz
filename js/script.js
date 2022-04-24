@@ -42,6 +42,11 @@ function iniciarTela() {
     iniciar.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
     chamarTela1()
     abrirAPI()
+    arrayLevels = [];
+    arrayValue = [];
+    arrayResposta = [];
+    acertos = 0;
+    jogadas = 0;
 }
 function chamarTela1() {
     let iniciar = document.querySelector("body")
@@ -1097,6 +1102,7 @@ function selecionar(elemento) {
 
 function calcularLevels () {
     arrayLevels = [];
+
     let levels = listaQuizzes.levels;
     arrayLevels.push(levels)
 

@@ -272,6 +272,8 @@ main h3 {
     font-style: normal;
     font-weight: 700;
     font-size: 23px;
+    align-items: center;
+    text-align: center;
 
     color: #FFFFFF;
 }
@@ -342,6 +344,7 @@ main h3 {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 .caixa-nivel-acerto>h3 {
@@ -349,7 +352,9 @@ main h3 {
     font-style: normal;
     font-weight: 700;
     font-size: 23px;
-
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     color: #FFFFFF;
 }
 
