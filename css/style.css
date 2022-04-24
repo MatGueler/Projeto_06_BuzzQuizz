@@ -361,6 +361,7 @@ main h3 {
 .texto-fim-de-jogo>img {
     width: 364px;
     height: 274px;
+    object-fit: cover;
 }
 
 .texto-fim-de-jogo>h5 {
