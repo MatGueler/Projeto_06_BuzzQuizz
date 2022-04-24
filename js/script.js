@@ -1,5 +1,6 @@
 
 // VARIAVEIS GLOBAIS E ONDE ESTÃO
+let listaQuizzesUsuario = [];
 let meusQuizzes = [];
 let listaQuizzes;
 let contadorPerguntas;
@@ -44,8 +45,8 @@ function iniciarTela() {
 }
 function chamarTela1() {
     let iniciar = document.querySelector("body")
-    let tamanhoMeusQuizzes = meusQuizzes.length
-    if (tamanhoMeusQuizzes === 0) {
+    listaQuizzesUsuario = JSON.parse(localStorage.getItem("QuizzesCriados"))
+    if (listaQuizzesUsuario.length === 0) {
         iniciar.innerHTML += `
       <div class="tela1">
       <main>
@@ -65,6 +66,8 @@ function chamarTela1() {
       </main>
       </div>`
     } else {
+        // console.log(listaQuizzesUsuario[0])
+
         iniciar.innerHTML += `
       <div class="tela1">
       <main>
@@ -73,22 +76,47 @@ function chamarTela1() {
                <h3>Meus Quizzes</h3><ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon>
             </div>
          </div>
-         <div class="meus-quizes">
-            <h2>Você não criou nenhum quiz ainda :(</h2>
-            <button onclick="criarQuiz()">Criar Quizz</button>
+         <div class="meus-quizes cheio">
          </div>
          <div class="container-todos">
             <h3>Todos os Quizzes</h3>
             <div class="quizes"></div>
-         </div></div>
+         </div>
       </main>
       </div>`
-        // iniciar.innerHTML += '<div class="tela1"><main><div class="container-meus"><div class="titulo-meus-quizzes"><h3>Meus Quizzes</h3>  <ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon></div></div><div class="meus-quizes"><h2>Você não criou nenhum quiz ainda :(</h2><button onclick="criarQuiz()">Criar Quizz</button></div><div class="container-todos"><h3>Todos os Quizzes</h3><div class="quizes"></div></div></div></main></div>'
+
+        listaQuizzesUsuario.map(atualizarMeusQuizzes)
     }
-    // iniciar.innerHTML += '<div class="tela1"><main><div class="container-meus"><div class="titulo-meus-quizzes"><h3>Meus Quizzes</h3>  <ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon></div></div><div class="meus-quizes"><h2>Você não criou nenhum quiz ainda :(</h2><button onclick="criarQuiz()">Criar Quizz</button></div><div class="quizes desativar"></div><div class="container-todos"><h3>Todos os Quizzes</h3><div class="quizes"><div class="caixa-quiz"  onclick="buscarQuizz()"><img  src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg"><h2>Pergunta do quizz</h2><div class="caixa-gradiente"></div></div></div></div></main></div>'
-    //ps: container-meus só aparece depois que ja tiver um quizz criado
-    //quando a lista de quizz criados for vazia, nao tem container-meus
+
 }
+
+// ATUALIZA O CONTEUDO DE MEUS QUIZZES DE ACORDO COM A LISTA CRIADA PELO USUARIO
+function atualizarMeusQuizzes(elemento) {
+
+    let imagensQuizzes = elemento.image
+    let tituloQuiz = elemento.title
+    let quizzID = elemento.id
+
+    let objeto = {
+        image: imagensQuizzes,
+        titule: tituloQuiz,
+        ideitidade: quizzID
+    }
+    console.log(objeto)
+
+    let achar = document.querySelector(".meus-quizes")
+    console.log(achar.innerHTML)
+    // iniciar.innerHTML = ""
+
+        achar.innerHTML +=
+            `<div class="caixa-quiz">
+          <img  src="${imagensQuizzes}">
+          <h2 id="${quizzID}" onclick="buscarQuizz(this.id)">${tituloQuiz}</h2>
+          <div class="caixa-gradiente" id="${quizzID}" onclick="buscarQuizz(this.id)"></div>
+       </div>`
+}
+
+
 // AO CLICAR ABRE A TELA 3.1 PARA CRIAÇÃO DO QUIZ
 function criarQuiz() {
     let openTela3_1 = document.querySelector("body")
@@ -383,6 +411,7 @@ function verificarPerguntasAdd() {
     verificarUrl()
     console.log(verificacao)
     if (verificacao === 0) {
+        // VERIFICA SE O NUMERO DE QUESÕES JA É IGUAL AO FORNECIDO, E LIMITA OU NÃO A ADIÇÃO DE PERGUNTAS
         if ((perguntasQuizz.length - 1) < Number(informacoesDoQuizz.qtsQuestions)) {
             adicionarPergunta()
         }
@@ -414,6 +443,7 @@ function verificarPerguntasFinalizar() {
     verificarIncorreta()
     verificarUrl()
     perguntasMinimas()
+    verificarRespostasNulas()
     console.log(verificacao)
     if (verificacao === 0) {
         console.log(perguntasQuizz)
@@ -469,6 +499,7 @@ function verificarIncorreta() {
         if (incorretas3[contador].length !== 0) {
             naoNulas += 1;
         }
+        console.log(naoNulas)
         if (naoNulas < 1) {
             verificacao = 1
         }
@@ -479,10 +510,9 @@ function verificarIncorreta() {
 function verificarUrl() {
     for (let contador = 0; contador < (urlCorretas.length - 1); contador++) {
         let urlResposta = !isUrl(urlCorretas[contador])
-        let urlIncorretas1 = !isUrl(urlIncorreta1[contador])
-        let urlIncorretas2 = !isUrl(urlIncorreta2[contador])
-        let urlIncorretas3 = !isUrl(urlIncorreta3[contador])
-
+        let urlIncorretas1 = (!isUrl(urlIncorreta1[contador]) && urlIncorreta1[contador] !== "")
+        let urlIncorretas2 = (!isUrl(urlIncorreta2[contador]) && urlIncorreta2[contador] !== "")
+        let urlIncorretas3 = (!isUrl(urlIncorreta3[contador]) && urlIncorreta3[contador] !== "")
 
         if (urlResposta || urlIncorretas1 || urlIncorretas2 || urlIncorretas3) {
             verificacao = 1
@@ -490,25 +520,54 @@ function verificarUrl() {
     }
 }
 
+// VERIFICA SE EXISTE UM CAMPO PREENCHIDO COM PERGUNTA OU URL E UM CAMPO CORRESPONDENTE SENDO NULO(AINDA PODE MELHORAR, SÓ FIZ FUNCIONAR)
+function verificarRespostasNulas() {
+    for (let contador = 0; contador < (incorretas1.length - 1); contador++) {
+        console.log(incorretas1[contador] === "")
+        console.log(urlIncorreta1[contador] !== "")
+        if (incorretas1[contador] === "") {
+            if (urlIncorreta1[contador] !== "") {
+                verificacao += 1
+            }
+        }
+        else {
+            if (urlIncorreta1[contador] === "") {
+                verificacao += 1
+            }
+        }
 
+
+        if (incorretas2[contador] === "") {
+            if (urlIncorreta2[contador] !== "") {
+                verificacao += 1
+            }
+        }
+        else {
+            if (urlIncorreta2[contador] === "") {
+                verificacao += 1
+            }
+        }
+
+
+        if (incorretas3[contador] === "") {
+            if (urlIncorreta3[contador] !== "") {
+                verificacao += 1
+            }
+        }
+        else {
+            if (urlIncorreta3[contador] === "") {
+                verificacao += 1
+            }
+        }
+    }
+}
+
+// OBRIGA QUE O NUMERO DE QUESTOES SEJA MAIOR QUE 2 E SEJA IGUAL AO VALOR FORNECIDO
 function perguntasMinimas() {
     if ((perguntasQuizz.length - 1) !== Number(informacoesDoQuizz.qtsQuestions)) {
         verificacao += 1;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ABRE A PAGINA DE CRIAR NIVEIS - TELA 3.3
 function criarNiveis() {
@@ -801,14 +860,30 @@ function postarObjeto() {
     // requisicao.catch()
 }
 
+// MOSTRA QUE A REQUISIÇÃO FOI CONCLUIDA E O OBJETO FOI POSTADO
 function salvou(resposta) {
     console.log("Salvou")
-    ID = (resposta.data.id)
-    // let tornarString = JSON.stringify(objeto);
-    // localStorage.setItem("MEUSQUIZZES", tornarString)
-    // let listaMeusQuizzes = localStorage.getItem("MEUSQUIZZES")
-    // console.log(listaMeusQuizzes)
+    // ID = (resposta.data.id)
+    listaQuizzesUsuario = []
+    let novoObjeto = (resposta.data)
+    listaQuizzesUsuario.push(novoObjeto)
+    console.log(listaQuizzesUsuario)
 
+    if (localStorage.getItem("QuizzesCriados") === null) {
+        let listaCriadaString = JSON.stringify(listaQuizzesUsuario)
+        let objetoSaolvo = localStorage.setItem("QuizzesCriados", listaCriadaString)
+        console.log(localStorage)
+    }
+    else {
+        let meusQuizzesCriados = localStorage.getItem("QuizzesCriados")
+        listaQuizzesUsuario = JSON.parse(meusQuizzesCriados)
+        listaQuizzesUsuario.push(novoObjeto)
+        let listaCriadaString = JSON.stringify(listaQuizzesUsuario)
+        let objetoSaolvo = localStorage.setItem("QuizzesCriados", listaCriadaString)
+        // console.log(objetoSaolvo)
+        // console.log(listaQuizzesUsuario)
+        console.log(listaQuizzesUsuario)
+    }
 }
 
 
