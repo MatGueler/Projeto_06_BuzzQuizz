@@ -919,16 +919,20 @@ function salvou(resposta) {
 // ABRE A PAGINA DE QUIZZ FINALIZADO - TELA 3.4
 function finalizarCriacao() {
     let openTela3_4 = document.querySelector(".tela3")
+
+    // pra funcionar o onclick="buscarQuizz(this.id)", precisa adicionar id às divs/botao que tiver o onclick
+    // algo como idQuizzAtual = listaQuizzes.id funciona? nao sei, só tem que pegar o ID do quizz atual (talvez voce pegue no post?)
+    // e inserir na div o id="${idQuizzAtual}", que o this.id vai funcionar
     openTela3_4.innerHTML = ""
     openTela3_4.innerHTML = `
    <main>
       <div class="orientacao"><h4>Seu quizz está pronto</h4></div>
-      <div class="caixa-quiz criado" onclick="buscarQuizz()">
+      <div class="caixa-quiz criado" onclick="buscarQuizz(this.id)">
          <img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
          <h2>Pergunta do quizz</h2>
          <div class="caixa-gradiente"></div>
       </div>
-      <div class="prosseguir"><button  onclick="buscarQuizz()">Acessar quizz</button></div><div>   
+      <div class="prosseguir"><button  onclick="buscarQuizz(this.id)">Acessar quizz</button></div><div>   
       <button class="retornar-home" onclick = "iniciarTela()">Voltar para home</button></div>
    </main>`
 }
