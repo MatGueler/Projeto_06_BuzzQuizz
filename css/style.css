@@ -60,7 +60,6 @@ main {
 .titulo-meus-quizzes {
     width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -125,6 +124,7 @@ main h3 {
     font-size: 20px;
     font-weight: bold;
     /* background-color: red; */
+    margin-right: 10px;
 }
 
 
@@ -275,6 +275,7 @@ main h3 {
     font-size: 23px;
     align-items: center;
     text-align: center;
+    word-break: break-word;
 
     color: #FFFFFF;
 }
@@ -586,7 +587,6 @@ input::placeholder {
     .titulo-meus-quizzes {
         width: 100%;
         display: flex;
-        justify-content: space-between;
         align-items: center;
     }
 

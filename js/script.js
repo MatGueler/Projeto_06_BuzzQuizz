@@ -903,7 +903,7 @@ function salvou(resposta) {
     let novoObjeto = (resposta.data)
     listaQuizzesUsuario.push(novoObjeto)
     console.log(listaQuizzesUsuario)
-
+    finalizarCriacao();
     if (localStorage.getItem("QuizzesCriados") === null) {
         let listaCriadaString = JSON.stringify(listaQuizzesUsuario)
         let objetoSaolvo = localStorage.setItem("QuizzesCriados", listaCriadaString)
@@ -962,12 +962,12 @@ function finalizarCriacao() {
     openTela3_4.innerHTML = `
    <main>
       <div class="orientacao"><h4>Seu quizz está pronto</h4></div>
-      <div class="caixa-quiz criado" onclick="buscarQuizz(this.id)">
+      <div class="caixa-quiz criado" id="${ID}" onclick="buscarQuizz(this.id)">
          <img src="${informacoesDoQuizz.title}">
          <h2>${informacoesDoQuizz.image}</h2>
          <div class="caixa-gradiente"></div>
       </div>
-      <div class="prosseguir"><button  onclick="buscarQuizz(this.id)">Acessar quizz</button></div><div>   
+      <div class="prosseguir"><button id="${ID}"  onclick="buscarQuizz(this.id)">Acessar quizz</button></div><div>   
       <button class="retornar-home" onclick = "iniciarTela()">Voltar para home</button></div>
    </main>`
 }
