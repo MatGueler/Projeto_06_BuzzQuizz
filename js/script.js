@@ -898,7 +898,7 @@ function postarObjeto() {
 // MOSTRA QUE A REQUISIÇÃO FOI CONCLUIDA E O OBJETO FOI POSTADO
 function salvou(resposta) {
     console.log("Salvou")
-    // ID = (resposta.data.id)
+    ID = (resposta.data.id)
     listaQuizzesUsuario = []
     let novoObjeto = (resposta.data)
     listaQuizzesUsuario.push(novoObjeto)
