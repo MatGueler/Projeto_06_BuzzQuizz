@@ -1102,7 +1102,10 @@ function selecionar(elemento) {
 
 function calcularLevels () {
     arrayLevels = [];
-
+    arrayValue = [];
+arrayResposta = [];
+acertos = 0;
+jogadas = 0;
     let levels = listaQuizzes.levels;
     arrayLevels.push(levels)
 
