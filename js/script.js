@@ -818,12 +818,28 @@ function construirObjeto() {
             isCorrectAnswer: false
         }
 
+        // let respostas = [
+        //     respostasCertas,
+        //     respostasErradas1,
+        //     respostasErradas2,
+        //     respostasErradas3
+        // ]
+
         let respostas = [
             respostasCertas,
-            respostasErradas1,
-            respostasErradas2,
-            respostasErradas3
         ]
+
+        if(incorretas1[contador] !== ""){
+            respostas.push(respostasErradas1)
+        }
+
+        if(incorretas2[contador] !== ""){
+            respostas.push(respostasErradas2)
+        }
+
+        if(incorretas3[contador] !== ""){
+            respostas.push(respostasErradas3)
+        }
 
         let questao = {
             title: perguntasQuizz[contador],
@@ -933,8 +949,8 @@ function finalizarCriacao() {
    <main>
       <div class="orientacao"><h4>Seu quizz está pronto</h4></div>
       <div class="caixa-quiz criado" onclick="buscarQuizz(this.id)">
-         <img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
-         <h2>Pergunta do quizz</h2>
+         <img src="${informacoesDoQuizz.title}">
+         <h2>${informacoesDoQuizz.image}</h2>
          <div class="caixa-gradiente"></div>
       </div>
       <div class="prosseguir"><button  onclick="buscarQuizz(this.id)">Acessar quizz</button></div><div>   
