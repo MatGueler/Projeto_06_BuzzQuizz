@@ -963,8 +963,8 @@ function finalizarCriacao() {
    <main>
       <div class="orientacao"><h4>Seu quizz está pronto</h4></div>
       <div class="caixa-quiz criado" onclick="buscarQuizz(this.id)">
-         <img src="${informacoesDoQuizz.title}">
-         <h2>${informacoesDoQuizz.image}</h2>
+         <img src="${informacoesDoQuizz.image}">
+         <h2>${informacoesDoQuizz.title}</h2>
          <div class="caixa-gradiente"></div>
       </div>
       <div class="prosseguir"><button  onclick="buscarQuizz(this.id)">Acessar quizz</button></div><div>   
