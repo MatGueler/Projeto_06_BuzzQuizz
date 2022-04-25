@@ -42,6 +42,11 @@ function iniciarTela() {
     iniciar.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
     chamarTela1()
     abrirAPI()
+    arrayLevels = [];
+    arrayValue = [];
+    arrayResposta = [];
+    acertos = 0;
+    jogadas = 0;
 }
 function chamarTela1() {
     let iniciar = document.querySelector("body")
@@ -919,16 +924,20 @@ function salvou(resposta) {
 // ABRE A PAGINA DE QUIZZ FINALIZADO - TELA 3.4
 function finalizarCriacao() {
     let openTela3_4 = document.querySelector(".tela3")
+
+    // pra funcionar o onclick="buscarQuizz(this.id)", precisa adicionar id às divs/botao que tiver o onclick
+    // algo como idQuizzAtual = listaQuizzes.id funciona? nao sei, só tem que pegar o ID do quizz atual (talvez voce pegue no post?)
+    // e inserir na div o id="${idQuizzAtual}", que o this.id vai funcionar
     openTela3_4.innerHTML = ""
     openTela3_4.innerHTML = `
    <main>
       <div class="orientacao"><h4>Seu quizz está pronto</h4></div>
-      <div class="caixa-quiz criado" onclick="buscarQuizz()">
+      <div class="caixa-quiz criado" onclick="buscarQuizz(this.id)">
          <img src="https://d5y9g7a5.rocketcdn.me/wp-content/uploads/2020/04/bicho-preguica-caracteristicas-das-especies-e-curiosidades.jpg">
          <h2>Pergunta do quizz</h2>
          <div class="caixa-gradiente"></div>
       </div>
-      <div class="prosseguir"><button  onclick="buscarQuizz()">Acessar quizz</button></div><div>   
+      <div class="prosseguir"><button  onclick="buscarQuizz(this.id)">Acessar quizz</button></div><div>   
       <button class="retornar-home" onclick = "iniciarTela()">Voltar para home</button></div>
    </main>`
 }
@@ -965,10 +974,10 @@ function reiniciarQuizz() {
     topo.scrollIntoView({ behavior: 'smooth' });
     idAtual = document.querySelector(".tela2")
     idAtual = idAtual.id
-    console.log(idAtual)
     setTimeout(function () { buscarQuizz(idAtual) }, 700)
     jogadas = 0;
     acertos = 0;
+    arrayValue = [];
 }
 function buscarQuizz(id) {
     const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/" + id)
@@ -1002,11 +1011,16 @@ function openQuizz(dados) {
     let title = listaQuizzes.title;
 
 
+
+    
     //array questions
     arrayPerguntas = [];
     let perguntas = listaQuizzes.questions;
     // array answers
     arrayResposta = [];
+    arrayValue = [];
+    calcularLevels();
+
 
     for (let i = 0; i < perguntas.length; i++) {
         let respostas = perguntas[i].answers;
@@ -1058,12 +1072,15 @@ function openQuizz(dados) {
         openTelaNovo.innerHTML += content
 
     }
-
+    const topo = document.querySelector(".tela2");
+    topo.scrollIntoView(true);
 
 }
 
 let acertos = 0;
 let jogadas = 0;
+let arrayValue = [];
+
 
 function selecionar(elemento) {
     caixaPai = elemento.parentElement
@@ -1082,37 +1099,66 @@ function selecionar(elemento) {
     mostrarFim();
 }
 //levels tela 2
-function mostrarFim() {
+
+function calcularLevels () {
     arrayLevels = [];
+
     let levels = listaQuizzes.levels;
     arrayLevels.push(levels)
-    let levelTitle;
-    let levelImage;
-    let levelText;
+
+  
 
 
-    console.log(arrayLevels)
+    for (let i = 0; i < levels.length; i++){
+        arrayValue.push(levels[i])
+    }
 
+
+    arrayValue.sort(function(a, b) {
+        return parseFloat(a.minValue) - parseFloat(b.minValue);
+    });
+    console.log(arrayValue)
+}
+
+
+
+
+function mostrarFim() {
     let pontos;
     pontos = acertos / arrayPerguntas.length
     pontos = pontos * 100
     x = Math.round(pontos)
 
+    let levelsTitle;
+    let levelsImage;
+    let levelsText;
 
-    console.log(arrayLevels)
+
+
+    for (let j = 0; j < arrayValue.length; j++){
+        if (x >= arrayValue[j].minValue){
+             levelsTitle = arrayValue[j].title
+             levelsImage = arrayValue[j].image
+             levelsText = arrayValue[j].text
+        }
+        
+    }
+
+
+
 
     if (jogadas == arrayPerguntas.length) {
         let openTelaNovo = document.querySelector(".container-tela2")
 
         openTelaNovo.innerHTML += `
         <div class="caixa-fim-de-jogo">
-             <div class="caixa-nivel-acerto" style="background-color:${arrayPerguntas[0][0].color}">
-                <h3>"${x}"% de acerto: "{levelTitle}"</h3>
+             <div class="caixa-nivel-acerto" style="background-color: #EC362D">
+                <h3>"${x}"% de acerto: "${levelsTitle}"</h3>
              </div>
         <div class="texto-fim-de-jogo">
                 <img
-                   src="{levelImage}">
-                <h5>{levelText}</h5>
+                   src="${levelsImage}">
+                <h5>${levelsText}</h5>
         </div>
         </div>`
         // footer tela 2

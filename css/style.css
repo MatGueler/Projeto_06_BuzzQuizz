@@ -273,6 +273,8 @@ main h3 {
     font-style: normal;
     font-weight: 700;
     font-size: 23px;
+    align-items: center;
+    text-align: center;
 
     color: #FFFFFF;
 }
@@ -343,6 +345,7 @@ main h3 {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 .caixa-nivel-acerto>h3 {
@@ -350,8 +353,11 @@ main h3 {
     font-style: normal;
     font-weight: 700;
     font-size: 23px;
-
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     color: #FFFFFF;
+    word-break: break-word;
 }
 
 .texto-fim-de-jogo {
@@ -362,6 +368,7 @@ main h3 {
 .texto-fim-de-jogo>img {
     width: 364px;
     height: 274px;
+    object-fit: cover;
 }
 
 .texto-fim-de-jogo>h5 {
@@ -369,7 +376,7 @@ main h3 {
     font-style: normal;
     font-weight: 700;
     font-size: 19px;
-
+    word-break: break-word;
     color: #484848;
 
     margin-left: 22px;
