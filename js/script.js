@@ -8,6 +8,7 @@ let contadorNiveis;
 let informacoesDoQuizz;
 let objeto;
 let ID;
+let idApagado;
 
 // LISTAS PERGUNTAS
 let perguntasQuizz = [""];
@@ -50,7 +51,7 @@ function iniciarTela() {
 }
 function chamarTela1() {
     let iniciar = document.querySelector("body")
-    listaQuizzesUsuario = JSON.parse(localStorage.getItem("QuizzesCriados"))
+    listaQuizzesUsuario = JSON.parse(localStorage.getItem("1"))
     if (listaQuizzesUsuario === null || listaQuizzesUsuario.length === 0) {
         iniciar.innerHTML += `
       <div class="tela1">
@@ -118,9 +119,51 @@ function atualizarMeusQuizzes(elemento) {
           <img  src="${imagensQuizzes}">
           <h2 id="${quizzID}" onclick="buscarQuizz(this.id)">${tituloQuiz}</h2>
           <div class="caixa-gradiente" id="${quizzID}" onclick="buscarQuizz(this.id)"></div>
+          <button class = "editarApagar">
+          <ion-icon name="create-outline" id="${quizzID}" onclick = "editarQuizz(this.id)"></ion-icon>
+          <ion-icon name="trash-outline" id="${quizzID}" onclick = "apagarQuizz(this.id)"></ion-icon>
+          </button>
        </div>`
 }
 
+// function editarQuizz(id) {
+
+//     console.log(Number(id)===listaQuizzesUsuario[0].id)
+//     console.log(listaQuizzesUsuario[0].key)
+// }
+
+function apagarQuizz(id) {
+    console.log(id)
+    for (let contador = 0; contador < listaQuizzesUsuario.length; contador++) {
+        if (Number(listaQuizzesUsuario[contador].id) === Number(id)) {
+            let apagarChave = listaQuizzesUsuario[contador].key
+            const config = { headers: { 'Secret-Key': apagarChave } }
+            let URL = `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`
+            let requizicaoApagar = axios.delete(URL,config)
+            idApagado = listaQuizzesUsuario[contador].id
+            requizicaoApagar.then(passou)
+            console.log(idApagado)
+        }
+    }
+}
+
+function passou() {
+    console.log("deucerto")
+    novaLista = listaQuizzesUsuario.filter(removerQuiz)
+    listaQuizzesUsuario = novaLista
+
+    let listaCriadaString = JSON.stringify(listaQuizzesUsuario)
+    let objetoSaolvo = localStorage.setItem("1", listaCriadaString)
+    iniciarTela()
+    console.log(localStorage)
+}
+
+function removerQuiz(elemento) {
+    if (elemento.id !== idApagado) {
+        console.log(elemento)
+        return elemento
+    }
+}
 
 // AO CLICAR ABRE A TELA 3.1 PARA CRIAÇÃO DO QUIZ
 function criarQuiz() {
@@ -904,17 +947,17 @@ function salvou(resposta) {
     listaQuizzesUsuario.push(novoObjeto)
     console.log(listaQuizzesUsuario)
     finalizarCriacao();
-    if (localStorage.getItem("QuizzesCriados") === null) {
+    if (localStorage.getItem("1") === null) {
         let listaCriadaString = JSON.stringify(listaQuizzesUsuario)
-        let objetoSaolvo = localStorage.setItem("QuizzesCriados", listaCriadaString)
+        let objetoSaolvo = localStorage.setItem("1", listaCriadaString)
         console.log(localStorage)
     }
     else {
-        let meusQuizzesCriados = localStorage.getItem("QuizzesCriados")
+        let meusQuizzesCriados = localStorage.getItem("1")
         listaQuizzesUsuario = JSON.parse(meusQuizzesCriados)
         listaQuizzesUsuario.push(novoObjeto)
         let listaCriadaString = JSON.stringify(listaQuizzesUsuario)
-        let objetoSaolvo = localStorage.setItem("QuizzesCriados", listaCriadaString)
+        let objetoSaolvo = localStorage.setItem("1", listaCriadaString)
         // console.log(objetoSaolvo)
         // console.log(listaQuizzesUsuario)
         console.log(listaQuizzesUsuario)
@@ -1133,9 +1176,9 @@ function selecionar(elemento) {
 function calcularLevels() {
     arrayLevels = [];
     arrayValue = [];
-arrayResposta = [];
-acertos = 0;
-jogadas = 0;
+    arrayResposta = [];
+    acertos = 0;
+    jogadas = 0;
     let levels = listaQuizzes.levels;
     arrayLevels.push(levels)
 
