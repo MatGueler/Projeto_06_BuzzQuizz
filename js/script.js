@@ -903,7 +903,7 @@ function salvou(resposta) {
     let novoObjeto = (resposta.data)
     listaQuizzesUsuario.push(novoObjeto)
     console.log(listaQuizzesUsuario)
-
+    finalizarCriacao();
     if (localStorage.getItem("QuizzesCriados") === null) {
         let listaCriadaString = JSON.stringify(listaQuizzesUsuario)
         let objetoSaolvo = localStorage.setItem("QuizzesCriados", listaCriadaString)
@@ -967,7 +967,7 @@ function finalizarCriacao() {
          <h2>${informacoesDoQuizz.title}</h2>
          <div class="caixa-gradiente"></div>
       </div>
-      <div class="prosseguir"><button  onclick="buscarQuizz(this.id)">Acessar quizz</button></div><div>   
+      <div class="prosseguir"><button id="${ID}"  onclick="buscarQuizz(this.id)">Acessar quizz</button></div><div>   
       <button class="retornar-home" onclick = "iniciarTela()">Voltar para home</button></div>
    </main>`
 }
