@@ -113,8 +113,8 @@ function atualizarMeusQuizzes(elemento) {
     console.log(achar.innerHTML)
     // iniciar.innerHTML = ""
 
-        achar.innerHTML +=
-            `<div class="caixa-quiz">
+    achar.innerHTML +=
+        `<div class="caixa-quiz">
           <img  src="${imagensQuizzes}">
           <h2 id="${quizzID}" onclick="buscarQuizz(this.id)">${tituloQuiz}</h2>
           <div class="caixa-gradiente" id="${quizzID}" onclick="buscarQuizz(this.id)"></div>
@@ -478,6 +478,20 @@ function verificarCor() {
             if (corQuizz[contador][0] !== "#") {
                 verificacao = 1
             }
+            else {
+                for (let indice = 1; indice < (corQuizz[contador]).length; indice++) {
+                    if (isNaN(Number(corQuizz[contador][indice]))) {
+                        if ((corQuizz[contador][indice]) !== "a" && (corQuizz[contador][indice]) !== "b" && (corQuizz[contador][indice]) !== "c" && (corQuizz[contador][indice]) !== "d" && (corQuizz[contador][indice]) !== "e" && (corQuizz[contador][indice]) !== "f") {
+                            if ((corQuizz[contador][indice]) !== "A" && (corQuizz[contador][indice]) !== "B" && (corQuizz[contador][indice]) !== "C" && (corQuizz[contador][indice]) !== "D" && (corQuizz[contador][indice]) !== "E" && (corQuizz[contador][indice]) !== "F") {
+                                verificacao = 1
+                            }
+
+                        }
+
+                    }
+                    console.log(corQuizz[contador][indice])
+                }
+            }
         }
     }
 }
@@ -829,15 +843,15 @@ function construirObjeto() {
             respostasCertas,
         ]
 
-        if(incorretas1[contador] !== ""){
+        if (incorretas1[contador] !== "") {
             respostas.push(respostasErradas1)
         }
 
-        if(incorretas2[contador] !== ""){
+        if (incorretas2[contador] !== "") {
             respostas.push(respostasErradas2)
         }
 
-        if(incorretas3[contador] !== ""){
+        if (incorretas3[contador] !== "") {
             respostas.push(respostasErradas3)
         }
 
@@ -1028,7 +1042,7 @@ function openQuizz(dados) {
 
 
 
-    
+
     //array questions
     arrayPerguntas = [];
     let perguntas = listaQuizzes.questions;
@@ -1116,21 +1130,21 @@ function selecionar(elemento) {
 }
 //levels tela 2
 
-function calcularLevels () {
+function calcularLevels() {
     arrayLevels = [];
 
     let levels = listaQuizzes.levels;
     arrayLevels.push(levels)
 
-  
 
 
-    for (let i = 0; i < levels.length; i++){
+
+    for (let i = 0; i < levels.length; i++) {
         arrayValue.push(levels[i])
     }
 
 
-    arrayValue.sort(function(a, b) {
+    arrayValue.sort(function (a, b) {
         return parseFloat(a.minValue) - parseFloat(b.minValue);
     });
     console.log(arrayValue)
@@ -1151,13 +1165,13 @@ function mostrarFim() {
 
 
 
-    for (let j = 0; j < arrayValue.length; j++){
-        if (x >= arrayValue[j].minValue){
-             levelsTitle = arrayValue[j].title
-             levelsImage = arrayValue[j].image
-             levelsText = arrayValue[j].text
+    for (let j = 0; j < arrayValue.length; j++) {
+        if (x >= arrayValue[j].minValue) {
+            levelsTitle = arrayValue[j].title
+            levelsImage = arrayValue[j].image
+            levelsText = arrayValue[j].text
         }
-        
+
     }
 
 
