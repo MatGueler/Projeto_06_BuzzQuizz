@@ -51,7 +51,7 @@ function iniciarTela() {
 function chamarTela1() {
     let iniciar = document.querySelector("body")
     listaQuizzesUsuario = JSON.parse(localStorage.getItem("QuizzesCriados"))
-    if ((listaQuizzesUsuario.length === 0)) {
+    if (listaQuizzesUsuario === null || listaQuizzesUsuario.length === 0) {
         iniciar.innerHTML += `
       <div class="tela1">
       <main>
@@ -1132,7 +1132,10 @@ function selecionar(elemento) {
 
 function calcularLevels() {
     arrayLevels = [];
-
+    arrayValue = [];
+arrayResposta = [];
+acertos = 0;
+jogadas = 0;
     let levels = listaQuizzes.levels;
     arrayLevels.push(levels)
 
