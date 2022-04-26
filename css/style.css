@@ -61,6 +61,7 @@ main {
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .titulo-meus-quizzes>ion-icon {
@@ -610,6 +611,7 @@ input::placeholder {
     .titulo-meus-quizzes {
         width: 100%;
         display: flex;
+        justify-content: space-between;
         align-items: center;
     }
 
