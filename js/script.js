@@ -41,6 +41,7 @@ let condicaoVerificacao;
 function iniciarTela() {
     let iniciar = document.querySelector("body")
     iniciar.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
+    carregando()
     chamarTela1()
     abrirAPI()
     arrayLevels = [];
@@ -96,6 +97,21 @@ function chamarTela1() {
 
 }
 
+// FUNÇÃO QUE MOSTRA TELA CARREGANDO
+function carregando() {
+    let telaCarregando = document.querySelector("body")
+    telaCarregando.innerHTML += `<div class="telaConfirmacao">
+        <div class="caixa-confirmar">
+            <img src="./Spinner-1s-200px.gif">
+        </div>
+    </div>`
+}
+
+function carregou(){
+    let telaCarregou = document.querySelector(".telaConfirmacao")
+    telaCarregou.classList.add("desativar")
+}
+
 // ATUALIZA O CONTEUDO DE MEUS QUIZZES DE ACORDO COM A LISTA CRIADA PELO USUARIO
 function atualizarMeusQuizzes(elemento) {
 
@@ -129,20 +145,20 @@ function atualizarMeusQuizzes(elemento) {
 function editarQuizz(id) {
     let objetoEditar;
 
-//     <h3>Perguntas ${contador}</h3>
-//     <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}" value = "${perguntasQuizz[(contador - 1)]}">
-//     <input type="text" placeholder="Cor de fundo da pergunta" class = "corPergunta${contador}" value = "${corQuizz[(contador - 1)]}">
-//     <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta" class = "respostaCorreta${contador}" value = "${respostasCorretas[(contador - 1)]}">
-//     <input type="text" placeholder="URL da imagem" class = "urlCorreta${contador}" value = "${urlCorretas[(contador - 1)]}">
-    
-//     <h3>Respostas incorretas</h3>  
-//     <input type="text" placeholder="Resposta incorreta 1" class = "incorreta1${contador}" value = "${incorretas1[(contador - 1)]}">
-//     <input type="text" placeholder="URL da imagem 1" class = "urlIncorreta1${contador}" value = "${urlIncorreta1[(contador - 1)]}">
-//     <input type="text" placeholder="Resposta incorreta 2" class = "incorreta2${contador}" value = "${incorretas2[(contador - 1)]}">
-//     <input type="text" placeholder="URL da imagem 2" class = "urlIncorreta2${contador}" value = "${urlIncorreta2[(contador - 1)]}">
-//     <input type="text" placeholder="Resposta incorreta 3" class = "incorreta3${contador}" value = "${incorretas3[(contador - 1)]}">
-//     <input type="text" placeholder="URL da imagem 3" class = "urlIncorreta3${contador}" value = "${urlIncorreta3[(contador - 1)]}">
-//  </div
+    //     <h3>Perguntas ${contador}</h3>
+    //     <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}" value = "${perguntasQuizz[(contador - 1)]}">
+    //     <input type="text" placeholder="Cor de fundo da pergunta" class = "corPergunta${contador}" value = "${corQuizz[(contador - 1)]}">
+    //     <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta" class = "respostaCorreta${contador}" value = "${respostasCorretas[(contador - 1)]}">
+    //     <input type="text" placeholder="URL da imagem" class = "urlCorreta${contador}" value = "${urlCorretas[(contador - 1)]}">
+
+    //     <h3>Respostas incorretas</h3>  
+    //     <input type="text" placeholder="Resposta incorreta 1" class = "incorreta1${contador}" value = "${incorretas1[(contador - 1)]}">
+    //     <input type="text" placeholder="URL da imagem 1" class = "urlIncorreta1${contador}" value = "${urlIncorreta1[(contador - 1)]}">
+    //     <input type="text" placeholder="Resposta incorreta 2" class = "incorreta2${contador}" value = "${incorretas2[(contador - 1)]}">
+    //     <input type="text" placeholder="URL da imagem 2" class = "urlIncorreta2${contador}" value = "${urlIncorreta2[(contador - 1)]}">
+    //     <input type="text" placeholder="Resposta incorreta 3" class = "incorreta3${contador}" value = "${incorretas3[(contador - 1)]}">
+    //     <input type="text" placeholder="URL da imagem 3" class = "urlIncorreta3${contador}" value = "${urlIncorreta3[(contador - 1)]}">
+    //  </div
 
 
 
@@ -174,19 +190,19 @@ function editarQuizz(id) {
 
 
 function apagarQuizz(id) {
+    carregando()
     console.log(id)
     let verificacaoApagar = confirm("Quer mesmo apagar o QUIZZ?")
     for (let contador = 0; contador < listaQuizzesUsuario.length; contador++) {
         if (Number(listaQuizzesUsuario[contador].id) === Number(id)) {
-        
-            if(verificacaoApagar === true){
+
+            if (verificacaoApagar === true) {
                 let apagarChave = listaQuizzesUsuario[contador].key
-            const config = { headers: { 'Secret-Key': apagarChave } }
-            let URL = `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`
-            let requizicaoApagar = axios.delete(URL, config)
-            idApagado = listaQuizzesUsuario[contador].id
-            requizicaoApagar.then(passou)
-            console.log(idApagado)
+                const config = { headers: { 'Secret-Key': apagarChave } }
+                let URL = `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`
+                let requizicaoApagar = axios.delete(URL, config)
+                idApagado = listaQuizzesUsuario[contador].id
+                requizicaoApagar.then(passou)
             }
         }
     }
@@ -215,6 +231,7 @@ function passou() {
     let objetoSaolvo = localStorage.setItem("1", listaCriadaString)
     iniciarTela()
     console.log(localStorage)
+    carregou()
 }
 
 function removerQuiz(elemento) {
@@ -989,6 +1006,7 @@ function construirObjeto() {
 
 // ENVIA O OBJETO PARA A API
 function postarObjeto() {
+    carregando()
 
     const requisicao = axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes', objeto);
 
@@ -1021,6 +1039,7 @@ function salvou(resposta) {
         // console.log(listaQuizzesUsuario)
         console.log(listaQuizzesUsuario)
     }
+    carregou()
 }
 
 
@@ -1082,6 +1101,7 @@ function abrirAPI() {
 function processarAPI(dados) {
     listaQuizzes = dados.data
     listaQuizzes.map(montarQuizzes)
+    carregou()
 }
 // MONTA O QUIZZ DA API DE ACORDO COM A ESTRUTURA
 function montarQuizzes(elemento) {
@@ -1112,6 +1132,7 @@ function reiniciarQuizz() {
     arrayValue = [];
 }
 function buscarQuizz(id) {
+    carregando()
     const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/" + id)
     promiseID.then(openQuizz);
     promiseID.catch(tratarErro);
@@ -1206,6 +1227,7 @@ function openQuizz(dados) {
     }
     const topo = document.querySelector(".tela2");
     topo.scrollIntoView(true);
+    carregou()
 
 }
 

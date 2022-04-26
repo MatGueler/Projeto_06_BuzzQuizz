@@ -42,7 +42,7 @@ header>h1 {
     display: flex;
     justify-content: center;
     position: absolute;
-    /* background-color: #009C22; */
+    background-color: white;
     z-index: 2;
 }
 
