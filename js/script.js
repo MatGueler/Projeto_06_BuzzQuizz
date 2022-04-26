@@ -126,26 +126,85 @@ function atualizarMeusQuizzes(elemento) {
        </div>`
 }
 
-// function editarQuizz(id) {
+function editarQuizz(id) {
+    let objetoEditar;
 
-//     console.log(Number(id)===listaQuizzesUsuario[0].id)
-//     console.log(listaQuizzesUsuario[0].key)
-// }
+//     <h3>Perguntas ${contador}</h3>
+//     <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}" value = "${perguntasQuizz[(contador - 1)]}">
+//     <input type="text" placeholder="Cor de fundo da pergunta" class = "corPergunta${contador}" value = "${corQuizz[(contador - 1)]}">
+//     <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta" class = "respostaCorreta${contador}" value = "${respostasCorretas[(contador - 1)]}">
+//     <input type="text" placeholder="URL da imagem" class = "urlCorreta${contador}" value = "${urlCorretas[(contador - 1)]}">
+    
+//     <h3>Respostas incorretas</h3>  
+//     <input type="text" placeholder="Resposta incorreta 1" class = "incorreta1${contador}" value = "${incorretas1[(contador - 1)]}">
+//     <input type="text" placeholder="URL da imagem 1" class = "urlIncorreta1${contador}" value = "${urlIncorreta1[(contador - 1)]}">
+//     <input type="text" placeholder="Resposta incorreta 2" class = "incorreta2${contador}" value = "${incorretas2[(contador - 1)]}">
+//     <input type="text" placeholder="URL da imagem 2" class = "urlIncorreta2${contador}" value = "${urlIncorreta2[(contador - 1)]}">
+//     <input type="text" placeholder="Resposta incorreta 3" class = "incorreta3${contador}" value = "${incorretas3[(contador - 1)]}">
+//     <input type="text" placeholder="URL da imagem 3" class = "urlIncorreta3${contador}" value = "${urlIncorreta3[(contador - 1)]}">
+//  </div
+
+
+
+
+    for (let contador = 0; contador < listaQuizzesUsuario.length; contador++) {
+        if (Number(listaQuizzesUsuario[contador].id) === Number(id)) {
+            objetoEditar = listaQuizzesUsuario[contador]
+            perguntasQuizz = objetoEditar.questions
+            console.log(objetoEditar.title)
+
+            let openTela3_1 = document.querySelector("body")
+            openTela3_1.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
+            openTela3_1.innerHTML += `
+            <div class="tela3">
+            <main>
+            <div class="orientacao"><h4>Comece pelo começo</h4></div>    
+            <div class="informacoes">
+            <input type="text" placeholder="Título do seu quizz" class = "tituloQuizz" value = ${objetoEditar.title}>
+            <input type="text" placeholder="URL da imagem do seu quizz" class = "URLQuizz" value = ${objetoEditar.image}>
+            <input type="text" placeholder="Quantidade de perguntas do seu quizz" class = "quantidadePerguntas" value = ${objetoEditar.questions.length}>
+            <input type="text" placeholder="Quantidade de níveis do seu quizz" class = "quantidadeNiveis" value = ${objetoEditar.levels.length}></div>
+            <div class="prosseguir"><button onclick = "informacoesIniciaisEdit()">Prosseguir para criar perguntas</button></div>
+            </main>
+            </div>`
+        }
+
+    }
+}
+
 
 function apagarQuizz(id) {
     console.log(id)
+    let verificacaoApagar = confirm("Quer mesmo apagar o QUIZZ?")
     for (let contador = 0; contador < listaQuizzesUsuario.length; contador++) {
         if (Number(listaQuizzesUsuario[contador].id) === Number(id)) {
-            let apagarChave = listaQuizzesUsuario[contador].key
+        
+            if(verificacaoApagar === true){
+                let apagarChave = listaQuizzesUsuario[contador].key
             const config = { headers: { 'Secret-Key': apagarChave } }
             let URL = `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`
-            let requizicaoApagar = axios.delete(URL,config)
+            let requizicaoApagar = axios.delete(URL, config)
             idApagado = listaQuizzesUsuario[contador].id
             requizicaoApagar.then(passou)
             console.log(idApagado)
+            }
         }
     }
 }
+
+// function verificarExclusao(verificacaoApagar){
+//     let telaConfirmacao = document.querySelector("body")
+//     telaConfirmacao.innerHTML += `<div class="telaConfirmacao">
+//     <div class="caixa-confirmar">
+//         <p>Você quer apagar o quizz? Tem certeza?
+//         <div class="botoes-confirmacao">
+//         <button onclick="verificarExclusao('sim')">Sim</button>
+//         <button onclick="verificarExclusao('nao')">Cancelar</button>
+//         </div>
+//     </div>
+// </div>`
+//     console.log(verificacaoApagar)
+// }
 
 function passou() {
     console.log("deucerto")

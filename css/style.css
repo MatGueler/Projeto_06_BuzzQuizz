@@ -6,6 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #E5E5E5;
+    position: relative;
 }
 
 * {
@@ -34,6 +35,46 @@ header>h1 {
     color: #FFFFFF;
 }
 
+/* TELA CONFIRMAÇÃO PARA APAGAR */
+.telaConfirmacao{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    /* background-color: #009C22; */
+    z-index: 2;
+}
+
+.caixa-confirmar{
+    width: 400px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    position: fixed;
+    top: 40%;
+    border-radius: 10px;
+}
+
+.caixa-confirmar > p{
+    width: 300px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.botoes-confirmacao{
+    margin-top: 20px;
+}
+
+.botoes-confirmacao > button{
+    width: 100px;
+    height: 50px;
+    margin: 0 25px 0 25px;
+}
 
 
 /* TELA 1 */
@@ -594,6 +635,10 @@ input::placeholder {
     main {
         width: 100%;
         margin: 120px 0px 50px 0px;
+    }
+
+    .perguntas{
+        width: 100%;
     }
 
     .meus-quizes.cheio {
