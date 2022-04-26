@@ -208,19 +208,6 @@ function apagarQuizz(id) {
     }
 }
 
-// function verificarExclusao(verificacaoApagar){
-//     let telaConfirmacao = document.querySelector("body")
-//     telaConfirmacao.innerHTML += `<div class="telaConfirmacao">
-//     <div class="caixa-confirmar">
-//         <p>Você quer apagar o quizz? Tem certeza?
-//         <div class="botoes-confirmacao">
-//         <button onclick="verificarExclusao('sim')">Sim</button>
-//         <button onclick="verificarExclusao('nao')">Cancelar</button>
-//         </div>
-//     </div>
-// </div>`
-//     console.log(verificacaoApagar)
-// }
 
 function passou() {
     console.log("deucerto")
@@ -1132,7 +1119,7 @@ function reiniciarQuizz() {
     arrayValue = [];
 }
 function buscarQuizz(id) {
-    carregando()
+    
     const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/" + id)
     promiseID.then(openQuizz);
     promiseID.catch(tratarErro);
@@ -1156,6 +1143,7 @@ function comparador() {
 
 // ABRE A TELA DO QUIZ - TELA 2
 function openQuizz(dados) {
+
     listaQuizzes = dados.data
 
     arrayResposta = [];
@@ -1227,7 +1215,6 @@ function openQuizz(dados) {
     }
     const topo = document.querySelector(".tela2");
     topo.scrollIntoView(true);
-    carregou()
 
 }
 
