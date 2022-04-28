@@ -8,6 +8,9 @@ let contadorNiveis;
 let informacoesDoQuizz;
 let objeto;
 let ID;
+let idEditando;
+let chaveEditando;
+let editarEnviar;
 let idApagado;
 
 // LISTAS PERGUNTAS
@@ -39,6 +42,7 @@ let condicaoVerificacao;
 
 // FUNÇÃO AO INICIAR A PAGINA
 function iniciarTela() {
+    // localStorage.clear("1")
     let iniciar = document.querySelector("body")
     iniciar.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
     carregando()
@@ -73,7 +77,6 @@ function chamarTela1() {
       </main>
       </div>`
     } else {
-        // console.log(listaQuizzesUsuario[0])
 
         iniciar.innerHTML += `
       <div class="tela1">
@@ -107,7 +110,7 @@ function carregando() {
     </div>`
 }
 
-function carregou(){
+function carregou() {
     let telaCarregou = document.querySelector(".telaConfirmacao")
     telaCarregou.classList.add("desativar")
 }
@@ -124,10 +127,9 @@ function atualizarMeusQuizzes(elemento) {
         titule: tituloQuiz,
         ideitidade: quizzID
     }
-    console.log(objeto)
 
     let achar = document.querySelector(".meus-quizes")
-    console.log(achar.innerHTML)
+
     // iniciar.innerHTML = ""
 
     achar.innerHTML +=
@@ -143,21 +145,60 @@ function atualizarMeusQuizzes(elemento) {
 }
 
 function editarQuizz(id) {
-
+    idEditando = id
     criarQuiz()
+    preencherQuizzIniciais(id)
+}
+
+function preencherQuizzIniciais(id) {
+    let objeto;
+    objeto = listaQuizzesUsuario.filter(function (elemento) {
+        if (elemento.id === Number(id)) {
+            return true
+        }
+    })
+    chaveEditando = objeto[0].key
+    let title = objeto[0].title
+    let urlImage = objeto[0].image
+    let qtdPerguntas = objeto[0].questions.length
+    let qtdNiveis = objeto[0].levels.length
+
+    document.querySelector(`.tituloQuizz`).value = title
+    document.querySelector(`.URLQuizz`).value = urlImage
+    document.querySelector(`.quantidadePerguntas`).value = qtdPerguntas
+    document.querySelector(`.quantidadeNiveis`).value = qtdNiveis
+
+    let criarPerguntasEditaveis = document.querySelector(".prosseguir")
+
+    criarPerguntasEditaveis.innerHTML = `<button onclick = "editarQuizzPerguntas(idEditando)">Prosseguir para criar perguntas</button>`
+}
+
+function editarQuizzPerguntas(id) {
+
+    let title = document.querySelector(`.tituloQuizz`).value
+    let urlImage = document.querySelector(`.URLQuizz`).value
+    let qtdPerguntas = document.querySelector(`.quantidadePerguntas`).value
+    let qtdNiveis = document.querySelector(`.quantidadeNiveis`).value
+
+    informacoesDoQuizz = {
+        title: title,
+        image: urlImage,
+        qtsQuestions: qtdPerguntas,
+        qtdNiveis: qtdNiveis
+    }
+
     let perguntas = 1
     let objeto;
     let questoes;
-    objeto = listaQuizzesUsuario.filter(function(elemento){
-        if(elemento.id === Number(id)){
+    objeto = listaQuizzesUsuario.filter(function (elemento) {
+        if (elemento.id === Number(id)) {
             return true
         }
     })
 
     questoes = objeto[0].questions
 
-    // console.log(objeto)
-    
+
     let openTela3_2 = document.querySelector(".tela3")
     openTela3_2.innerHTML = ""
     contadorPerguntas = 0
@@ -167,53 +208,86 @@ function editarQuizz(id) {
    <div class="perguntas"></div>
    <div class="informacoes vazio">
    </div>
-   <div class="prosseguir"><button onclick = "coletarPerguntasFinalizar()">Prosseguir para criar níveis</button></div>
+   <div class="prosseguir"><button onclick = "coletarPerguntasFinalizarEditar()">Prosseguir para criar níveis</button></div>
    </main>`
 
-    while(perguntas<=questoes.length){
+    while (perguntas <= questoes.length) {
         adicionarPergunta()
         perguntas++
     }
     preencherQuizz(questoes)
 }
 
-function preencherQuizz(questoes){
-    console.log(questoes)
+function coletarPerguntasFinalizarEditar() {
+    coletarPerguntasFinalizar()
+    preencherQuizzNiveis(idEditando)
+}
+
+function preencherQuizzNiveis(id) {
+    let objeto;
+    let valorNivel = 1;
+    objeto = listaQuizzesUsuario.filter(function (elemento) {
+        if (elemento.id === Number(id)) {
+            return true
+        }
+    })
+    let niveis = objeto[0].levels
+    while (valorNivel < objeto[0].levels.length) {
+        adicionarNivel()
+        valorNivel++
+    }
+
+    let criarObjeto = document.querySelector(".prosseguir")
+    criarObjeto.innerHTML = `
+    <button onclick = "coletarFinalizar('editar')">Finalizar quizz</button>
+    `
+
+    niveis.map(function (elemento) {
+        for (let contador = 0; contador < objeto[0].levels.length; contador++) {
+            document.querySelector(`.tituloNivel${contador + 1}`).value = objeto[0].levels[contador].title
+            document.querySelector(`.porcentoAcerto${contador + 1}`).value = objeto[0].levels[contador].minValue
+            document.querySelector(`.urlNivel${contador + 1}`).value = objeto[0].levels[contador].image
+            document.querySelector(`.descricaoNivel${contador + 1}`).value = objeto[0].levels[contador].text
+        }
+        console.log(elemento)
+    })
+}
+
+function preencherQuizz(questoes) {
     let contador = 0
-    for(contador; contador<questoes.length;contador++){
-        document.querySelector(`.textoPergunta${contador+1}`).value = questoes[contador].title
-        document.querySelector(`.corPergunta${contador+1}`).value = questoes[contador].color
-        document.querySelector(`.respostaCorreta${contador+1}`).value = (questoes[contador].answers[0]).text
-        document.querySelector(`.urlCorreta${contador+1}`).value = (questoes[contador].answers[0]).image
-        console.log("cont"+contador)
+    for (contador; contador < questoes.length; contador++) {
+        document.querySelector(`.textoPergunta${contador + 1}`).value = questoes[contador].title
+        document.querySelector(`.corPergunta${contador + 1}`).value = questoes[contador].color
+        document.querySelector(`.respostaCorreta${contador + 1}`).value = (questoes[contador].answers[0]).text
+        document.querySelector(`.urlCorreta${contador + 1}`).value = (questoes[contador].answers[0]).image
 
-        document.querySelector(`.informacoes.dev${contador+1} > .incorreta1${contador+1}`).value = (questoes[contador].answers)[1].text
+        document.querySelector(`.informacoes.dev${contador + 1} > .incorreta1${contador + 1}`).value = (questoes[contador].answers)[1].text
 
-        document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta1${contador+1}`).value = (questoes[contador].answers)[1].image
+        document.querySelector(`.informacoes.dev${contador + 1} > .urlIncorreta1${contador + 1}`).value = (questoes[contador].answers)[1].image
 
-        if((questoes[contador].answers).length>2){
-            document.querySelector(`.informacoes.dev${contador+1} > .incorreta2${contador+1}`).value = (questoes[contador].answers)[2].text
+        if ((questoes[contador].answers).length > 2) {
+            document.querySelector(`.informacoes.dev${contador + 1} > .incorreta2${contador + 1}`).value = (questoes[contador].answers)[2].text
 
-            document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta2${contador+1}`).value = (questoes[contador].answers)[2].image
+            document.querySelector(`.informacoes.dev${contador + 1} > .urlIncorreta2${contador + 1}`).value = (questoes[contador].answers)[2].image
 
-            if((questoes[contador].answers).length>3){
-                document.querySelector(`.informacoes.dev${contador+1} > .incorreta3${contador+1}`).value = (questoes[contador].answers)[3].text
-    
-                document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta3${contador+1}`).value = (questoes[contador].answers)[3].image
+            if ((questoes[contador].answers).length > 3) {
+                document.querySelector(`.informacoes.dev${contador + 1} > .incorreta3${contador + 1}`).value = (questoes[contador].answers)[3].text
+
+                document.querySelector(`.informacoes.dev${contador + 1} > .urlIncorreta3${contador + 1}`).value = (questoes[contador].answers)[3].image
             }
-            else{
-                document.querySelector(`.informacoes.dev${contador+1} > .incorreta3${contador+1}`).value = ""
-    
-                document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta3${contador+1}`).value = ""
+            else {
+                document.querySelector(`.informacoes.dev${contador + 1} > .incorreta3${contador + 1}`).value = ""
+
+                document.querySelector(`.informacoes.dev${contador + 1} > .urlIncorreta3${contador + 1}`).value = ""
             }
         }
-        else{
-            document.querySelector(`.informacoes.dev${contador+1} > .incorreta2${contador+1}`).value = ""
+        else {
+            document.querySelector(`.informacoes.dev${contador + 1} > .incorreta2${contador + 1}`).value = ""
 
-            document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta2${contador+1}`).value = ""
-            document.querySelector(`.informacoes.dev${contador+1} > .incorreta3${contador+1}`).value = ""
-    
-                document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta3${contador+1}`).value = ""
+            document.querySelector(`.informacoes.dev${contador + 1} > .urlIncorreta2${contador + 1}`).value = ""
+            document.querySelector(`.informacoes.dev${contador + 1} > .incorreta3${contador + 1}`).value = ""
+
+            document.querySelector(`.informacoes.dev${contador + 1} > .urlIncorreta3${contador + 1}`).value = ""
         }
     }
 
@@ -222,7 +296,6 @@ function preencherQuizz(questoes){
 
 function apagarQuizz(id) {
     carregando()
-    console.log(id)
     let verificacaoApagar = confirm("Quer mesmo apagar o QUIZZ?")
     for (let contador = 0; contador < listaQuizzesUsuario.length; contador++) {
         if (Number(listaQuizzesUsuario[contador].id) === Number(id)) {
@@ -241,20 +314,18 @@ function apagarQuizz(id) {
 
 
 function passou() {
-    console.log("deucerto")
+
     novaLista = listaQuizzesUsuario.filter(removerQuiz)
     listaQuizzesUsuario = novaLista
 
     let listaCriadaString = JSON.stringify(listaQuizzesUsuario)
     let objetoSaolvo = localStorage.setItem("1", listaCriadaString)
     iniciarTela()
-    console.log(localStorage)
     carregou()
 }
 
 function removerQuiz(elemento) {
     if (elemento.id !== idApagado) {
-        console.log(elemento)
         return elemento
     }
 }
@@ -297,7 +368,6 @@ function informacoesIniciais() {
         alert("DIGITE OS CAMPOS CORRETAMENTE")
     }
     else {
-        console.log(informacoesDoQuizz.title)
         criarPerguntas()
     }
 }
@@ -346,7 +416,7 @@ function adicionarPergunta() {
       <input type="text" placeholder="Resposta incorreta 3" class = "incorreta3${contador}" value = "${incorretas3[(contador - 1)]}">
       <input type="text" placeholder="URL da imagem 3" class = "urlIncorreta3${contador}" value = "${urlIncorreta3[(contador - 1)]}">
    </div>`
-   demarcadorPerguntas += 1
+        demarcadorPerguntas += 1
     }
     adicionarRodape()
 }
@@ -368,7 +438,6 @@ function coletarPerguntas() {
         perguntasQuizz.push(localPergunta)
     }
     perguntasQuizz.push("")
-    console.log(perguntasQuizz)
 
 }
 
@@ -381,7 +450,6 @@ function coletarCor() {
         corQuizz.push(localCor)
     }
     corQuizz.push("")
-    console.log(corQuizz)
     coletarCorreta()
 }
 
@@ -394,7 +462,6 @@ function coletarCorreta() {
         respostasCorretas.push(localCorreta)
     }
     respostasCorretas.push("")
-    console.log(respostasCorretas)
     coletarUrlCorreta()
 }
 
@@ -407,7 +474,6 @@ function coletarUrlCorreta() {
         urlCorretas.push(localUrlCorreta)
     }
     urlCorretas.push("")
-    console.log(urlCorretas)
     coletarIncorretas()
 }
 // COLETA RESPOSTA INCORRETA
@@ -426,7 +492,7 @@ function coletar1() {
         incorretas1.push(localIncorreta1)
     }
     incorretas1.push("")
-    console.log(incorretas1)
+
 }
 function coletar2() {
     incorretas2 = []
@@ -435,7 +501,6 @@ function coletar2() {
         incorretas2.push(localIncorreta2)
     }
     incorretas2.push("")
-    console.log(incorretas2)
 }
 function coletar3() {
     incorretas3 = []
@@ -444,7 +509,6 @@ function coletar3() {
         incorretas3.push(localIncorreta3)
     }
     incorretas3.push("")
-    console.log(incorretas3)
 }
 // COLETA URL DA RESPOSTA INCORRETA
 function coletarUrlIncorretas() {
@@ -459,7 +523,6 @@ function coletarUrl1() {
         urlIncorreta1.push(localUrlIncorreta3)
     }
     urlIncorreta1.push("")
-    console.log(urlIncorreta1)
 }
 function coletarUrl2() {
     urlIncorreta2 = []
@@ -468,7 +531,6 @@ function coletarUrl2() {
         urlIncorreta2.push(localUrlIncorreta2)
     }
     urlIncorreta2.push("")
-    console.log(urlIncorreta2)
 }
 function coletarUrl3() {
     urlIncorreta3 = []
@@ -477,7 +539,6 @@ function coletarUrl3() {
         urlIncorreta3.push(localUrlIncorreta3)
     }
     urlIncorreta3.push("")
-    console.log(urlIncorreta3)
 }
 
 // COLETA PERGUNTAS PARA SABER SE PODE ADICIONAR OUTRA
@@ -501,7 +562,6 @@ function verificarPerguntasAdd() {
     verificarCorreta()
     verificarIncorreta()
     verificarUrl()
-    console.log(verificacao)
     if (verificacao === 0) {
         // VERIFICA SE O NUMERO DE QUESÕES JA É IGUAL AO FORNECIDO, E LIMITA OU NÃO A ADIÇÃO DE PERGUNTAS
         if ((perguntasQuizz.length - 1) < Number(informacoesDoQuizz.qtsQuestions)) {
@@ -536,9 +596,7 @@ function verificarPerguntasFinalizar() {
     verificarUrl()
     perguntasMinimas()
     verificarRespostasNulas()
-    console.log(verificacao)
     if (verificacao === 0) {
-        console.log(perguntasQuizz)
         criarNiveis()
         // testarObjetos()
     } else {
@@ -576,7 +634,6 @@ function verificarCor() {
                         }
 
                     }
-                    console.log(corQuizz[contador][indice])
                 }
             }
         }
@@ -605,7 +662,6 @@ function verificarIncorreta() {
         if (incorretas3[contador].length !== 0) {
             naoNulas += 1;
         }
-        console.log(naoNulas)
         if (naoNulas < 1) {
             verificacao = 1
         }
@@ -629,8 +685,6 @@ function verificarUrl() {
 // VERIFICA SE EXISTE UM CAMPO PREENCHIDO COM PERGUNTA OU URL E UM CAMPO CORRESPONDENTE SENDO NULO(AINDA PODE MELHORAR, SÓ FIZ FUNCIONAR)
 function verificarRespostasNulas() {
     for (let contador = 0; contador < (incorretas1.length - 1); contador++) {
-        console.log(incorretas1[contador] === "")
-        console.log(urlIncorreta1[contador] !== "")
         if (incorretas1[contador] === "") {
             if (urlIncorreta1[contador] !== "") {
                 verificacao += 1
@@ -691,7 +745,7 @@ function criarNiveis() {
    </div>
 
    <div class="prosseguir">
-   <button onclick = "coletarFinalizar()">Finalizar quizz</button>
+   <button onclick = "coletarFinalizar('enviar')">Finalizar quizz</button>
     </div>
    </main>`
 
@@ -703,10 +757,11 @@ function criarNiveis() {
 function adicionarNivel() {
     let niveisNovos = document.querySelector("main > .perguntas")
     contadorNiveis += 1
+    let numeroNivel = 0;
     niveisNovos.innerHTML = ""
     for (let contador = 1; contador <= contadorNiveis; contador++) {
         niveisNovos.innerHTML += `   
-      <div class="informacoes"><h3>Nível ${contador}</h3>
+      <div class="informacoes numNivel${numeroNivel + 1}"><h3>Nível ${contador}</h3>
 
       <input type="text" placeholder="Título do nível" class = "tituloNivel${contador}" value = "${niveisQuizz[(contador - 1)]}">
 
@@ -716,6 +771,7 @@ function adicionarNivel() {
 
       <input type="text" placeholder="Descrição do nível" class = "descricaoNivel${contador}" value = "${descricoesNiveis[(contador - 1)]}">
    </div>`
+        numeroNivel += 1
     }
     adicionarRodapeNivel()
 }
@@ -737,7 +793,8 @@ function coletarAdd() {
     verificarNiveisAdicionar()
 }
 
-function coletarFinalizar() {
+function coletarFinalizar(valor) {
+    editarEnviar = valor
     coletarNiveis()
     coletarPorcentagem()
     coletarUrlNivel()
@@ -750,10 +807,10 @@ function coletarNiveis() {
     for (let contador = 1; contador <= contadorNiveis; contador++) {
         let localNivel = document.querySelector(`.tituloNivel${contador}`).value
         niveisQuizz.push(localNivel)
-        console.log(localNivel)
+
     }
     niveisQuizz.push("")
-    console.log(niveisQuizz)
+
 }
 
 function coletarPorcentagem() {
@@ -763,7 +820,7 @@ function coletarPorcentagem() {
         acertosPorcento.push(localNivelPorcento)
     }
     acertosPorcento.push("")
-    console.log(acertosPorcento)
+
 
 }
 
@@ -774,7 +831,7 @@ function coletarUrlNivel() {
         urlNiveis.push(localUrlNivel)
     }
     urlNiveis.push("")
-    console.log(urlNiveis)
+
 
 }
 
@@ -785,7 +842,7 @@ function coletarDescricaoNivel() {
         descricoesNiveis.push(localDescricaoNivel)
     }
     descricoesNiveis.push("")
-    console.log(descricoesNiveis)
+
 }
 
 // VERIFICA AS CONDIÇÕES DO NIVEL
@@ -880,7 +937,7 @@ function niveisMinimos() {
         }
         else {
             construirObjeto()
-            finalizarCriacao()
+            // finalizarCriacao()
         }
     }
     else {
@@ -967,8 +1024,13 @@ function construirObjeto() {
         questions: questoes,
         levels: niveis
     }
-    console.log(objeto)
-    postarObjeto()
+
+    if (editarEnviar === "editar") {
+        postarObjetoEditado()
+    }
+    else {
+        postarObjeto()
+    }
 
 }
 
@@ -985,17 +1047,15 @@ function postarObjeto() {
 
 // MOSTRA QUE A REQUISIÇÃO FOI CONCLUIDA E O OBJETO FOI POSTADO
 function salvou(resposta) {
-    console.log("Salvou")
     ID = (resposta.data.id)
     listaQuizzesUsuario = []
     let novoObjeto = (resposta.data)
     listaQuizzesUsuario.push(novoObjeto)
-    console.log(listaQuizzesUsuario)
-    finalizarCriacao();
+
     if (localStorage.getItem("1") === null) {
         let listaCriadaString = JSON.stringify(listaQuizzesUsuario)
         let objetoSaolvo = localStorage.setItem("1", listaCriadaString)
-        console.log(localStorage)
+
     }
     else {
         let meusQuizzesCriados = localStorage.getItem("1")
@@ -1003,11 +1063,40 @@ function salvou(resposta) {
         listaQuizzesUsuario.push(novoObjeto)
         let listaCriadaString = JSON.stringify(listaQuizzesUsuario)
         let objetoSaolvo = localStorage.setItem("1", listaCriadaString)
-        // console.log(objetoSaolvo)
-        // console.log(listaQuizzesUsuario)
-        console.log(listaQuizzesUsuario)
     }
     carregou()
+    finalizarCriacao()
+}
+
+function postarObjetoEditado() {
+    carregando()
+
+    const config = { headers: { 'Secret-Key': chaveEditando } }
+    let URL = `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${idEditando}`
+
+    const requisicao = axios.put(URL,objeto,config);
+
+    requisicao.then(postouEditado)
+    
+}
+
+function postouEditado(resposta){
+    id = idEditando
+    let novoObjeto = resposta.data
+    let meusQuizzesCriados = localStorage.getItem("1")
+    listaQuizzesUsuario = JSON.parse(meusQuizzesCriados)
+    let ListaMudada = listaQuizzesUsuario.filter(function (elemento) {
+        if (elemento.id !== Number(id)) {
+            return true
+        }
+    })
+    listaQuizzesUsuario = ListaMudada
+    listaQuizzesUsuario.push(novoObjeto)
+
+    let listaCriadaString = JSON.stringify(listaQuizzesUsuario)
+    localStorage.setItem("1", listaCriadaString)
+    carregou()
+    finalizarCriacao()
 }
 
 
@@ -1100,16 +1189,15 @@ function reiniciarQuizz() {
     arrayValue = [];
 }
 function buscarQuizz(id) {
-    
+
     const promiseID = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/" + id)
     promiseID.then(openQuizz);
     promiseID.catch(tratarErro);
-    console.log(promiseID)
+
 }
 
 function tratarErro(error) {
-    console.log("Status code: " + error.response.status);
-    console.log("Mensagem de erro: " + error.response.data);
+
 }
 
 let arrayResposta = [];
@@ -1242,7 +1330,6 @@ function calcularLevels() {
     arrayValue.sort(function (a, b) {
         return parseFloat(a.minValue) - parseFloat(b.minValue);
     });
-    console.log(arrayValue)
 }
 
 
