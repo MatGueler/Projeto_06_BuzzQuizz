@@ -143,49 +143,80 @@ function atualizarMeusQuizzes(elemento) {
 }
 
 function editarQuizz(id) {
-    let objetoEditar;
 
-    //     <h3>Perguntas ${contador}</h3>
-    //     <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}" value = "${perguntasQuizz[(contador - 1)]}">
-    //     <input type="text" placeholder="Cor de fundo da pergunta" class = "corPergunta${contador}" value = "${corQuizz[(contador - 1)]}">
-    //     <h3>Resposta correta</h3><input type="text" placeholder="Resposta correta" class = "respostaCorreta${contador}" value = "${respostasCorretas[(contador - 1)]}">
-    //     <input type="text" placeholder="URL da imagem" class = "urlCorreta${contador}" value = "${urlCorretas[(contador - 1)]}">
-
-    //     <h3>Respostas incorretas</h3>  
-    //     <input type="text" placeholder="Resposta incorreta 1" class = "incorreta1${contador}" value = "${incorretas1[(contador - 1)]}">
-    //     <input type="text" placeholder="URL da imagem 1" class = "urlIncorreta1${contador}" value = "${urlIncorreta1[(contador - 1)]}">
-    //     <input type="text" placeholder="Resposta incorreta 2" class = "incorreta2${contador}" value = "${incorretas2[(contador - 1)]}">
-    //     <input type="text" placeholder="URL da imagem 2" class = "urlIncorreta2${contador}" value = "${urlIncorreta2[(contador - 1)]}">
-    //     <input type="text" placeholder="Resposta incorreta 3" class = "incorreta3${contador}" value = "${incorretas3[(contador - 1)]}">
-    //     <input type="text" placeholder="URL da imagem 3" class = "urlIncorreta3${contador}" value = "${urlIncorreta3[(contador - 1)]}">
-    //  </div
-
-
-
-
-    for (let contador = 0; contador < listaQuizzesUsuario.length; contador++) {
-        if (Number(listaQuizzesUsuario[contador].id) === Number(id)) {
-            objetoEditar = listaQuizzesUsuario[contador]
-            perguntasQuizz = objetoEditar.questions
-            console.log(objetoEditar.title)
-
-            let openTela3_1 = document.querySelector("body")
-            openTela3_1.innerHTML = `<header><h1 onclick="iniciarTela()">BuzzQuizz</h1></header>`
-            openTela3_1.innerHTML += `
-            <div class="tela3">
-            <main>
-            <div class="orientacao"><h4>Comece pelo começo</h4></div>    
-            <div class="informacoes">
-            <input type="text" placeholder="Título do seu quizz" class = "tituloQuizz" value = ${objetoEditar.title}>
-            <input type="text" placeholder="URL da imagem do seu quizz" class = "URLQuizz" value = ${objetoEditar.image}>
-            <input type="text" placeholder="Quantidade de perguntas do seu quizz" class = "quantidadePerguntas" value = ${objetoEditar.questions.length}>
-            <input type="text" placeholder="Quantidade de níveis do seu quizz" class = "quantidadeNiveis" value = ${objetoEditar.levels.length}></div>
-            <div class="prosseguir"><button onclick = "informacoesIniciaisEdit()">Prosseguir para criar perguntas</button></div>
-            </main>
-            </div>`
+    criarQuiz()
+    let perguntas = 1
+    let objeto;
+    let questoes;
+    objeto = listaQuizzesUsuario.filter(function(elemento){
+        if(elemento.id === Number(id)){
+            return true
         }
+    })
 
+    questoes = objeto[0].questions
+
+    // console.log(objeto)
+    
+    let openTela3_2 = document.querySelector(".tela3")
+    openTela3_2.innerHTML = ""
+    contadorPerguntas = 0
+    openTela3_2.innerHTML = `
+   <main>
+   <div class="orientacao"><h4>Crie suas perguntas</h4></div>
+   <div class="perguntas"></div>
+   <div class="informacoes vazio">
+   </div>
+   <div class="prosseguir"><button onclick = "coletarPerguntasFinalizar()">Prosseguir para criar níveis</button></div>
+   </main>`
+
+    while(perguntas<=questoes.length){
+        adicionarPergunta()
+        perguntas++
     }
+    preencherQuizz(questoes)
+}
+
+function preencherQuizz(questoes){
+    console.log(questoes)
+    let contador = 0
+    for(contador; contador<questoes.length;contador++){
+        document.querySelector(`.textoPergunta${contador+1}`).value = questoes[contador].title
+        document.querySelector(`.corPergunta${contador+1}`).value = questoes[contador].color
+        document.querySelector(`.respostaCorreta${contador+1}`).value = (questoes[contador].answers[0]).text
+        document.querySelector(`.urlCorreta${contador+1}`).value = (questoes[contador].answers[0]).image
+        console.log("cont"+contador)
+
+        document.querySelector(`.informacoes.dev${contador+1} > .incorreta1${contador+1}`).value = (questoes[contador].answers)[1].text
+
+        document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta1${contador+1}`).value = (questoes[contador].answers)[1].image
+
+        if((questoes[contador].answers).length>2){
+            document.querySelector(`.informacoes.dev${contador+1} > .incorreta2${contador+1}`).value = (questoes[contador].answers)[2].text
+
+            document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta2${contador+1}`).value = (questoes[contador].answers)[2].image
+
+            if((questoes[contador].answers).length>3){
+                document.querySelector(`.informacoes.dev${contador+1} > .incorreta3${contador+1}`).value = (questoes[contador].answers)[3].text
+    
+                document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta3${contador+1}`).value = (questoes[contador].answers)[3].image
+            }
+            else{
+                document.querySelector(`.informacoes.dev${contador+1} > .incorreta3${contador+1}`).value = ""
+    
+                document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta3${contador+1}`).value = ""
+            }
+        }
+        else{
+            document.querySelector(`.informacoes.dev${contador+1} > .incorreta2${contador+1}`).value = ""
+
+            document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta2${contador+1}`).value = ""
+            document.querySelector(`.informacoes.dev${contador+1} > .incorreta3${contador+1}`).value = ""
+    
+                document.querySelector(`.informacoes.dev${contador+1} > .urlIncorreta3${contador+1}`).value = ""
+        }
+    }
+
 }
 
 
@@ -297,9 +328,10 @@ function criarPerguntas() {
 function adicionarPergunta() {
     let perguntasNovas = document.querySelector("main > .perguntas")
     contadorPerguntas += 1
+    let demarcadorPerguntas = 1;
     perguntasNovas.innerHTML = ""
     for (let contador = 1; contador <= contadorPerguntas; contador++) {
-        perguntasNovas.innerHTML += `<div class="informacoes">
+        perguntasNovas.innerHTML += `<div class="informacoes dev${demarcadorPerguntas}">
       <h3>Perguntas ${contador}</h3>
       <input type="text" placeholder="Texto da pergunta" class = "textoPergunta${contador}" value = "${perguntasQuizz[(contador - 1)]}">
       <input type="text" placeholder="Cor de fundo da pergunta" class = "corPergunta${contador}" value = "${corQuizz[(contador - 1)]}">
@@ -314,6 +346,7 @@ function adicionarPergunta() {
       <input type="text" placeholder="Resposta incorreta 3" class = "incorreta3${contador}" value = "${incorretas3[(contador - 1)]}">
       <input type="text" placeholder="URL da imagem 3" class = "urlIncorreta3${contador}" value = "${urlIncorreta3[(contador - 1)]}">
    </div>`
+   demarcadorPerguntas += 1
     }
     adicionarRodape()
 }
@@ -326,58 +359,6 @@ function adicionarRodape() {
     informacoesVazias.innerHTML = infovazia
 
 }
-
-// function testarObjetos() {
-
-//     let questoes =  []
-
-//     for (let contador = 0; contador < (perguntasQuizz.length - 1); contador++) {
-//         let respostasCertas = {
-//             text: respostasCorretas[contador],
-//             image: urlCorretas[contador],
-//             isCorrectAnswer: true
-//         }
-
-//         let respostasErradas1 = {
-//             text: incorretas1[contador],
-//             image: urlIncorreta1[contador],
-//             isCorrectAnswer: false
-//         }
-
-//         let respostasErradas2 = {
-//             text: incorretas2[contador],
-//             image: urlIncorreta3[contador],
-//             isCorrectAnswer: false
-//         }
-
-//         let respostasErradas3 = {
-//             text: incorretas3[contador],
-//             image: urlIncorreta3[contador],
-//             isCorrectAnswer: false
-//         }
-
-//         let respostas = [
-//             respostasCertas,
-//             respostasErradas1,
-//             respostasErradas2,
-//             respostasErradas3
-//         ]
-
-//         let questao = {
-//             title: perguntasQuizz[contador],
-//             color: corQuizz[contador],
-//             answers: respostas
-//         }
-
-//         questoes.push(questao)
-//     }
-//     objeto = {
-//         title:informacoesDoQuizz.title,
-//         image:informacoesDoQuizz.image,
-//         questions:questoes
-//     }
-//     console.log(objeto)
-// }
 
 // COLETA TITULO DA PERGUNTA
 function coletarPerguntas() {
